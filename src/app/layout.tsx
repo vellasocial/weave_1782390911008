@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import '../styles/index.css';
-import SmoothScroll from '@/components/ui/SmoothScroll';
+
 
 export const viewport: Viewport = {
   width: 'device-width',
