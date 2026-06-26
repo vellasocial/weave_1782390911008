@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --loom-black: #0D0D12;
+  --loom-black-2: #13131A;
+  --loom-black-3: #1A1A24;
+  --lavender: #C4B5F7;
+  --lavender-dim: rgba(196, 181, 247, 0.15);
+  --lavender-border: rgba(196, 181, 247, 0.25);
+  --pearl: #E8E4F0;
+  --pearl-dim: rgba(232, 228, 240, 0.6);
+  --magenta: #D946A8;
+  --magenta-dim: rgba(217, 70, 168, 0.15);
+  --magenta-glow: rgba(217, 70, 168, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* scroll-behavior: smooth removed — Lenis handles smooth scrolling */
+}
+
+body {
+  background-color: var(--loom-black);
+  color: var(--pearl);
+  font-family: 'Manrope', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--loom-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--lavender-border);
+  border-radius: 2px;
+}
+
+/* ── TYPOGRAPHY ── */
+.font-mono-label {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── IRIDESCENT BORDER BLOOM ── */
+.iridescent-cell {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iridescent-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(196, 181, 247, 0) 30%,
+    rgba(217, 70, 168, 0) 60%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  opacity: 0;
+  transition: opacity 0.4s ease, background 0.4s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.iridescent-cell:hover::before {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(196, 181, 247, 0.8) 0%,
+    rgba(217, 70, 168, 0.6) 40%,
+    rgba(196, 181, 247, 0.4) 70%,
+    rgba(232, 228, 240, 0.3) 100%
+  );
+}
+
+.iridescent-cell:hover {
+  transform: scale(1.015);
+  z-index: 10;
+}
+
+.iridescent-cell .cell-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.iridescent-cell:hover .cell-img {
+  transform: scale(1.08);
+}
+
+/* ── OPACITY PULSE (hero text) ── */
+@keyframes opacityPulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.pulse-opacity {
+  animation: opacityPulse 3s ease-in-out infinite;
+}
+
+/* ── MAGENTA PULSE (floating CTA) ── */
+@keyframes magentaPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--magenta-glow), 0 8px 32px rgba(217,70,168,0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(217,70,168,0), 0 8px 32px rgba(217,70,168,0.5);
+  }
+}
+.cta-pulse {
+  animation: magentaPulse 2.5s ease-in-out infinite;
+}
+
+/* ── IRIDESCENT SHIMMER BACKGROUND ── */
+@keyframes iridShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.irid-bg {
+  background: linear-gradient(
+    135deg,
+    #0D0D12 0%,
+    #1A1224 20%,
+    #0D0D12 40%,
+    #12101E 60%,
+    #0D0D12 80%,
+    #1A1224 100%
+  );
+  background-size: 300% 300%;
+  animation: iridShift 12s ease infinite;
+}
+
+/* ── GRAIN TEXTURE OVERLAY ── */
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+}
+
+/* ── SLIDE-IN PANEL ── */
+.commission-panel {
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.commission-panel.open {
+  transform: translateX(0);
+}
+
+/* ── FILTER PILLS ── */
+.filter-pill {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--lavender-border);
+  color: var(--pearl-dim);
+}
+.filter-pill:hover {
+  border-color: var(--lavender);
+  color: var(--pearl);
+  background: var(--lavender-dim);
+}
+.filter-pill.active {
+  background: var(--magenta-dim);
+  border-color: var(--magenta);
+  color: var(--magenta);
+}
+
+/* ── BENTO GRID LAYOUT ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+
+/* ── CELL OVERLAY ── */
+.cell-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,13,18,0.9) 0%, rgba(13,13,18,0) 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+}
+.iridescent-cell:hover .cell-overlay {
+  opacity: 1;
+}
+
+/* ── SECTION REVEALS ── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── PARALLAX SECTION ── */
+.parallax-inner {
+  will-change: transform;
+}
+
+/* ── FORM STEP TRANSITION ── */
+.form-step {
+  display: none;
+}
+.form-step.active {
+  display: block;
+  animation: stepFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes stepFadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── CHAR REVEAL ── */
+.char-reveal {
+  display: inline-block;
+  transform: translateY(40%);
+  opacity: 0;
+  filter: blur(6px);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.9s ease,
+              filter 0.9s ease;
+}
+.is-visible .char-reveal {
+  transform: translateY(0);
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* ── LOOKBOOK FORM ── */
+.lookbook-input {
+  background: rgba(232, 228, 240, 0.05);
+  border: 1px solid var(--lavender-border);
+  color: var(--pearl);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.lookbook-input:focus {
+  outline: none;
+  border-color: var(--magenta);
+  background: rgba(217, 70, 168, 0.05);
+}
+.lookbook-input::placeholder {
+  color: rgba(232, 228, 240, 0.35);
+}
+
+/* ── SELECT CUSTOM ── */
+.custom-select {
+  appearance: none;
+  background: rgba(232, 228, 240, 0.05);
+  border: 1px solid var(--lavender-border);
+  color: var(--pearl);
+}
+.custom-select:focus {
+  outline: none;
+  border-color: var(--magenta);
+}
+.custom-select option {
+  background: var(--loom-black-2);
+  color: var(--pearl);
+}
+
+/* ── STEP INDICATOR ── */
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(196, 181, 247, 0.25);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.step-dot.active {
+  background: var(--magenta);
+  transform: scale(1.3);
+}
+.step-dot.done {
+  background: var(--lavender);
+}
+
+/* ── HOVER MAGENTA GLOW ── */
+.magenta-hover:hover {
+  background: var(--magenta);
+  box-shadow: 0 0 24px var(--magenta-glow);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
