@@ -214,7 +214,7 @@ export default function VideoPortfolioPage() {
       {/* Back link */}
       <div className="pt-8 px-6 md:px-12">
         <a
-          href="/weave"
+          href="/home"
           className="inline-flex items-center gap-2 font-mono text-xs text-pearl/40 hover:text-pearl/80 transition-colors duration-300 tracking-wider uppercase"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
