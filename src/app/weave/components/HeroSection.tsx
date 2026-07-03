@@ -34,15 +34,14 @@ export default function HeroSection() {
   }, []);
 
   useEffect(() => {
-    // Hard fallback: reveal after 5s no matter what
-    const fallback = setTimeout(() => setVideoReady(true), 5000);
+    // Hard fallback: reveal after 2s no matter what
+    const fallback = setTimeout(() => setVideoReady(true), 2000);
     return () => clearTimeout(fallback);
   }, []);
 
   const handleIframeLoad = () => {
-    // Wait 2.5s after iframe DOM load before revealing — gives Bunny.net time to
-    // buffer and start autoplay so the play button never flashes through
-    setTimeout(() => setVideoReady(true), 2500);
+    // Short delay after iframe DOM load — just enough to suppress the play button flash
+    setTimeout(() => setVideoReady(true), 400);
   };
 
   return (
