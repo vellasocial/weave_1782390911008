@@ -1,8 +1,9 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const el = heroRef?.current;
@@ -32,8 +33,27 @@ export default function HeroSection() {
     };
   }, []);
 
+  // Fallback: reveal after 3s in case onLoad never fires (cross-origin iframe restriction)
+  useEffect(() => {
+    const timer = setTimeout(() => setVideoReady(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
+      {/* Black pre-load cover — hides everything until video is playing */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 50,
+          backgroundColor: '#000',
+          transition: 'opacity 0.6s ease',
+          opacity: videoReady ? 0 : 1,
+          pointerEvents: videoReady ? 'none' : 'all',
+        }}
+      />
+
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
@@ -54,7 +74,7 @@ export default function HeroSection() {
           `}</style>
           <iframe
             src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false"
-            loading="lazy"
+            loading="eager"
             title="Hero video"
             className="hero-video-iframe"
             style={{
@@ -68,6 +88,7 @@ export default function HeroSection() {
             }}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
             allowFullScreen={true}
+            onLoad={() => setVideoReady(true)}
           />
           {/* Transparent click-blocking overlay to hide Bunny.net play button on all devices */}
           <div
