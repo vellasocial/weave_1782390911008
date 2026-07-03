@@ -68,8 +68,8 @@ export default function HeroSection() {
     { text: 'desire.', className: 'text-transparent', extra: { WebkitTextStroke: '1px rgba(232,228,240,0.4)' } as React.CSSProperties },
   ];
   const wordBaseDelay = 0;
-  const wordStagger = 500; // ms between each word
-  const wordDuration = 900; // ms fade duration per word
+  const wordStagger = 600; // ms between each word
+  const wordDuration = 1600; // ms fade duration per word — slower to sync with video fade-in
 
   const wordFadeStyle = (index: number): React.CSSProperties => ({
     display: 'inline-block',
