@@ -156,18 +156,16 @@ export default function HeroSection() {
           <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
-        {/* Main headline — starts at 200ms, ends at ~1100ms */}
+        {/* Main headline — each line fades in sequentially */}
         <h1
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', ...fadeStyle(200, 900) }}
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
-          Every development
-          <br />
-          <span className="text-lavender">deserves</span>
-          <br />
+          <span style={{ display: 'block', ...fadeStyle(200, 900) }}>Every development</span>
+          <span className="text-lavender" style={{ display: 'block', ...fadeStyle(600, 900) }}>deserves</span>
           <span
             className="text-transparent"
-            style={{ WebkitTextStroke: '1px rgba(232,228,240,0.4)' }}
+            style={{ display: 'block', WebkitTextStroke: '1px rgba(232,228,240,0.4)', ...fadeStyle(1000, 900) }}
           >
             desire.
           </span>
