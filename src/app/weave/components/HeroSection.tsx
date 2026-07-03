@@ -36,7 +36,7 @@ export default function HeroSection() {
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <div style={{ position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
           <iframe
             src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true"
             loading="lazy"
@@ -44,9 +44,11 @@ export default function HeroSection() {
             style={{
               border: 0,
               position: 'absolute',
-              top: 0,
-              height: '100%',
+              top: '-5%',
+              left: 0,
+              height: '115%',
               width: '100%',
+              pointerEvents: 'none',
             }}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
             allowFullScreen={true}
