@@ -53,7 +53,7 @@ export default function HeroSection() {
             }
           `}</style>
           <iframe
-            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true"
+            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false"
             loading="lazy"
             title="Hero video"
             className="hero-video-iframe"
