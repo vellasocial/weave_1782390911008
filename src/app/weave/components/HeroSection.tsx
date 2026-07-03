@@ -60,10 +60,10 @@ export default function HeroSection() {
             style={{
               border: 0,
               position: 'absolute',
-              top: '-5%',
-              left: 0,
-              height: '115%',
-              width: '100%',
+              top: '-7%',
+              left: '-5%',
+              height: '120%',
+              width: '110%',
               pointerEvents: 'none',
             }}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
