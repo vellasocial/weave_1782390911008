@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
-  const [textVisible, setTextVisible] = useState(false);
+  const [textVisible, setTextVisible] = useState(true);
 
   useEffect(() => {
     const el = heroRef?.current;
@@ -40,7 +40,7 @@ export default function HeroSection() {
 
   useEffect(() => {
     // Trigger text fade-in immediately on mount
-    const textTimer = setTimeout(() => setTextVisible(true), 50);
+    const textTimer = setTimeout(() => setTextVisible(true), 0);
     // Fallback: ensure video becomes visible even if onLoad never fires
     const fallback = setTimeout(() => setVideoReady(true), 1500);
     return () => {
@@ -150,8 +150,8 @@ export default function HeroSection() {
         className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
         style={{ willChange: 'transform, opacity' }}
       >
-        {/* Label — fades in first, ends at ~800ms */}
-        <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 800)}>
+        {/* Label — fades in first */}
+        <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
           <span className="w-12 h-px bg-lavender/60" />
           <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
         </div>
@@ -161,23 +161,23 @@ export default function HeroSection() {
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
-          <span style={{ display: 'block', ...fadeStyle(200, 900) }}>Every development</span>
-          <span className="text-lavender" style={{ display: 'block', ...fadeStyle(600, 900) }}>deserves</span>
+          <span style={{ display: 'block', ...fadeStyle(100, 700) }}>Every development</span>
+          <span className="text-lavender" style={{ display: 'block', ...fadeStyle(400, 700) }}>deserves</span>
           <span
             className="text-transparent"
-            style={{ display: 'block', WebkitTextStroke: '1px rgba(232,228,240,0.4)', ...fadeStyle(1000, 900) }}
+            style={{ display: 'block', WebkitTextStroke: '1px rgba(232,228,240,0.4)', ...fadeStyle(700, 700) }}
           >
             desire.
           </span>
         </h1>
 
-        {/* Sub-copy — starts at 400ms, ends at ~1300ms */}
-        <p className="font-mono text-sm text-pearl/50 max-w-md leading-relaxed mb-10 tracking-wide" style={fadeStyle(400, 900)}>
+        {/* Sub-copy */}
+        <p className="font-mono text-sm text-pearl/50 max-w-md leading-relaxed mb-10 tracking-wide" style={fadeStyle(300, 700)}>
           We turn your project into content that does the selling before anyone picks up the phone.
         </p>
 
-        {/* CTA row — starts at 500ms, ends at ~1400ms */}
-        <div className="flex flex-wrap items-center gap-4" style={fadeStyle(500, 900)}>
+        {/* CTA row */}
+        <div className="flex flex-wrap items-center gap-4" style={fadeStyle(400, 700)}>
           <button
             onClick={() => {
               const panel = document.getElementById('commission-panel');
