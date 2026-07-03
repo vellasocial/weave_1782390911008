@@ -164,9 +164,7 @@ export default function ProcessSection() {
 
         {/* Techniques marquee */}
         <div className="mt-20 reveal-up overflow-hidden">
-          <div
-            className="flex gap-8 w-max"
-            style={{ animation: 'marquee 90s linear infinite' }}>
+          <div className="marquee-track flex gap-8 w-max">
             
             {[
             'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Ads Management', 'AI Music Creation', 'Script Writing', 'AI Voiceover',

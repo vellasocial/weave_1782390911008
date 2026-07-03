@@ -244,6 +244,15 @@ body {
   filter: blur(0);
 }
 
+/* ── MARQUEE SCROLL ── */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 90s linear infinite;
+}
+
 /* ── LOOKBOOK FORM ── */
 .lookbook-input {
   background: rgba(232, 228, 240, 0.05);
