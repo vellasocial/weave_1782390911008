@@ -42,12 +42,12 @@ export default function HeroSection() {
               .hero-video-iframe {
                 transform: rotate(-90deg) !important;
                 transform-origin: center center !important;
-                width: 177.78vh !important;
-                height: 56.25vw !important;
+                width: 100vh !important;
+                height: 100vw !important;
                 top: 50% !important;
                 left: 50% !important;
-                margin-top: -28.125vw !important;
-                margin-left: -88.89vh !important;
+                margin-top: -50vw !important;
+                margin-left: -50vh !important;
                 position: absolute !important;
               }
             }
