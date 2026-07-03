@@ -37,10 +37,26 @@ export default function HeroSection() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
+          <style>{`
+            @media (max-width: 767px) {
+              .hero-video-iframe {
+                transform: rotate(-90deg) !important;
+                transform-origin: center center !important;
+                width: 177.78vh !important;
+                height: 56.25vw !important;
+                top: 50% !important;
+                left: 50% !important;
+                margin-top: -28.125vw !important;
+                margin-left: -88.89vh !important;
+                position: absolute !important;
+              }
+            }
+          `}</style>
           <iframe
             src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true"
             loading="lazy"
             title="Hero video"
+            className="hero-video-iframe"
             style={{
               border: 0,
               position: 'absolute',
