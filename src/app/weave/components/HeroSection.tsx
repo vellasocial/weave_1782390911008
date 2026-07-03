@@ -33,11 +33,17 @@ export default function HeroSection() {
     };
   }, []);
 
-  // Fallback: reveal after 3s in case onLoad never fires (cross-origin iframe restriction)
   useEffect(() => {
-    const timer = setTimeout(() => setVideoReady(true), 3000);
-    return () => clearTimeout(timer);
+    // Hard fallback: reveal after 5s no matter what
+    const fallback = setTimeout(() => setVideoReady(true), 5000);
+    return () => clearTimeout(fallback);
   }, []);
+
+  const handleIframeLoad = () => {
+    // Wait 2.5s after iframe DOM load before revealing — gives Bunny.net time to
+    // buffer and start autoplay so the play button never flashes through
+    setTimeout(() => setVideoReady(true), 2500);
+  };
 
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
@@ -48,7 +54,7 @@ export default function HeroSection() {
           inset: 0,
           zIndex: 50,
           backgroundColor: '#000',
-          transition: 'opacity 0.6s ease',
+          transition: 'opacity 0.8s ease',
           opacity: videoReady ? 0 : 1,
           pointerEvents: videoReady ? 'none' : 'all',
         }}
@@ -71,9 +77,11 @@ export default function HeroSection() {
                 position: absolute !important;
               }
             }
+            /* Hide any player UI that bleeds through the iframe */
+            .hero-video-iframe { pointer-events: none !important; }
           `}</style>
           <iframe
-            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false"
+            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false"
             loading="eager"
             title="Hero video"
             className="hero-video-iframe"
@@ -88,9 +96,9 @@ export default function HeroSection() {
             }}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
             allowFullScreen={true}
-            onLoad={() => setVideoReady(true)}
+            onLoad={handleIframeLoad}
           />
-          {/* Transparent click-blocking overlay to hide Bunny.net play button on all devices */}
+          {/* Full-coverage transparent overlay — blocks all player UI clicks */}
           <div
             style={{
               position: 'absolute',
@@ -104,13 +112,14 @@ export default function HeroSection() {
             }}
           />
         </div>
-        {/* Full overlay to block any player UI/watermarks — covers bottom controls bar */}
+        {/* Full overlay to block any player UI/watermarks */}
         <div className="absolute inset-0" style={{ pointerEvents: 'none', zIndex: 2 }} />
 
         {/* Dark overlay with iridescent tint */}
         <div className="absolute inset-0 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
         <div className="absolute inset-0 bg-gradient-to-br from-lavender/5 via-transparent to-magenta/5" />
       </div>
+
       {/* Animated warp/weft grid lines */}
       <div
         className="absolute inset-0 z-1 pointer-events-none opacity-10"
@@ -167,6 +176,7 @@ export default function HeroSection() {
           </button>
         </div>
       </div>
+
       {/* Scroll indicator */}
       <div className="absolute bottom-8 right-8 z-10 flex flex-col items-center gap-2">
         <span className="font-mono text-[10px] text-pearl/30 tracking-[0.3em] uppercase rotate-90 mb-4">Scroll</span>

@@ -47,15 +47,13 @@ export default function ParallaxInterior() {
           src="/assets/images/luke_mobile-1782429219637.jpg"
           alt="Luke, the designer behind Weave"
           fill
-          className="object-cover w-full h-full md:hidden"
-          priority />
+          className="object-cover w-full h-full md:hidden" />
         {/* Desktop image */}
         <AppImage
           src="/assets/images/mlmlm-1782425174123.jpg"
           alt="Luke, the designer behind Weave"
           fill
-          className="object-cover w-full h-full hidden md:block"
-          priority />
+          className="object-cover w-full h-full hidden md:block" />
       </div>
 
       {/* Dark gradient overlay */}
