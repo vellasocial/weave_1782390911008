@@ -61,6 +61,7 @@ export default function FloatingCTA() {
       } ${visible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0 pointer-events-none'}`}
       style={{
         bottom: `${bottomOffset}px`,
+        transition: 'bottom 0.3s ease, opacity 0.3s ease, transform 0.3s ease',
         background: 'linear-gradient(135deg, #D946A8, #C026A0)',
         boxShadow: pulsing
           ? '0 0 32px rgba(217,70,168,0.5), 0 8px 24px rgba(0,0,0,0.4)'
