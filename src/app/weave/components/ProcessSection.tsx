@@ -166,12 +166,12 @@ export default function ProcessSection() {
         <div className="mt-20 reveal-up overflow-hidden">
           <div
             className="flex gap-8 w-max"
-            style={{ animation: 'marquee 60s linear infinite' }}>
+            style={{ animation: 'marquee 90s linear infinite' }}>
             
             {[
-            'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Content strategy',
-            'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Content strategy',
-            'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Content strategy']?.
+            'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Ads Management', 'AI Music Creation', 'Script Writing', 'AI Voiceover',
+            'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Ads Management', 'AI Music Creation', 'Script Writing', 'AI Voiceover',
+            'Ad Creation', 'On-site 4K Filming', 'Social Media Content', 'Ads Management', 'AI Music Creation', 'Script Writing', 'AI Voiceover']?.
             map((tech, i) =>
             <span
               key={i}
