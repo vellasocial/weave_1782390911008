@@ -38,6 +38,12 @@ export default function HeroSection() {
     setTimeout(() => setVideoReady(true), 300);
   };
 
+  useEffect(() => {
+    // Fallback: ensure video becomes visible even if onLoad never fires
+    const fallback = setTimeout(() => setVideoReady(true), 1500);
+    return () => clearTimeout(fallback);
+  }, []);
+
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
       {/* Instant dark background — visible immediately, no waiting */}
