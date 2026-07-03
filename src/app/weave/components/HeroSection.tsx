@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [textVisible, setTextVisible] = useState(false);
 
   useEffect(() => {
     const el = heroRef?.current;
@@ -34,15 +35,30 @@ export default function HeroSection() {
   }, []);
 
   const handleIframeLoad = () => {
-    // Short delay after iframe DOM load to suppress play button flash
     setTimeout(() => setVideoReady(true), 300);
   };
 
   useEffect(() => {
+    // Trigger text fade-in immediately on mount
+    const textTimer = setTimeout(() => setTextVisible(true), 50);
     // Fallback: ensure video becomes visible even if onLoad never fires
     const fallback = setTimeout(() => setVideoReady(true), 1500);
-    return () => clearTimeout(fallback);
+    return () => {
+      clearTimeout(textTimer);
+      clearTimeout(fallback);
+    };
   }, []);
+
+  // Each element fades in over a different duration but all end at ~1400ms
+  // label: starts at 0ms, duration 800ms → ends 800ms
+  // headline: starts at 200ms, duration 900ms → ends 1100ms
+  // sub-copy: starts at 400ms, duration 900ms → ends 1300ms
+  // CTA: starts at 500ms, duration 900ms → ends 1400ms
+  const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
+    opacity: textVisible ? 1 : 0,
+    transform: textVisible ? 'translateY(0)' : 'translateY(18px)',
+    transition: `opacity ${duration}ms ease ${delay}ms, transform ${duration}ms ease ${delay}ms`,
+  });
 
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
@@ -127,23 +143,23 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Hero Content — rendered immediately, no delay */}
+      {/* Hero Content */}
       <div
         ref={heroRef}
         suppressHydrationWarning
         className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
         style={{ willChange: 'transform, opacity' }}
       >
-        {/* Label */}
-        <div className="mb-6 flex items-center gap-3">
+        {/* Label — fades in first, ends at ~800ms */}
+        <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 800)}>
           <span className="w-12 h-px bg-lavender/60" />
           <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
-        {/* Main headline */}
+        {/* Main headline — starts at 200ms, ends at ~1100ms */}
         <h1
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', ...fadeStyle(200, 900) }}
         >
           Every development
           <br />
@@ -157,13 +173,13 @@ export default function HeroSection() {
           </span>
         </h1>
 
-        {/* Sub-copy */}
-        <p className="font-mono text-sm text-pearl/50 max-w-md leading-relaxed mb-10 tracking-wide">
+        {/* Sub-copy — starts at 400ms, ends at ~1300ms */}
+        <p className="font-mono text-sm text-pearl/50 max-w-md leading-relaxed mb-10 tracking-wide" style={fadeStyle(400, 900)}>
           We turn your project into content that does the selling before anyone picks up the phone.
         </p>
 
-        {/* CTA row */}
-        <div className="flex flex-wrap items-center gap-4">
+        {/* CTA row — starts at 500ms, ends at ~1400ms */}
+        <div className="flex flex-wrap items-center gap-4" style={fadeStyle(500, 900)}>
           <button
             onClick={() => {
               const panel = document.getElementById('commission-panel');
