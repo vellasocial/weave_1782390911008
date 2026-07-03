@@ -60,8 +60,32 @@ export default function HeroSection() {
     transition: `opacity ${duration}ms ease ${delay}ms, transform ${duration}ms ease ${delay}ms`,
   });
 
+  // Word-by-word fade for h1: "Every" "development" "deserves" "desire."
+  const words = [
+    { text: 'Every', className: 'text-pearl' },
+    { text: 'development', className: 'text-pearl' },
+    { text: 'deserves', className: 'text-lavender' },
+    { text: 'desire.', className: 'text-transparent', extra: { WebkitTextStroke: '1px rgba(232,228,240,0.4)' } as React.CSSProperties },
+  ];
+  const wordBaseDelay = 0;
+  const wordStagger = 500; // ms between each word
+  const wordDuration = 900; // ms fade duration per word
+
+  const wordFadeStyle = (index: number): React.CSSProperties => ({
+    display: 'inline-block',
+    opacity: 0,
+    animation: `wordFadeIn ${wordDuration}ms ease forwards`,
+    animationDelay: `${wordBaseDelay + index * wordStagger}ms`,
+  });
+
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
+      <style>{`
+        @keyframes wordFadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
       {/* Instant dark background — visible immediately, no waiting */}
       <div
         style={{
@@ -156,19 +180,20 @@ export default function HeroSection() {
           <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
-        {/* Main headline — each line fades in sequentially */}
+        {/* Main headline — each word fades in sequentially */}
         <h1
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
-          <span style={{ display: 'block', ...fadeStyle(0, 900) }}>Every development</span>
-          <span className="text-lavender" style={{ display: 'block', ...fadeStyle(700, 900) }}>deserves</span>
-          <span
-            className="text-transparent"
-            style={{ display: 'block', WebkitTextStroke: '1px rgba(232,228,240,0.4)', ...fadeStyle(1400, 900) }}
-          >
-            desire.
-          </span>
+          {words.map((word, i) => (
+            <span
+              key={word.text}
+              className={word.className}
+              style={{ ...wordFadeStyle(i), ...(word.extra || {}), marginRight: i < words.length - 1 ? '0.3em' : 0 }}
+            >
+              {word.text}
+            </span>
+          ))}
         </h1>
 
         {/* Sub-copy */}
