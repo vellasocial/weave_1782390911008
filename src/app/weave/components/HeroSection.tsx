@@ -32,82 +32,27 @@ export default function HeroSection() {
     };
   }, []);
 
-  useEffect(() => {
-    // Inject ScreenPal player styles
-    const styleId = 'sp-embed-styles';
-    if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id = styleId;
-      style.textContent = `
-        .sp-embed-player {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          height: 100% !important;
-          padding-top: 0 !important;
-        }
-        .sp-embed-player iframe {
-          position: absolute !important;
-          top: 50% !important;
-          left: 50% !important;
-          width: max(100%, 177.78vh) !important;
-          height: max(100%, 56.25vw) !important;
-          transform: translate(-50%, -50%) !important;
-          border: 0 !important;
-          pointer-events: none !important;
-        }
-      `;
-      document.head?.appendChild(style);
-    }
-
-    // Load ScreenPal appearance script
-    const scriptId = 'sp-embed-script';
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://go.screenpal.com/player/appearance/cO1OcVnuW6z';
-      script.async = true;
-      document.body?.appendChild(script);
-    }
-
-    return () => {
-      const style = document.getElementById('sp-embed-styles');
-      if (style) style?.remove();
-      const script = document.getElementById('sp-embed-script');
-      if (script) script?.remove();
-    };
-  }, []);
-
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <div
-          className="sp-embed-player"
-          data-id="cO1OcVnuW6z"
-          data-aspect-ratio="1.777778"
-          data-padding-top="56.250000%"
-          suppressHydrationWarning
-        >
-          <iframe
-            scrolling="no"
-            src="https://go.screenpal.com/player/cO1OcVnuW6z?ff=1&title=0&controls=0&a=1&m=1&share=1&download=1&embed=1&cl=1&width=100%&height=100%&oembed=1"
-            allowFullScreen={true}
-            title="Hero video"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: 'max(100%, 177.78vh)',
-              height: 'max(100%, 56.25vw)',
-              transform: 'translate(-50%, -50%)',
-              border: 0,
-              pointerEvents: 'none',
-            }}
-          />
-        </div>
-        {/* Transparent overlay to block any player UI elements */}
+        <iframe
+          src="https://canva.link/4bfx1zgubj16xdg"
+          allow="autoplay; fullscreen"
+          allowFullScreen={true}
+          title="Hero video"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: 'max(100%, 177.78vh)',
+            height: 'max(100%, 56.25vw)',
+            transform: 'translate(-50%, -50%)',
+            border: 0,
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Full overlay to block any player UI/watermarks */}
         <div className="absolute inset-0 z-1" style={{ pointerEvents: 'none' }} />
 
         {/* Dark overlay with iridescent tint */}
