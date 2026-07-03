@@ -37,7 +37,7 @@ export default function HeroSection() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <iframe
-          src="https://www.canva.com/design/DAHOTHvgE4s/bvEcb-cUvP02h1DZZRLJvA/watch?embed"
+          src="https://www.canva.com/design/DAHOTHvgE4s/bvEcb-cUvP02h1DZZRLJvA/watch?embed&autoplay=1&loop=1"
           allow="autoplay; fullscreen"
           allowFullScreen={true}
           title="Hero video"
@@ -52,8 +52,8 @@ export default function HeroSection() {
             pointerEvents: 'none',
           }}
         />
-        {/* Full overlay to block any player UI/watermarks */}
-        <div className="absolute inset-0 z-1" style={{ pointerEvents: 'none' }} />
+        {/* Full overlay to block any player UI/watermarks — covers bottom controls bar */}
+        <div className="absolute inset-0" style={{ pointerEvents: 'none', zIndex: 2 }} />
 
         {/* Dark overlay with iridescent tint */}
         <div className="absolute inset-0 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
