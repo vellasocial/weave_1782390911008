@@ -69,6 +69,19 @@ export default function HeroSection() {
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
             allowFullScreen={true}
           />
+          {/* Transparent click-blocking overlay to hide Bunny.net play button on all devices */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 10,
+              background: 'transparent',
+              pointerEvents: 'all',
+            }}
+          />
         </div>
         {/* Full overlay to block any player UI/watermarks — covers bottom controls bar */}
         <div className="absolute inset-0" style={{ pointerEvents: 'none', zIndex: 2 }} />
