@@ -185,15 +185,17 @@ export default function HeroSection() {
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
-          {words.map((word, i) => (
-            <span
-              key={word.text}
-              className={word.className}
-              style={{ ...wordFadeStyle(i), ...(word.extra || {}), marginRight: i < words.length - 1 ? '0.3em' : 0 }}
-            >
-              {word.text}
-            </span>
-          ))}
+          <span style={{ display: 'block' }}>
+            <span className="text-pearl" style={{ ...wordFadeStyle(0) }}>Every</span>
+            {' '}
+            <span className="text-pearl" style={{ ...wordFadeStyle(1) }}>development</span>
+          </span>
+          <span style={{ display: 'block' }}>
+            <span className="text-lavender" style={{ ...wordFadeStyle(2) }}>deserves</span>
+          </span>
+          <span style={{ display: 'block' }}>
+            <span className="text-transparent" style={{ ...wordFadeStyle(3), WebkitTextStroke: '1px rgba(232,228,240,0.4)' }}>desire.</span>
+          </span>
         </h1>
 
         {/* Sub-copy */}
