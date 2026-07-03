@@ -33,34 +33,31 @@ export default function HeroSection() {
     };
   }, []);
 
-  useEffect(() => {
-    // Hard fallback: reveal after 2s no matter what
-    const fallback = setTimeout(() => setVideoReady(true), 2000);
-    return () => clearTimeout(fallback);
-  }, []);
-
   const handleIframeLoad = () => {
-    // Short delay after iframe DOM load — just enough to suppress the play button flash
-    setTimeout(() => setVideoReady(true), 400);
+    // Short delay after iframe DOM load to suppress play button flash
+    setTimeout(() => setVideoReady(true), 300);
   };
 
   return (
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
-      {/* Black pre-load cover — hides everything until video is playing */}
+      {/* Instant dark background — visible immediately, no waiting */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          zIndex: 50,
-          backgroundColor: '#000',
-          transition: 'opacity 0.8s ease',
-          opacity: videoReady ? 0 : 1,
-          pointerEvents: videoReady ? 'none' : 'all',
+          zIndex: 0,
+          background: 'linear-gradient(135deg, #0a0a0f 0%, #12101a 50%, #0d0b14 100%)',
         }}
       />
 
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
+      {/* Video Background — fades in when ready, over the instant dark bg */}
+      <div
+        className="absolute inset-0 z-1"
+        style={{
+          opacity: videoReady ? 1 : 0,
+          transition: 'opacity 0.8s ease',
+        }}
+      >
         <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
           <style>{`
             @media (max-width: 767px) {
@@ -76,7 +73,6 @@ export default function HeroSection() {
                 position: absolute !important;
               }
             }
-            /* Hide any player UI that bleeds through the iframe */
             .hero-video-iframe { pointer-events: none !important; }
           `}</style>
           <iframe
@@ -97,41 +93,41 @@ export default function HeroSection() {
             allowFullScreen={true}
             onLoad={handleIframeLoad}
           />
-          {/* Full-coverage transparent overlay — blocks all player UI clicks */}
+          {/* Transparent overlay — blocks all player UI clicks */}
           <div
             style={{
               position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
+              top: 0, left: 0, right: 0, bottom: 0,
               zIndex: 10,
               background: 'transparent',
               pointerEvents: 'all',
             }}
           />
         </div>
-        {/* Full overlay to block any player UI/watermarks */}
-        <div className="absolute inset-0" style={{ pointerEvents: 'none', zIndex: 2 }} />
-
-        {/* Dark overlay with iridescent tint */}
-        <div className="absolute inset-0 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
-        <div className="absolute inset-0 bg-gradient-to-br from-lavender/5 via-transparent to-magenta/5" />
       </div>
+
+      {/* Dark overlay with iridescent tint — always visible for text legibility */}
+      <div className="absolute inset-0 z-2 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
+      <div className="absolute inset-0 z-2 bg-gradient-to-br from-lavender/5 via-transparent to-magenta/5" />
 
       {/* Animated warp/weft grid lines */}
       <div
-        className="absolute inset-0 z-1 pointer-events-none opacity-10"
+        className="absolute inset-0 z-3 pointer-events-none opacity-10"
         style={{
           backgroundImage:
-          'linear-gradient(rgba(196,181,247,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,247,0.4) 1px, transparent 1px)',
+            'linear-gradient(rgba(196,181,247,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,247,0.4) 1px, transparent 1px)',
           backgroundSize: '80px 80px',
-          maskImage:
-          'radial-gradient(ellipse at center, black 30%, transparent 70%)'
-        }} />
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
+        }}
+      />
 
-      {/* Hero Content */}
-      <div ref={heroRef} suppressHydrationWarning className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20" style={{ willChange: 'transform, opacity' }}>
+      {/* Hero Content — rendered immediately, no delay */}
+      <div
+        ref={heroRef}
+        suppressHydrationWarning
+        className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
+        style={{ willChange: 'transform, opacity' }}
+      >
         {/* Label */}
         <div className="mb-6 flex items-center gap-3">
           <span className="w-12 h-px bg-lavender/60" />
@@ -139,17 +135,18 @@ export default function HeroSection() {
         </div>
 
         {/* Main headline */}
-        <h1 className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
-        style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}>
+        <h1
+          className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
+        >
           Every development
           <br />
           <span className="text-lavender">deserves</span>
           <br />
           <span
             className="text-transparent"
-            style={{
-              WebkitTextStroke: '1px rgba(232,228,240,0.4)'
-            }}>
+            style={{ WebkitTextStroke: '1px rgba(232,228,240,0.4)' }}
+          >
             desire.
           </span>
         </h1>
@@ -170,7 +167,8 @@ export default function HeroSection() {
               }
             }}
             className="px-8 py-4 rounded-full bg-magenta text-white font-manrope font-semibold text-sm tracking-wide hover:bg-magenta/90 transition-all duration-300"
-            style={{ boxShadow: '0 0 32px rgba(217,70,168,0.4)' }}>
+            style={{ boxShadow: '0 0 32px rgba(217,70,168,0.4)' }}
+          >
             ENQUIRE
           </button>
         </div>
