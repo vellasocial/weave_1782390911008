@@ -37,7 +37,7 @@ export default function HeroSection() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <iframe
-          src="https://www.canva.com/design/DAHOTHvgE4s/bvEcb-cUvP02h1DZZRLJvA/watch?embed&autoplay=1&loop=1"
+          src="https://player.mediadelivery.net/play/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905"
           allow="autoplay; fullscreen"
           allowFullScreen={true}
           title="Hero video"
