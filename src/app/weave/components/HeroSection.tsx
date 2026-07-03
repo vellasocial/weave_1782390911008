@@ -161,11 +161,11 @@ export default function HeroSection() {
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
-          <span style={{ display: 'block', ...fadeStyle(100, 700) }}>Every development</span>
-          <span className="text-lavender" style={{ display: 'block', ...fadeStyle(400, 700) }}>deserves</span>
+          <span style={{ display: 'block', ...fadeStyle(0, 900) }}>Every development</span>
+          <span className="text-lavender" style={{ display: 'block', ...fadeStyle(700, 900) }}>deserves</span>
           <span
             className="text-transparent"
-            style={{ display: 'block', WebkitTextStroke: '1px rgba(232,228,240,0.4)', ...fadeStyle(700, 700) }}
+            style={{ display: 'block', WebkitTextStroke: '1px rgba(232,228,240,0.4)', ...fadeStyle(1400, 900) }}
           >
             desire.
           </span>
