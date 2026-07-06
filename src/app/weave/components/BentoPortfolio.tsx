@@ -175,15 +175,6 @@ export default function BentoPortfolio() {
         </div>
       </div>
 
-      {/* Ads section heading */}
-      <div className="max-w-7xl mx-auto mb-6 reveal-up">
-        <h3
-          className="font-manrope font-semibold text-pearl/80 tracking-widest uppercase"
-          style={{ fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', letterSpacing: '0.25em' }}>
-          Ads
-        </h3>
-      </div>
-
       {/* Bento Grid */}
       <div className="max-w-7xl mx-auto flex flex-row gap-4 overflow-x-auto overflow-y-hidden pb-4" style={{ scrollSnapType: 'x mandatory' }}>
         {visibleCells.map((cell, idx) =>
