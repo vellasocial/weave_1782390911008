@@ -114,15 +114,7 @@ export default function HeroSection() {
         }}
       >
         <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
-          {isMobile ? (
-            <Image
-              src="/assets/images/1-1783346804805.png"
-              alt="Hero background"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              priority
-            />
-          ) : (
+          {isMobile ? null : (
             <>
               <style>{`
                 .hero-video-iframe { pointer-events: none !important; }
@@ -159,6 +151,19 @@ export default function HeroSection() {
           )}
         </div>
       </div>
+
+      {/* Mobile hero image — shown immediately, no fade */}
+      {isMobile && (
+        <div className="absolute inset-0 z-1">
+          <Image
+            src="/assets/images/1-1783346804805.png"
+            alt="Hero background"
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            priority
+          />
+        </div>
+      )}
 
       {/* Dark overlay with iridescent tint — always visible for text legibility */}
       <div className="absolute inset-0 z-2 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
