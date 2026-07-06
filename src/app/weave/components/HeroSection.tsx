@@ -1,10 +1,19 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [textVisible, setTextVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const el = heroRef?.current;
@@ -105,50 +114,49 @@ export default function HeroSection() {
         }}
       >
         <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
-          <style>{`
-            @media (max-width: 767px) {
-              .hero-video-iframe {
-                transform: rotate(-90deg) !important;
-                transform-origin: center center !important;
-                width: 120vh !important;
-                height: 120vw !important;
-                top: 50% !important;
-                left: 50% !important;
-                margin-top: -60vw !important;
-                margin-left: -60vh !important;
-                position: absolute !important;
-              }
-            }
-            .hero-video-iframe { pointer-events: none !important; }
-          `}</style>
-          <iframe
-            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false"
-            loading="eager"
-            title="Hero video"
-            className="hero-video-iframe"
-            style={{
-              border: 0,
-              position: 'absolute',
-              top: '-7%',
-              left: '-5%',
-              height: '120%',
-              width: '110%',
-              pointerEvents: 'none',
-            }}
-            allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
-            allowFullScreen={true}
-            onLoad={handleIframeLoad}
-          />
-          {/* Transparent overlay — blocks all player UI clicks */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0, bottom: 0,
-              zIndex: 10,
-              background: 'transparent',
-              pointerEvents: 'all',
-            }}
-          />
+          {isMobile ? (
+            <Image
+              src="/assets/images/1-1783346804805.png"
+              alt="Hero background"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              priority
+            />
+          ) : (
+            <>
+              <style>{`
+                .hero-video-iframe { pointer-events: none !important; }
+              `}</style>
+              <iframe
+                src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false"
+                loading="eager"
+                title="Hero video"
+                className="hero-video-iframe"
+                style={{
+                  border: 0,
+                  position: 'absolute',
+                  top: '-7%',
+                  left: '-5%',
+                  height: '120%',
+                  width: '110%',
+                  pointerEvents: 'none',
+                }}
+                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
+                allowFullScreen={true}
+                onLoad={handleIframeLoad}
+              />
+              {/* Transparent overlay — blocks all player UI clicks */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0, left: 0, right: 0, bottom: 0,
+                  zIndex: 10,
+                  background: 'transparent',
+                  pointerEvents: 'all',
+                }}
+              />
+            </>
+          )}
         </div>
       </div>
 

@@ -137,7 +137,7 @@ export default function BentoPortfolio() {
           style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
           onClick={(e) => e.stopPropagation()}>
             <iframe
-            src={`${playingVideo}?autoplay=1&loop=1`}
+            src={`${playingVideo}?autoplay=1&loop=1&muted=0`}
             title="Video"
             allow="autoplay; encrypted-media"
             allowFullScreen
