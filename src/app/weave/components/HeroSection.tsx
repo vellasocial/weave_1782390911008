@@ -122,7 +122,7 @@ export default function HeroSection() {
             .hero-video-iframe { pointer-events: none !important; }
           `}</style>
           <iframe
-            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false"
+            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false&playsinline=true"
             loading="eager"
             title="Hero video"
             className="hero-video-iframe"
@@ -135,7 +135,7 @@ export default function HeroSection() {
               width: '110%',
               pointerEvents: 'none',
             }}
-            allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
+            allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;playsinline;"
             allowFullScreen={true}
             onLoad={handleIframeLoad}
           />
