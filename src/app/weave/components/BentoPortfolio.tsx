@@ -170,20 +170,6 @@ export default function BentoPortfolio() {
           </p>
         </div>
 
-        {/* Filter pills */}
-        <div className="flex flex-wrap gap-3">
-          {FILTERS.map((filter) =>
-          <button
-            key={filter}
-            onClick={() => setActiveFilter(filter)}
-            className={`filter-pill px-5 py-2 rounded-full font-mono text-xs tracking-wider uppercase ${
-            activeFilter === filter ? 'active' : ''}`
-            }>
-            
-              {filter}
-            </button>
-          )}
-        </div>
       </div>
 
       {/* Bento Grid */}
