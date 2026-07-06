@@ -91,6 +91,17 @@ export default function BentoPortfolio() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (playingVideo) {
+      document.body.setAttribute('data-video-open', 'true');
+    } else {
+      document.body.removeAttribute('data-video-open');
+    }
+    return () => {
+      document.body.removeAttribute('data-video-open');
+    };
+  }, [playingVideo]);
+
+  useEffect(() => {
     if (activeFilter === 'All') {
       setVisibleCells(cells);
     } else {
