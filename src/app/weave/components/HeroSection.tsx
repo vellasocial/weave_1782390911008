@@ -185,7 +185,7 @@ export default function HeroSection() {
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
-          <span style={{ display: 'block' }}>
+          <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
             <span className="text-pearl" style={{ ...wordFadeStyle(0) }}>Every</span>
             {' '}
             <span className="text-pearl" style={{ ...wordFadeStyle(1) }}>development</span>
