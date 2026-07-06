@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
-type FilterType = 'All' | 'Ads' | 'Reels' | 'Carousels';
+type FilterType = 'All';
 
 interface BentoCell {
   id: number;
@@ -53,7 +53,7 @@ const cells: BentoCell[] = [
 }];
 
 
-const FILTERS: FilterType[] = ['All', 'Ads', 'Reels', 'Carousels'];
+const FILTERS: FilterType[] = ['All'];
 
 const sizeClasses: Record<BentoCell['size'], string> = {
   small: 'col-span-2 row-span-1',
