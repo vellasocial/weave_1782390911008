@@ -3,16 +3,16 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [textVisible, setTextVisible] = useState(true);
 
-  // Parallax scroll effect
   useEffect(() => {
     const el = heroRef?.current;
     if (!el) return;
+
     let rafId: number;
     let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
       lastScrollY = window.scrollY;
       if (!rafId) {
@@ -26,6 +26,7 @@ export default function HeroSection() {
         });
       }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -33,77 +34,48 @@ export default function HeroSection() {
     };
   }, []);
 
-  // HLS video setup
+  const handleIframeLoad = () => {
+    setTimeout(() => setVideoReady(true), 300);
+  };
+
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // The Bunny CDN HLS playlist URL derived from the embed URL
-    // Library: 696225, Video: 4edc5b21-3a28-4f7d-aef2-1278eed38905
-    const hlsUrl = 'https://vz-b9a0e5e7-d8f.b-cdn.net/4edc5b21-3a28-4f7d-aef2-1278eed38905/playlist.m3u8';
-
-    const setupVideo = async () => {
-      // iOS Safari natively supports HLS
-      if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = hlsUrl;
-        video.load();
-        try {
-          await video.play();
-          setVideoReady(true);
-        } catch {
-          setVideoReady(true);
-        }
-        return;
-      }
-
-      // Other browsers: use hls.js
-      try {
-        const Hls = (await import('hls.js')).default;
-        if (Hls.isSupported()) {
-          const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: false,
-          });
-          hls.loadSource(hlsUrl);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, async () => {
-            try {
-              await video.play();
-            } catch {
-              // autoplay blocked — still show video
-            }
-            setVideoReady(true);
-          });
-          hls.on(Hls.Events.ERROR, () => {
-            setVideoReady(true);
-          });
-          return () => hls.destroy();
-        }
-      } catch {
-        setVideoReady(true);
-      }
-    };
-
-    const cleanup = setupVideo();
-    // Fallback: show video area after 2s regardless
-    const fallback = setTimeout(() => setVideoReady(true), 2000);
+    // Trigger text fade-in immediately on mount
+    const textTimer = setTimeout(() => setTextVisible(true), 0);
+    // Fallback: ensure video becomes visible even if onLoad never fires
+    const fallback = setTimeout(() => setVideoReady(true), 1500);
     return () => {
+      clearTimeout(textTimer);
       clearTimeout(fallback);
-      cleanup?.then?.((fn) => fn?.());
     };
   }, []);
 
+  // Each element fades in over a different duration but all end at ~1400ms
+  // label: starts at 0ms, duration 800ms → ends 800ms
+  // headline: starts at 200ms, duration 900ms → ends 1100ms
+  // sub-copy: starts at 400ms, duration 900ms → ends 1300ms
+  // CTA: starts at 500ms, duration 900ms → ends 1400ms
   const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
     opacity: textVisible ? 1 : 0,
     transform: textVisible ? 'translateY(0)' : 'translateY(18px)',
     transition: `opacity ${duration}ms ease ${delay}ms, transform ${duration}ms ease ${delay}ms`,
   });
 
+  // Word-by-word fade for h1: "Every" "development" "deserves" "desire."
+  const words = [
+    { text: 'Every', className: 'text-pearl' },
+    { text: 'development', className: 'text-pearl' },
+    { text: 'deserves', className: 'text-lavender' },
+    { text: 'desire.', className: 'text-transparent', extra: { WebkitTextStroke: '1px rgba(232,228,240,0.4)' } as React.CSSProperties },
+  ];
+  const wordBaseDelay = 0;
+  const wordStagger = 1200; // ms between each word
+  const wordDuration = 3200; // ms fade duration per word
+
   const wordFadeStyle = (index: number): React.CSSProperties => ({
     display: 'inline-block',
     opacity: 0,
-    animation: `wordFadeIn 3200ms ease forwards`,
-    animationDelay: `${index * 1200}ms`,
+    animation: `wordFadeIn ${wordDuration}ms ease forwards`,
+    animationDelay: `${wordBaseDelay + index * wordStagger}ms`,
   });
 
   return (
@@ -114,8 +86,7 @@ export default function HeroSection() {
           to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-
-      {/* Instant dark background */}
+      {/* Instant dark background — visible immediately, no waiting */}
       <div
         style={{
           position: 'absolute',
@@ -125,7 +96,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Native video element — no player UI, no play button */}
+      {/* Video Background — fades in when ready, over the instant dark bg */}
       <div
         className="absolute inset-0 z-1"
         style={{
@@ -133,33 +104,59 @@ export default function HeroSection() {
           transition: 'opacity 0.8s ease',
         }}
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            minWidth: '100%',
-            minHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'cover',
-            pointerEvents: 'none',
-          }}
-        />
+        <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
+          <style>{`
+            @media (max-width: 767px) {
+              .hero-video-iframe {
+                transform: rotate(-90deg) !important;
+                transform-origin: center center !important;
+                width: 120vh !important;
+                height: 120vw !important;
+                top: 50% !important;
+                left: 50% !important;
+                margin-top: -60vw !important;
+                margin-left: -60vh !important;
+                position: absolute !important;
+              }
+            }
+            .hero-video-iframe { pointer-events: none !important; }
+          `}</style>
+          <iframe
+            src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false"
+            loading="eager"
+            title="Hero video"
+            className="hero-video-iframe"
+            style={{
+              border: 0,
+              position: 'absolute',
+              top: '-7%',
+              left: '-5%',
+              height: '120%',
+              width: '110%',
+              pointerEvents: 'none',
+            }}
+            allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
+            allowFullScreen={true}
+            onLoad={handleIframeLoad}
+          />
+          {/* Transparent overlay — blocks all player UI clicks */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0, bottom: 0,
+              zIndex: 10,
+              background: 'transparent',
+              pointerEvents: 'all',
+            }}
+          />
+        </div>
       </div>
 
-      {/* Dark overlay */}
+      {/* Dark overlay with iridescent tint — always visible for text legibility */}
       <div className="absolute inset-0 z-2 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
       <div className="absolute inset-0 z-2 bg-gradient-to-br from-lavender/5 via-transparent to-magenta/5" />
 
-      {/* Grid lines */}
+      {/* Animated warp/weft grid lines */}
       <div
         className="absolute inset-0 z-3 pointer-events-none opacity-10"
         style={{
@@ -177,11 +174,13 @@ export default function HeroSection() {
         className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
         style={{ willChange: 'transform, opacity' }}
       >
+        {/* Label — fades in first */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
           <span className="w-12 h-px bg-lavender/60" />
           <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
+        {/* Main headline — each word fades in sequentially */}
         <h1
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
@@ -199,10 +198,12 @@ export default function HeroSection() {
           </span>
         </h1>
 
+        {/* Sub-copy */}
         <p className="font-mono text-sm text-pearl/50 max-w-md leading-relaxed mb-10 tracking-wide" style={fadeStyle(300, 700)}>
           We turn your project into content that does the selling before anyone picks up the phone.
         </p>
 
+        {/* CTA row */}
         <div className="flex flex-wrap items-center gap-4" style={fadeStyle(400, 700)}>
           <button
             onClick={() => {
