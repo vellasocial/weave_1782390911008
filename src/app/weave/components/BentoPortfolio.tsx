@@ -19,6 +19,17 @@ interface BentoCell {
 
 const cells: BentoCell[] = [
 {
+  id: 18,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  category: ['Ads'],
+  size: 'wide',
+  image: "https://cdn-cf-east.streamable.com/image/jdfl02.jpg",
+  alt: 'The Sanctuary - Tranquility Bali campaign video',
+  tag: 'ad',
+  video: 'https://streamable.com/e/jdfl02'
+},
+{
   id: 1,
   title: 'Nara Villas',
   subtitle: 'Balitecture',
