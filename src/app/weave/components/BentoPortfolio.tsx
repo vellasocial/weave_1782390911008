@@ -139,7 +139,7 @@ export default function BentoPortfolio() {
             <iframe
             src={`${playingVideo}?autoplay=1&loop=1&muted=0`}
             title="Video"
-            allow="autoplay; encrypted-media"
+            allow="autoplay; fullscreen; encrypted-media"
             allowFullScreen
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
             <button
