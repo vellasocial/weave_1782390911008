@@ -160,7 +160,7 @@ export default function BentoPortfolio() {
             </span>
             <h2
               className="font-manrope font-semibold text-pearl leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Campaign Library
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Ad Library
 
 
             </h2>
