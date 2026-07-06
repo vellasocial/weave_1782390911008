@@ -295,9 +295,7 @@ export default function BentoPortfolio() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}>
-          Every ad includes the full production process:{' '}
-          <br />
-          script, voiceover, AI video, editing, sound design, original music, and captions
+          Every ad is built from a full production toolkit: script, voiceover, AI photo, AI video, editing, sound design, original music, and captions, tailored to what each ad needs.
         </span>
       </div>
     </section>);
