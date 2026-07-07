@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
   icons: {
     icon: [
-      { url: '/assets/images/VELLA_circle-1783059017277.png', type: 'image/png' }
+      { url: '/assets/images/VELLA_circle_green-1783403042435.png', type: 'image/png' }
     ],
   },
   openGraph: {
