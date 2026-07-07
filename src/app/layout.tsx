@@ -9,11 +9,23 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'VELLASOCIAL',
-  description: 'A boilerplate project with Next.js and Tailwind CSS',
+  description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
   icons: {
     icon: [
       { url: '/assets/images/VELLA_circle-1783059017277.png', type: 'image/png' }
     ],
+  },
+  openGraph: {
+    title: 'VELLASOCIAL',
+    description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
+    url: 'https://vellasocial.com',
+    siteName: 'VELLASOCIAL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VELLASOCIAL',
+    description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
   },
 };
 
