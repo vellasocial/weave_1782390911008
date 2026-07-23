@@ -27,7 +27,7 @@ const cells: BentoCell[] = [
   image: "https://cdn-cf-east.streamable.com/image/05o9cr.jpg",
   alt: 'The Sanctuary - Tranquility Bali campaign video',
   tag: 'ad',
-  video: 'https://streamable.com/e/05o9cr'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga&profile=cld-default'
 },
 {
   id: 19,
@@ -193,7 +193,7 @@ export default function BentoPortfolio() {
             <iframe
             ref={iframeRef}
             key={playingVideo}
-            src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1`}
+            src={playingVideo.includes('?') ? `${playingVideo}&autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1` : `${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1`}
             title="Video"
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
