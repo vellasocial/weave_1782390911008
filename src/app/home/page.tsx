@@ -11,7 +11,7 @@ const WeaveFooter = dynamic(() => import('../weave/components/WeaveFooter'));
 
 export default function HomePage() {
   return (
-    <main className="relative bg-loom-black min-h-screen overflow-x-hidden">
+    <main suppressHydrationWarning className="relative bg-loom-black min-h-screen overflow-x-hidden">
       <WeaveHeader />
       <HeroSection />
       <BentoPortfolio />

@@ -24,9 +24,9 @@ export default function WeaveHeader() {
       'py-3 bg-loom-black/90 backdrop-blur-md border-b border-lavender-border' : 'py-6 bg-transparent'}`
       }>
 
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center md:justify-between">
+      <div suppressHydrationWarning className="max-w-7xl mx-auto px-6 flex items-center justify-center md:justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div suppressHydrationWarning className="flex items-center gap-3">
           <Image
             src="/assets/images/VELLASOCIAL_logo_CONDENSED-1782391516452.png"
             alt="Vella Social Logo"
