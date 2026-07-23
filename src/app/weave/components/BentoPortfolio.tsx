@@ -38,7 +38,7 @@ const cells: BentoCell[] = [
   image: "https://cdn-cf-east.streamable.com/image/kzh7qy.jpg",
   alt: 'The Sanctuary - Tranquility Bali original campaign video',
   tag: 'ad',
-  video: 'https://streamable.com/e/kzh7qy'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Three_Bedroom_Hero_evdphr'
 },
 {
   id: 1,
@@ -49,7 +49,7 @@ const cells: BentoCell[] = [
   image: "https://cdn-cf-east.streamable.com/image/ugrvg7.jpg",
   alt: 'Close-up of midnight blue jacquard weave with gold thread repeats',
   tag: 'ad',
-  video: 'https://streamable.com/e/v9rquu'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Balitecture_-_Nara_Villas_3_bedroom_fzc2g6'
 },
 {
   id: 15,
@@ -60,7 +60,7 @@ const cells: BentoCell[] = [
   image: "https://cdn-cf-east.streamable.com/image/hxxe4z.jpg",
   alt: 'Digital campaign video reel',
   tag: 'ad',
-  video: 'https://streamable.com/e/c5vxww'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=The_Nest_5_xyo8ln'
 },
 {
   id: 17,
@@ -71,7 +71,7 @@ const cells: BentoCell[] = [
   image: "https://cdn-cf-east.streamable.com/image/bzwwvl.jpg",
   alt: 'Campaign video reel',
   tag: 'ad',
-  video: 'https://streamable.com/e/vxf8ih'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Elements_4_v1_final_bvxkhd'
 }];
 
 
