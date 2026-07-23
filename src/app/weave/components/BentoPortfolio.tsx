@@ -160,7 +160,7 @@ export default function BentoPortfolio() {
           onClick={(e) => e.stopPropagation()}>
             <iframe
             key={playingVideo}
-            src={`${playingVideo}?autoplay=1&loop=1`}
+            src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0`}
             title="Video"
             allow="autoplay; fullscreen; encrypted-media"
             allowFullScreen
