@@ -112,7 +112,7 @@ export default function HeroSection() {
             src="/assets/images/3_bedroom_pool_2-1784806692203.png"
             alt="Luxury poolside villa hero background"
             fill
-            style={{ objectFit: 'cover', objectPosition: 'center 80%' }}
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
             priority
           />
         </div>
@@ -125,7 +125,7 @@ export default function HeroSection() {
             src="/assets/images/3_bedroom_pool_2-1784806692203.png"
             alt="Luxury poolside villa hero background"
             fill
-            style={{ objectFit: 'cover', objectPosition: 'center 80%' }}
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
             priority
           />
         </div>
