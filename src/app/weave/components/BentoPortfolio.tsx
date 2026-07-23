@@ -35,10 +35,10 @@ const cells: BentoCell[] = [
   subtitle: 'Tranquility Bali',
   category: ['Ads'],
   size: 'wide',
-  image: "https://cdn-cf-east.streamable.com/image/jdfl02.jpg",
+  image: "https://cdn-cf-east.streamable.com/image/kzh7qy.jpg",
   alt: 'The Sanctuary - Tranquility Bali original campaign video',
   tag: 'ad',
-  video: 'https://streamable.com/e/jdfl02'
+  video: 'https://streamable.com/e/kzh7qy'
 },
 {
   id: 1,
