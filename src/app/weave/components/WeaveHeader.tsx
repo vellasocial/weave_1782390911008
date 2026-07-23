@@ -5,17 +5,22 @@ import Image from 'next/image';
 
 export default function WeaveHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isScrolled = mounted && scrolled;
+
   return (
     <header
+      suppressHydrationWarning
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled ?
+      isScrolled ?
       'py-3 bg-loom-black/90 backdrop-blur-md border-b border-lavender-border' : 'py-6 bg-transparent'}`
       }>
 
