@@ -98,11 +98,14 @@ export default function BentoPortfolio() {
   const [visibleCells, setVisibleCells] = useState<BentoCell[]>(cells);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [unmuted, setUnmuted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const handlePlayClick = (cell: BentoCell) => {
     if (!cell.video) return;
+    setUnmuted(false);
     setPlayingVideo(cell.video);
   };
 
@@ -182,20 +185,47 @@ export default function BentoPortfolio() {
         ref={videoContainerRef}
         className="fixed inset-0 z-50 flex items-center justify-center"
         style={{ background: 'rgba(0,0,0,0.95)' }}
-        onClick={() => { setPlayingVideo(null); }}>
+        onClick={() => { setPlayingVideo(null); setUnmuted(false); }}>
           <div
           className="relative w-full max-w-2xl mx-4"
           style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
           onClick={(e) => e.stopPropagation()}>
             <iframe
+            ref={iframeRef}
             key={playingVideo}
             src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1`}
             title="Video"
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
+            {/* Unmute overlay — intercepts the first tap on Streamable's black play button */}
+            {!unmuted && (
+              <div
+                className="absolute inset-0 z-10 rounded-2xl"
+                style={{ background: 'transparent', cursor: 'pointer' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Send unmute + play via postMessage to Streamable iframe
+                  try {
+                    iframeRef.current?.contentWindow?.postMessage(
+                      JSON.stringify({ method: 'unmute' }),
+                      '*'
+                    );
+                    iframeRef.current?.contentWindow?.postMessage(
+                      JSON.stringify({ method: 'setVolume', value: 1 }),
+                      '*'
+                    );
+                    iframeRef.current?.contentWindow?.postMessage(
+                      JSON.stringify({ method: 'play' }),
+                      '*'
+                    );
+                  } catch (_) {}
+                  setUnmuted(true);
+                }}
+              />
+            )}
             <button
-            onClick={() => { setPlayingVideo(null); }}
+            onClick={() => { setPlayingVideo(null); setUnmuted(false); }}
             className="absolute -top-10 right-0 text-white/70 hover:text-white font-mono text-sm tracking-wider uppercase transition-colors">
               ✕ Close
             </button>
