@@ -6,7 +6,7 @@ export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [textVisible, setTextVisible] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -118,7 +118,7 @@ export default function HeroSection() {
       />
 
       {/* Desktop hero image — shown immediately */}
-      {!isMobile && (
+      {isMobile === false && (
         <div className="absolute inset-0 z-1">
           <Image
             src="/assets/images/3_bedroom_pool_2-1784806692203.png"
@@ -131,7 +131,20 @@ export default function HeroSection() {
       )}
 
       {/* Mobile hero image — shown immediately, no fade */}
-      {isMobile && (
+      {isMobile === true && (
+        <div className="absolute inset-0 z-1">
+          <Image
+            src="/assets/images/3_bedroom_pool_2-1784806692203.png"
+            alt="Luxury poolside villa hero background"
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            priority
+          />
+        </div>
+      )}
+
+      {/* Fallback hero image shown during SSR / before isMobile resolves */}
+      {isMobile === null && (
         <div className="absolute inset-0 z-1">
           <Image
             src="/assets/images/3_bedroom_pool_2-1784806692203.png"
@@ -163,7 +176,7 @@ export default function HeroSection() {
         ref={heroRef}
         suppressHydrationWarning
         className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
-        style={{ willChange: isMobile ? 'auto' : 'transform, opacity', transform: 'translate3d(0,0,0)' }}
+        style={{ willChange: 'transform, opacity', transform: 'translate3d(0,0,0)' }}
       >
         {/* Label — fades in first */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
