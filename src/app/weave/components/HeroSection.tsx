@@ -105,59 +105,25 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Video Background — fades in when ready, over the instant dark bg */}
-      <div
-        className="absolute inset-0 z-1"
-        style={{
-          opacity: videoReady ? 1 : 0,
-          transition: 'opacity 0.8s ease',
-        }}
-      >
-        <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, overflow: 'hidden' }}>
-          {isMobile ? null : (
-            <>
-              <style>{`
-                .hero-video-iframe { pointer-events: none !important; }
-              `}</style>
-              <iframe
-                src="https://player.mediadelivery.net/embed/696225/4edc5b21-3a28-4f7d-aef2-1278eed38905?autoplay=true&loop=true&muted=true&preload=true&responsive=true&controls=false&ui=false"
-                loading="eager"
-                title="Hero video"
-                className="hero-video-iframe"
-                style={{
-                  border: 0,
-                  position: 'absolute',
-                  top: '-7%',
-                  left: '-5%',
-                  height: '120%',
-                  width: '110%',
-                  pointerEvents: 'none',
-                }}
-                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
-                allowFullScreen={true}
-                onLoad={handleIframeLoad}
-              />
-              {/* Transparent overlay — blocks all player UI clicks */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  zIndex: 10,
-                  background: 'transparent',
-                  pointerEvents: 'all',
-                }}
-              />
-            </>
-          )}
+      {/* Desktop hero image — shown immediately */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-1">
+          <Image
+            src="/assets/images/3_bedroom_pool_2-1784806692203.png"
+            alt="Luxury poolside villa hero background"
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            priority
+          />
         </div>
-      </div>
+      )}
 
       {/* Mobile hero image — shown immediately, no fade */}
       {isMobile && (
         <div className="absolute inset-0 z-1">
           <Image
-            src="/assets/images/1-1783346804805.png"
-            alt="Hero background"
+            src="/assets/images/3_bedroom_pool_2-1784806692203.png"
+            alt="Luxury poolside villa hero background"
             fill
             style={{ objectFit: 'cover', objectPosition: 'center' }}
             priority
