@@ -19,18 +19,28 @@ export default function HeroSection() {
     const el = heroRef?.current;
     if (!el) return;
 
+    // Disable parallax on mobile — it's the primary cause of scroll jank
+    if (isMobile) {
+      el.style.transform = 'translate3d(0,0,0)';
+      el.style.opacity = '1';
+      return;
+    }
+
     let rafId: number;
     let lastScrollY = window.scrollY;
+    let ticking = false;
 
     const handleScroll = () => {
       lastScrollY = window.scrollY;
-      if (!rafId) {
+      if (!ticking) {
+        ticking = true;
         rafId = requestAnimationFrame(() => {
-          rafId = 0;
+          ticking = false;
           const scrolled = lastScrollY;
           if (scrolled < window.innerHeight) {
-            el.style.transform = `translateY(${scrolled * 0.3}px)`;
-            el.style.opacity = String(1 - scrolled / window.innerHeight);
+            // Use translate3d for GPU compositing layer
+            el.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
+            el.style.opacity = String(Math.max(0, 1 - scrolled / window.innerHeight));
           }
         });
       }
@@ -41,7 +51,7 @@ export default function HeroSection() {
       window.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
 
   const handleIframeLoad = () => {
     setTimeout(() => setVideoReady(true), 300);
@@ -65,8 +75,9 @@ export default function HeroSection() {
   // CTA: starts at 500ms, duration 900ms → ends 1400ms
   const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
     opacity: textVisible ? 1 : 0,
-    transform: textVisible ? 'translateY(0)' : 'translateY(18px)',
-    transition: `opacity ${duration}ms ease ${delay}ms, transform ${duration}ms ease ${delay}ms`,
+    transform: textVisible ? 'translate3d(0,0,0)' : 'translate3d(0,18px,0)',
+    transition: `opacity ${duration}ms cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms, transform ${duration}ms cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms`,
+    willChange: 'opacity, transform',
   });
 
   // Word-by-word fade for h1: "Every" "development" "deserves" "desire."
@@ -83,7 +94,8 @@ export default function HeroSection() {
   const wordFadeStyle = (index: number): React.CSSProperties => ({
     display: 'inline-block',
     opacity: 0,
-    animation: `wordFadeIn ${wordDuration}ms ease forwards`,
+    willChange: 'opacity, transform',
+    animation: `wordFadeIn ${wordDuration}ms cubic-bezier(0.25,0.46,0.45,0.94) forwards`,
     animationDelay: `${wordBaseDelay + index * wordStagger}ms`,
   });
 
@@ -91,8 +103,8 @@ export default function HeroSection() {
     <section className="relative w-full h-screen overflow-hidden grain-overlay">
       <style>{`
         @keyframes wordFadeIn {
-          from { opacity: 0; transform: translateY(12px); }
-          to   { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translate3d(0,12px,0); }
+          to   { opacity: 1; transform: translate3d(0,0,0); }
         }
       `}</style>
       {/* Instant dark background — visible immediately, no waiting */}
@@ -151,7 +163,7 @@ export default function HeroSection() {
         ref={heroRef}
         suppressHydrationWarning
         className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
-        style={{ willChange: 'transform, opacity' }}
+        style={{ willChange: isMobile ? 'auto' : 'transform, opacity', transform: 'translate3d(0,0,0)' }}
       >
         {/* Label — fades in first */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
@@ -193,7 +205,7 @@ export default function HeroSection() {
               }
             }}
             className="px-8 py-4 rounded-full bg-magenta text-white font-manrope font-semibold text-sm tracking-wide hover:bg-magenta/90 transition-all duration-300"
-            style={{ boxShadow: '0 0 32px rgba(217,70,168,0.4)' }}
+            style={{ boxShadow: '0 0 32px rgba(217,70,168,0.4)', WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
           >
             ENQUIRE
           </button>
