@@ -99,16 +99,33 @@ export default function BentoPortfolio() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (playingVideo) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       document.body.setAttribute('data-video-open', 'true');
+      // Request fullscreen on the video container
+      const el = videoContainerRef.current;
+      if (el) {
+        const reqFS =
+          el.requestFullscreen ||
+          (el as any).webkitRequestFullscreen ||
+          (el as any).mozRequestFullScreen ||
+          (el as any).msRequestFullscreen;
+        if (reqFS) {
+          reqFS.call(el).catch(() => {});
+        }
+      }
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       document.body.removeAttribute('data-video-open');
+      // Exit fullscreen if active
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
     }
     return () => {
       document.body.style.overflow = '';
@@ -157,8 +174,9 @@ export default function BentoPortfolio() {
       {/* Video Lightbox Modal */}
       {playingVideo &&
       <div
+        ref={videoContainerRef}
         className="fixed inset-0 z-50 flex items-center justify-center"
-        style={{ background: 'rgba(0,0,0,0.85)' }}
+        style={{ background: 'rgba(0,0,0,0.95)' }}
         onClick={() => { setPlayingVideo(null); }}>
           <div
           className="relative w-full max-w-2xl mx-4"
@@ -166,7 +184,7 @@ export default function BentoPortfolio() {
           onClick={(e) => e.stopPropagation()}>
             <iframe
             key={playingVideo}
-            src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1`}
+            src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1`}
             title="Video"
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
