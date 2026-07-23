@@ -102,11 +102,17 @@ export default function BentoPortfolio() {
 
   useEffect(() => {
     if (playingVideo) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       document.body.setAttribute('data-video-open', 'true');
     } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       document.body.removeAttribute('data-video-open');
     }
     return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       document.body.removeAttribute('data-video-open');
     };
   }, [playingVideo]);
@@ -160,9 +166,9 @@ export default function BentoPortfolio() {
           onClick={(e) => e.stopPropagation()}>
             <iframe
             key={playingVideo}
-            src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0`}
+            src={`${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1`}
             title="Video"
-            allow="autoplay; fullscreen; encrypted-media"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
             <button
