@@ -98,27 +98,12 @@ export default function BentoPortfolio() {
   const [visibleCells, setVisibleCells] = useState<BentoCell[]>(cells);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
   const handlePlayClick = (cell: BentoCell) => {
     if (!cell.video) return;
-    if (isMobile) {
-      // On mobile: open the Streamable page directly so it autoplays with sound
-      // Convert embed URL to direct page URL: https://streamable.com/e/XXXX → https://streamable.com/XXXX
-      const directUrl = cell.video.replace('/e/', '/');
-      window.open(directUrl, '_blank');
-    } else {
-      setPlayingVideo(cell.video);
-    }
+    setPlayingVideo(cell.video);
   };
 
   useEffect(() => {
