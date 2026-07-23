@@ -30,6 +30,17 @@ const cells: BentoCell[] = [
   video: 'https://streamable.com/e/05o9cr'
 },
 {
+  id: 19,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  category: ['Ads'],
+  size: 'wide',
+  image: "https://cdn-cf-east.streamable.com/image/jdfl02.jpg",
+  alt: 'The Sanctuary - Tranquility Bali original campaign video',
+  tag: 'ad',
+  video: 'https://streamable.com/e/jdfl02'
+},
+{
   id: 1,
   title: 'Nara Villas',
   subtitle: 'Balitecture',
