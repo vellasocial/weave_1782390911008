@@ -105,7 +105,7 @@ export default function BentoPortfolio() {
 
   const handlePlayClick = (cell: BentoCell) => {
     if (!cell.video) return;
-    setUnmuted(false);
+    setUnmuted(true);
     setPlayingVideo(cell.video);
   };
 
@@ -193,10 +193,27 @@ export default function BentoPortfolio() {
             <iframe
             ref={iframeRef}
             key={playingVideo}
-            src={playingVideo.includes('?') ? `${playingVideo}&autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1` : `${playingVideo}?autoplay=1&loop=1&muted=0&mute=0&volume=1&controls=1`}
+            src={(() => {
+              const base = playingVideo.includes('?')
+                ? `${playingVideo}&autoplay=1&loop=1&muted=false&volume=1.0&controls=1`
+                : `${playingVideo}?autoplay=1&loop=1&muted=false&volume=1.0&controls=1`;
+              return base;
+            })()}
             title="Video"
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
+            onLoad={() => {
+              try {
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'setVolume', value: 1 }),
+                  '*'
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'unmute' }),
+                  '*'
+                );
+              } catch (_) {}
+            }}
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
             {/* Unmute overlay — intercepts the first tap on Streamable's black play button */}
             {!unmuted && (
