@@ -19,13 +19,6 @@ export default function HeroSection() {
     const el = heroRef?.current;
     if (!el) return;
 
-    // Disable parallax on mobile — it's the primary cause of scroll jank
-    if (isMobile) {
-      el.style.transform = 'translate3d(0,0,0)';
-      el.style.opacity = '1';
-      return;
-    }
-
     let rafId: number;
     let lastScrollY = window.scrollY;
     let ticking = false;
@@ -38,8 +31,9 @@ export default function HeroSection() {
           ticking = false;
           const scrolled = lastScrollY;
           if (scrolled < window.innerHeight) {
-            // Use translate3d for GPU compositing layer
-            el.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
+            // Use a gentler multiplier on mobile (0.15) vs desktop (0.3)
+            const multiplier = isMobile ? 0.15 : 0.3;
+            el.style.transform = `translate3d(0, ${scrolled * multiplier}px, 0)`;
             el.style.opacity = String(Math.max(0, 1 - scrolled / window.innerHeight));
           }
         });
