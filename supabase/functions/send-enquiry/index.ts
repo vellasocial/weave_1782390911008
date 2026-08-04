@@ -87,3 +87,5 @@ serve(async (req) => {
     });
   }
 });
+
+export {};

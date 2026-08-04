@@ -215,14 +215,14 @@ export default function BentoPortfolio() {
               } catch (_) {}
             }}
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
-            {/* Unmute overlay — intercepts the first tap on Streamable's black play button */}
+            {/* Unmute overlay — intercepts the first tap on the video player's play button */}
             {!unmuted && (
               <div
                 className="absolute inset-0 z-10 rounded-2xl"
                 style={{ background: 'transparent', cursor: 'pointer' }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  // Send unmute + play via postMessage to Streamable iframe
+                  // Send unmute + play via postMessage to video iframe
                   try {
                     iframeRef.current?.contentWindow?.postMessage(
                       JSON.stringify({ method: 'unmute' }),
