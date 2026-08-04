@@ -24,7 +24,7 @@ const cells: BentoCell[] = [
   subtitle: 'Tranquility Bali',
   category: ['Ads'],
   size: 'wide',
-  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png",
   alt: 'The Sanctuary - Tranquility Bali campaign video',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga&profile=cld-default'
@@ -35,7 +35,7 @@ const cells: BentoCell[] = [
   subtitle: 'Tranquility Bali',
   category: ['Ads'],
   size: 'wide',
-  image: "https://cdn-cf-east.streamable.com/image/kzh7qy.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
   alt: 'The Sanctuary - Tranquility Bali original campaign video',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Three_Bedroom_Hero_evdphr'
@@ -57,7 +57,7 @@ const cells: BentoCell[] = [
   subtitle: 'Roam International',
   category: ['Ads'],
   size: 'small',
-  image: "https://cdn-cf-east.streamable.com/image/hxxe4z.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png",
   alt: 'Digital campaign video reel',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=The_Nest_5_xyo8ln'
@@ -68,7 +68,7 @@ const cells: BentoCell[] = [
   subtitle: 'Element Bali',
   category: ['Ads'],
   size: 'small',
-  image: "https://cdn-cf-east.streamable.com/image/bzwwvl.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847673/penthouse_vertical_s1ssnr.png",
   alt: 'Campaign video reel',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Elements_4_v1_final_bvxkhd'
