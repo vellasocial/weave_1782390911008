@@ -46,7 +46,7 @@ const cells: BentoCell[] = [
   subtitle: 'Balitecture',
   category: ['Ads'],
   size: 'wide',
-  image: "https://cdn-cf-east.streamable.com/image/ugrvg7.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg",
   alt: 'Close-up of midnight blue jacquard weave with gold thread repeats',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Balitecture_-_Nara_Villas_3_bedroom_fzc2g6'
