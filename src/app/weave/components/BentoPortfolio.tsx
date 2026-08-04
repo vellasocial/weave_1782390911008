@@ -24,7 +24,7 @@ const cells: BentoCell[] = [
   subtitle: 'Tranquility Bali',
   category: ['Ads'],
   size: 'wide',
-  image: "https://cdn-cf-east.streamable.com/image/05o9cr.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png",
   alt: 'The Sanctuary - Tranquility Bali campaign video',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga&profile=cld-default'
