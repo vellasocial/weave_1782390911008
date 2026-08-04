@@ -114,18 +114,7 @@ export default function BentoPortfolio() {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       document.body.setAttribute('data-video-open', 'true');
-      // Request fullscreen on the video container
-      const el = videoContainerRef.current;
-      if (el) {
-        const reqFS =
-          el.requestFullscreen ||
-          (el as any).webkitRequestFullscreen ||
-          (el as any).mozRequestFullScreen ||
-          (el as any).msRequestFullscreen;
-        if (reqFS) {
-          reqFS.call(el).catch(() => {});
-        }
-      }
+      // Do NOT request fullscreen — it hides the close button on mobile
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
@@ -186,6 +175,21 @@ export default function BentoPortfolio() {
         className="fixed inset-0 z-50 flex items-center justify-center"
         style={{ background: 'rgba(0,0,0,0.95)' }}
         onClick={() => { setPlayingVideo(null); setUnmuted(false); }}>
+          {/* Close button — always on top, outside the video click-stop zone */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setPlayingVideo(null); setUnmuted(false); }}
+            className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
+            style={{
+              background: 'rgba(0,0,0,0.6)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '999px',
+              padding: '8px 16px',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              touchAction: 'manipulation',
+            }}>
+            ✕ Close
+          </button>
           <div
           className="relative w-full max-w-2xl mx-4"
           style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
@@ -241,11 +245,6 @@ export default function BentoPortfolio() {
                 }}
               />
             )}
-            <button
-            onClick={() => { setPlayingVideo(null); setUnmuted(false); }}
-            className="absolute -top-10 right-0 text-white/70 hover:text-white font-mono text-sm tracking-wider uppercase transition-colors">
-              ✕ Close
-            </button>
           </div>
         </div>
       }
