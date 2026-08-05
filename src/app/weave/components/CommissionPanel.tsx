@@ -282,7 +282,7 @@ export default function CommissionPanel() {
                 <p className="font-mono text-xs text-red-400 text-center -mt-2">{error}</p>
               )}
               <a
-              href={`https://wa.me/6285190420774?text=${encodeURIComponent(
+              href={`https://wa.me/61466096169?text=${encodeURIComponent(
                 `Hi Luke, ${name} here from ${company}. I'm enquiring about your marketing campaigns. ${project}\n\nThank you,\n\n${name}\n\n${email}`
               )}`}
               target="_blank"
