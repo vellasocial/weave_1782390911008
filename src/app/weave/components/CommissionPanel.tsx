@@ -283,7 +283,7 @@ export default function CommissionPanel() {
               )}
               <a
               href={`https://wa.me/61466096169?text=${encodeURIComponent(
-                `Hi Luke, ${name} here from ${company}. I'm enquiring about your marketing campaigns. ${project}\n\nThank you,\n\n${name}\n\n${email}`
+                `Hi Vella Social, ${name} here from ${company}. I'm enquiring about your marketing campaigns. ${project}\n\nThank you,\n\n${name}\n\n${email}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
