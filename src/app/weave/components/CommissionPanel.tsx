@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { vibrate } from '@/lib/vibrate';
 
 export default function CommissionPanel() {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ export default function CommissionPanel() {
   const [error, setError] = useState('');
 
   const closePanel = () => {
+    vibrate(20);
     const panel = document.getElementById('commission-panel');
     if (panel) {
       panel.classList.remove('open');
@@ -282,8 +284,8 @@ export default function CommissionPanel() {
                 <p className="font-mono text-xs text-red-400 text-center -mt-2">{error}</p>
               )}
               <a
-              href={`https://wa.me/6285190420774?text=${encodeURIComponent(
-                `Hi Luke, ${name} here from ${company}. I'm enquiring about your marketing campaigns. ${project}\n\nThank you,\n\n${name}\n\n${email}`
+              href={`https://wa.me/61466096169?text=${encodeURIComponent(
+                `Hi Vella Social, ${name} here from ${company}. I'm enquiring about your marketing campaigns. ${project}\n\nThank you,\n\n${name}\n\n${email}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
