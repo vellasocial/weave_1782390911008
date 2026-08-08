@@ -1,60 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [textVisible, setTextVisible] = useState(true);
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    const el = heroRef?.current;
-    if (!el) return;
-
-    let rafId: number;
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    const handleScroll = () => {
-      lastScrollY = window.scrollY;
-      if (!ticking) {
-        ticking = true;
-        rafId = requestAnimationFrame(() => {
-          ticking = false;
-          const scrolled = lastScrollY;
-          if (scrolled < window.innerHeight) {
-            // Use a gentler multiplier on mobile (0.15) vs desktop (0.3)
-            const multiplier = isMobile ? 0.15 : 0.3;
-            el.style.transform = `translate3d(0, ${scrolled * multiplier}px, 0)`;
-            el.style.opacity = String(Math.max(0, 1 - scrolled / window.innerHeight));
-          }
-        });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [isMobile]);
-
-  const handleIframeLoad = () => {
-    setTimeout(() => setVideoReady(true), 300);
-  };
-
-  useEffect(() => {
-    // Trigger text fade-in immediately on mount
     const textTimer = setTimeout(() => setTextVisible(true), 0);
-    // Fallback: ensure video becomes visible even if onLoad never fires
     const fallback = setTimeout(() => setVideoReady(true), 1500);
     return () => {
       clearTimeout(textTimer);
@@ -62,11 +15,6 @@ export default function HeroSection() {
     };
   }, []);
 
-  // Each element fades in over a different duration but all end at ~1400ms
-  // label: starts at 0ms, duration 800ms → ends 800ms
-  // headline: starts at 200ms, duration 900ms → ends 1100ms
-  // sub-copy: starts at 400ms, duration 900ms → ends 1300ms
-  // CTA: starts at 500ms, duration 900ms → ends 1400ms
   const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
     opacity: textVisible ? 1 : 0,
     transform: textVisible ? 'translate3d(0,0,0)' : 'translate3d(0,18px,0)',
@@ -74,7 +22,6 @@ export default function HeroSection() {
     willChange: 'opacity, transform',
   });
 
-  // Word-by-word fade for h1: "Every" "development" "deserves" "desire."
   const words = [
     { text: 'Every', className: 'text-pearl' },
     { text: 'development', className: 'text-pearl' },
@@ -82,8 +29,8 @@ export default function HeroSection() {
     { text: 'desire.', className: 'text-transparent', extra: { WebkitTextStroke: '1px rgba(232,228,240,0.4)' } as React.CSSProperties },
   ];
   const wordBaseDelay = 0;
-  const wordStagger = 1200; // ms between each word
-  const wordDuration = 3200; // ms fade duration per word
+  const wordStagger = 1200;
+  const wordDuration = 3200;
 
   const wordFadeStyle = (index: number): React.CSSProperties => ({
     display: 'inline-block',
@@ -101,7 +48,7 @@ export default function HeroSection() {
           to   { opacity: 1; transform: translate3d(0,0,0); }
         }
       `}</style>
-      {/* Instant dark background — visible immediately, no waiting */}
+      {/* Instant dark background */}
       <div
         style={{
           position: 'absolute',
@@ -111,44 +58,35 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Desktop hero image — shown immediately */}
-      {isMobile === false && (
-        <div className="absolute inset-0 z-1">
-          <Image
-            src="/assets/images/3_bedroom_pool_2-1784806692203.png"
-            alt="Luxury poolside villa hero background"
-            fill
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-            priority
+      {/* Hero video — autoplays, loops, muted */}
+      <div
+        className="absolute inset-0 z-1"
+        style={{
+          opacity: videoReady ? 1 : 0,
+          transition: 'opacity 800ms ease',
+        }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlay={() => setVideoReady(true)}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        >
+          <source
+            src="https://res.cloudinary.com/wle6dmxs/video/upload/v1786176594/4k_Vella_Social_-_The_Hum_zuia1l.mp4"
+            type="video/mp4"
           />
-        </div>
-      )}
-
-      {/* Mobile hero image — shown immediately, no fade */}
-      {isMobile === true && (
-        <div className="absolute inset-0 z-1">
-          <Image
-            src="/assets/images/3_bedroom_pool_2-1784806692203.png"
-            alt="Luxury poolside villa hero background"
-            fill
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-            priority
-          />
-        </div>
-      )}
-
-      {/* Fallback hero image shown during SSR / before isMobile resolves */}
-      {isMobile === null && (
-        <div className="absolute inset-0 z-1">
-          <Image
-            src="/assets/images/3_bedroom_pool_2-1784806692203.png"
-            alt="Luxury poolside villa hero background"
-            fill
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-            priority
-          />
-        </div>
-      )}
+        </video>
+      </div>
 
       {/* Dark overlay with iridescent tint — always visible for text legibility */}
       <div className="absolute inset-0 z-2 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
