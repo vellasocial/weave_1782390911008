@@ -238,12 +238,10 @@ export default function HeroSection() {
                     width: '3px',
                     borderRadius: '2px',
                     background: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
-                    height: muted || !musicStarted ? '6px' : undefined,
-                    animation: muted || !musicStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ease-in-out infinite`,
-                    animationDelay: `${i * 0.1}s`,
+                    height: muted || !musicStarted ? '6px' : `${8 + i * 3}px`,
+                    animation: muted || !musicStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ${i * 0.1}s ease-in-out infinite`,
                     minHeight: '4px',
                     maxHeight: '16px',
-                    ...(!(muted || !musicStarted) && { height: `${8 + i * 3}px` }),
                   }}
                 />
               ))}
