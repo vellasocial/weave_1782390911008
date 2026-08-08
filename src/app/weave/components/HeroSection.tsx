@@ -1,19 +1,71 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [textVisible, setTextVisible] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [musicStarted, setMusicStarted] = useState(false);
+  const [muted, setMuted] = useState(false);
 
   useEffect(() => {
     const textTimer = setTimeout(() => setTextVisible(true), 0);
     const fallback = setTimeout(() => setVideoReady(true), 1500);
+
+    // Background music — replace this URL with your preferred track
+    const bgAudio = new Audio();
+    bgAudio.src = 'https://cdn.pixabay.com/audio/2022/10/16/audio_12a6c1a3b2.mp3';
+    bgAudio.loop = true;
+    bgAudio.volume = 0.35;
+    audioRef.current = bgAudio;
+
+    const startMusic = () => {
+      if (!musicStarted && audioRef.current) {
+        audioRef.current.play().then(() => {
+          setMusicStarted(true);
+        }).catch(() => {
+          // Autoplay blocked — will retry on next interaction
+        });
+      }
+    };
+
+    const handleScroll = () => {
+      startMusic();
+    };
+
+    const handleTouch = () => {
+      startMusic();
+    };
+
+    window.addEventListener('scroll', handleScroll, { once: true, passive: true });
+    window.addEventListener('touchstart', handleTouch, { once: true, passive: true });
+
     return () => {
       clearTimeout(textTimer);
       clearTimeout(fallback);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchstart', handleTouch);
+      bgAudio.pause();
+      bgAudio.src = '';
     };
   }, []);
+
+  const toggleMute = useCallback(() => {
+    if (!audioRef.current) return;
+    if (!musicStarted) {
+      // First interaction — start music and unmute
+      audioRef.current.play().then(() => {
+        setMusicStarted(true);
+        setMuted(false);
+        audioRef.current!.muted = false;
+      }).catch(() => {});
+      return;
+    }
+    const next = !muted;
+    audioRef.current.muted = next;
+    setMuted(next);
+  }, [muted, musicStarted]);
 
   const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
     opacity: textVisible ? 1 : 0,
@@ -46,6 +98,10 @@ export default function HeroSection() {
         @keyframes wordFadeIn {
           from { opacity: 0; transform: translate3d(0,12px,0); }
           to   { opacity: 1; transform: translate3d(0,0,0); }
+        }
+        @keyframes musicPulse {
+          0%, 100% { transform: scaleY(1); }
+          50% { transform: scaleY(1.6); }
         }
       `}</style>
       {/* Instant dark background */}
@@ -186,6 +242,45 @@ export default function HeroSection() {
         <span className="font-mono text-[10px] text-pearl/30 tracking-[0.3em] uppercase rotate-90 mb-4">Scroll</span>
         <div className="w-px h-16 bg-gradient-to-b from-lavender/40 to-transparent" />
       </div>
+
+      {/* Music toggle button */}
+      <button
+        onClick={toggleMute}
+        aria-label={muted || !musicStarted ? 'Unmute music' : 'Mute music'}
+        className="absolute bottom-8 left-8 z-20 flex items-center gap-2 px-3 py-2 rounded-full border border-pearl/20 bg-loom-black/40 backdrop-blur-sm hover:border-lavender/50 hover:bg-loom-black/60 transition-all duration-300"
+        style={{ WebkitTapHighlightColor: 'transparent' }}
+      >
+        {/* Equaliser bars — animated when playing */}
+        <span className="flex items-end gap-[2px] h-4">
+          {[1, 2, 3].map((i) => (
+            <span
+              key={i}
+              style={{
+                display: 'block',
+                width: '3px',
+                borderRadius: '2px',
+                background: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
+                height: muted || !musicStarted ? '6px' : undefined,
+                animation: muted || !musicStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ease-in-out infinite`,
+                animationDelay: `${i * 0.1}s`,
+                minHeight: '4px',
+                maxHeight: '16px',
+                ...(!(muted || !musicStarted) && { height: `${8 + i * 3}px` }),
+              }}
+            />
+          ))}
+        </span>
+        <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.7)' }}>
+          {muted || !musicStarted ? 'Music' : 'Music'}
+        </span>
+        {/* Muted slash indicator */}
+        {(muted || !musicStarted) && (
+          <span className="font-mono text-[10px] text-pearl/30">off</span>
+        )}
+        {!(muted || !musicStarted) && (
+          <span className="font-mono text-[10px] text-lavender/60">on</span>
+        )}
+      </button>
     </section>
   );
 }
