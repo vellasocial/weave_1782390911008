@@ -279,6 +279,39 @@ export default function HeroSection() {
         <span className="font-mono text-[10px] text-pearl/30 tracking-[0.3em] uppercase rotate-90 mb-4">Scroll</span>
         <div className="w-px h-16 bg-gradient-to-b from-lavender/40 to-transparent" />
       </div>
+
+      {/* Mobile mute/unmute button — fixed bottom-left, mobile only */}
+      <button
+        onClick={toggleMute}
+        aria-label={!musicStarted || muted ? 'Unmute music' : 'Mute music'}
+        className="md:hidden fixed bottom-6 left-6 z-50 flex items-center gap-2 px-3 py-2 rounded-full border border-pearl/20 bg-loom-black/60 backdrop-blur-sm hover:border-lavender/50 hover:bg-loom-black/80 transition-all duration-300"
+        style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+      >
+        {/* Equaliser bars */}
+        <span className="flex items-end gap-[2px] h-4">
+          {[1, 2, 3].map((i) => (
+            <span
+              key={i}
+              style={{
+                display: 'block',
+                width: '3px',
+                borderRadius: '2px',
+                background: (!musicStarted || muted) ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
+                height: (!musicStarted || muted) ? '6px' : `${8 + i * 3}px`,
+                animation: (!musicStarted || muted) ? 'none' : `musicPulse ${0.6 + i * 0.15}s ${i * 0.1}s ease-in-out infinite`,
+                minHeight: '4px',
+                maxHeight: '16px',
+              }}
+            />
+          ))}
+        </span>
+        <span
+          className="font-mono text-[10px] tracking-[0.15em] uppercase"
+          style={{ color: (!musicStarted || muted) ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.7)' }}
+        >
+          {(!musicStarted || muted) ? 'Unmute' : 'Mute'}
+        </span>
+      </button>
     </section>
   );
 }
