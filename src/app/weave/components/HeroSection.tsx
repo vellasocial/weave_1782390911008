@@ -26,7 +26,7 @@ export default function HeroSection() {
     const bgAudio = new Audio();
     bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786187128/fkjjjj_qnuvwj.wav';
     bgAudio.loop = true;
-    bgAudio.volume = 0.35;
+    bgAudio.volume = 0.28;
     bgAudio.preload = 'auto';
     audioRef.current = bgAudio;
 
