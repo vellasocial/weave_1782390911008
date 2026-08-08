@@ -66,12 +66,14 @@ export default function HeroSection() {
           transition: 'opacity 800ms ease',
         }}
       >
+        {/* Desktop video */}
         <video
           autoPlay
           loop
           muted
           playsInline
           onCanPlay={() => setVideoReady(true)}
+          className="hidden md:block"
           style={{
             position: 'absolute',
             inset: 0,
@@ -83,6 +85,28 @@ export default function HeroSection() {
         >
           <source
             src="https://res.cloudinary.com/wle6dmxs/video/upload/v1786177782/new_site_hero_cdhtvq.mp4"
+            type="video/mp4"
+          />
+        </video>
+        {/* Mobile video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlay={() => setVideoReady(true)}
+          className="block md:hidden"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'center',
+          }}
+        >
+          <source
+            src="https://res.cloudinary.com/wle6dmxs/video/upload/v1786180400/mobile_hero_kced32.mp4"
             type="video/mp4"
           />
         </video>
