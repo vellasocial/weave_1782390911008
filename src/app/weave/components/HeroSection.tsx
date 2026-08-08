@@ -1,112 +1,20 @@
 'use client';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [textVisible, setTextVisible] = useState(true);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [musicStarted, setMusicStarted] = useState(false);
-  const [muted, setMuted] = useState(false);
-  // Track whether audio was muted before a video started playing
-  const mutedBeforeVideoRef = useRef(false);
-  const musicStartedRef = useRef(false);
-
-  // Dispatch audio state to WeaveHeader
-  const dispatchAudioState = useCallback((currentMuted: boolean, currentStarted: boolean, toggleFn: () => void) => {
-    window.dispatchEvent(new CustomEvent('weave-audio-state', {
-      detail: { muted: currentMuted, musicStarted: currentStarted, toggle: toggleFn }
-    }));
-  }, []);
 
   useEffect(() => {
     const textTimer = setTimeout(() => setTextVisible(true), 0);
     const fallback = setTimeout(() => setVideoReady(true), 1500);
 
-    const bgAudio = new Audio();
-    bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786187128/fkjjjj_qnuvwj.wav';
-    bgAudio.loop = true;
-    bgAudio.volume = 0.28;
-    bgAudio.preload = 'auto';
-    audioRef.current = bgAudio;
-
-    const startMusic = () => {
-      if (musicStartedRef.current || !audioRef.current) return;
-      audioRef.current.muted = false;
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          musicStartedRef.current = true;
-          setMusicStarted(true);
-          setMuted(false);
-          // Remove all triggers once started
-          window.removeEventListener('scroll', startMusic);
-          window.removeEventListener('touchstart', startMusic);
-          window.removeEventListener('click', startMusic);
-          window.removeEventListener('keydown', startMusic);
-        }).catch(() => {
-          // Play failed (autoplay policy), keep listeners active for next interaction
-        });
-      }
-    };
-
-    window.addEventListener('scroll', startMusic, { passive: true });
-    window.addEventListener('touchstart', startMusic, { passive: true });
-    window.addEventListener('click', startMusic, { passive: true });
-    window.addEventListener('keydown', startMusic, { passive: true });
-
-    // Listen for video playing events from BentoPortfolio
-    const handleVideoPlaying = (e: Event) => {
-      const { playing } = (e as CustomEvent).detail;
-      if (!audioRef.current) return;
-      if (playing) {
-        // Remember current mute state, then mute
-        mutedBeforeVideoRef.current = audioRef.current.muted;
-        audioRef.current.muted = true;
-        setMuted(true);
-      } else {
-        // Restore previous mute state
-        audioRef.current.muted = mutedBeforeVideoRef.current;
-        setMuted(mutedBeforeVideoRef.current);
-      }
-    };
-
-    window.addEventListener('weave-video-playing', handleVideoPlaying);
-
     return () => {
       clearTimeout(textTimer);
       clearTimeout(fallback);
-      window.removeEventListener('scroll', startMusic);
-      window.removeEventListener('touchstart', startMusic);
-      window.removeEventListener('click', startMusic);
-      window.removeEventListener('keydown', startMusic);
-      window.removeEventListener('weave-video-playing', handleVideoPlaying);
-      bgAudio.pause();
-      bgAudio.src = '';
     };
   }, []);
-
-  const toggleMute = useCallback(() => {
-    if (!audioRef.current) return;
-    if (!musicStarted) {
-      audioRef.current.play().then(() => {
-        setMusicStarted(true);
-        setMuted(false);
-        audioRef.current!.muted = false;
-        dispatchAudioState(false, true, toggleMute);
-      }).catch(() => {});
-      return;
-    }
-    const next = !muted;
-    audioRef.current.muted = next;
-    setMuted(next);
-    dispatchAudioState(next, musicStarted, toggleMute);
-  }, [muted, musicStarted, dispatchAudioState]);
-
-  // Dispatch audio state whenever it changes so WeaveHeader stays in sync
-  useEffect(() => {
-    dispatchAudioState(muted, musicStarted, toggleMute);
-  }, [muted, musicStarted, toggleMute, dispatchAudioState]);
 
   const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
     opacity: textVisible ? 1 : 0,

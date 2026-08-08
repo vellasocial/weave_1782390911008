@@ -2,37 +2,21 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-interface AudioState {
-  muted: boolean;
-  musicStarted: boolean;
-  toggle: () => void;
-}
-
 export default function WeaveHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [audioState, setAudioState] = useState<AudioState | null>(null);
 
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Listen for audio state updates from HeroSection
-    const handleAudioState = (e: Event) => {
-      const { muted, musicStarted, toggle } = (e as CustomEvent).detail;
-      setAudioState({ muted, musicStarted, toggle });
-    };
-    window.addEventListener('weave-audio-state', handleAudioState);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('weave-audio-state', handleAudioState);
     };
   }, []);
 
   const isScrolled = mounted && scrolled;
-  const isMutedOrNotStarted = !audioState || audioState.muted || !audioState.musicStarted;
 
   return (
     <header
@@ -67,11 +51,8 @@ export default function WeaveHeader() {
           ))}
         </nav>
 
-        {/* CTA group: Mute + Enquire */}
+        {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Mute/Unmute button hidden */}
-
-          {/* Enquire button */}
           <button
             onClick={() => {
               const panel = document.getElementById('commission-panel');
@@ -86,13 +67,6 @@ export default function WeaveHeader() {
           </button>
         </div>
       </div>
-
-      <style>{`
-        @keyframes musicPulse {
-          0%, 100% { transform: scaleY(1); }
-          50% { transform: scaleY(1.6); }
-        }
-      `}</style>
     </header>
   );
 }
