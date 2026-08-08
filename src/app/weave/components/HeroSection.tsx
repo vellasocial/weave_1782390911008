@@ -41,7 +41,7 @@ export default function HeroSection() {
   });
 
   return (
-    <section className="relative w-full aspect-video md:aspect-auto md:h-screen overflow-hidden grain-overlay">
+    <section className="relative w-full h-screen overflow-hidden grain-overlay">
       <style>{`
         @keyframes wordFadeIn {
           from { opacity: 0; transform: translate3d(0,12px,0); }
@@ -107,7 +107,7 @@ export default function HeroSection() {
       <div
         ref={heroRef}
         suppressHydrationWarning
-        className="absolute inset-0 z-10 flex flex-col justify-center md:justify-end px-8 md:px-16 pb-6 md:pb-20"
+        className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
         style={{ willChange: 'transform, opacity', transform: 'translate3d(0,0,0)' }}
       >
         {/* Label — fades in first */}
