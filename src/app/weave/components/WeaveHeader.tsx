@@ -69,38 +69,7 @@ export default function WeaveHeader() {
 
         {/* CTA group: Mute + Enquire */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Mute/Unmute button */}
-          <button
-            onClick={() => audioState?.toggle()}
-            aria-label={isMutedOrNotStarted ? 'Unmute music' : 'Mute music'}
-            className="flex items-center gap-2 px-3 py-2 rounded-full border border-pearl/20 bg-loom-black/40 backdrop-blur-sm hover:border-lavender/50 hover:bg-loom-black/60 transition-all duration-300"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            {/* Equaliser bars */}
-            <span className="flex items-end gap-[2px] h-4">
-              {[1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  style={{
-                    display: 'block',
-                    width: '3px',
-                    borderRadius: '2px',
-                    background: isMutedOrNotStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
-                    height: isMutedOrNotStarted ? '6px' : `${8 + i * 3}px`,
-                    animation: isMutedOrNotStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ${i * 0.1}s ease-in-out infinite`,
-                    minHeight: '4px',
-                    maxHeight: '16px',
-                  }}
-                />
-              ))}
-            </span>
-            <span
-              className="font-mono text-[10px] tracking-[0.15em] uppercase"
-              style={{ color: isMutedOrNotStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.7)' }}
-            >
-              {isMutedOrNotStarted ? 'Unmute' : 'Mute'}
-            </span>
-          </button>
+          {/* Mute/Unmute button hidden */}
 
           {/* Enquire button */}
           <button
