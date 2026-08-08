@@ -107,6 +107,8 @@ export default function BentoPortfolio() {
     if (!cell.video) return;
     setUnmuted(true);
     setPlayingVideo(cell.video);
+    // Notify HeroSection to mute background audio
+    window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: true } }));
   };
 
   useEffect(() => {
@@ -114,12 +116,10 @@ export default function BentoPortfolio() {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       document.body.setAttribute('data-video-open', 'true');
-      // Do NOT request fullscreen — it hides the close button on mobile
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       document.body.removeAttribute('data-video-open');
-      // Exit fullscreen if active
       if (document.fullscreenElement) {
         document.exitFullscreen().catch(() => {});
       }
@@ -174,10 +174,21 @@ export default function BentoPortfolio() {
         ref={videoContainerRef}
         className="fixed inset-0 z-50 flex items-center justify-center"
         style={{ background: 'rgba(0,0,0,0.95)' }}
-        onClick={() => { setPlayingVideo(null); setUnmuted(false); }}>
+        onClick={() => {
+          setPlayingVideo(null);
+          setUnmuted(false);
+          // Notify HeroSection to restore background audio
+          window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
+        }}>
           {/* Close button — always on top, outside the video click-stop zone */}
           <button
-            onClick={(e) => { e.stopPropagation(); setPlayingVideo(null); setUnmuted(false); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setPlayingVideo(null);
+              setUnmuted(false);
+              // Notify HeroSection to restore background audio
+              window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
+            }}
             className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
             style={{
               background: 'rgba(0,0,0,0.6)',

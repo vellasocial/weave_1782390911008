@@ -8,12 +8,20 @@ export default function HeroSection() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [musicStarted, setMusicStarted] = useState(false);
   const [muted, setMuted] = useState(false);
+  // Track whether audio was muted before a video started playing
+  const mutedBeforeVideoRef = useRef(false);
+
+  // Dispatch audio state to WeaveHeader
+  const dispatchAudioState = useCallback((currentMuted: boolean, currentStarted: boolean, toggleFn: () => void) => {
+    window.dispatchEvent(new CustomEvent('weave-audio-state', {
+      detail: { muted: currentMuted, musicStarted: currentStarted, toggle: toggleFn }
+    }));
+  }, []);
 
   useEffect(() => {
     const textTimer = setTimeout(() => setTextVisible(true), 0);
     const fallback = setTimeout(() => setVideoReady(true), 1500);
 
-    // Background music — replace this URL with your preferred track
     const bgAudio = new Audio();
     bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786186397/FKJ_-_Different_Masks_For_Different_Days_Official_Music_Video_-_Starring_Ms_Lesne_ljn9gm.wav';
     bgAudio.loop = true;
@@ -24,28 +32,37 @@ export default function HeroSection() {
       if (!musicStarted && audioRef.current) {
         audioRef.current.play().then(() => {
           setMusicStarted(true);
-        }).catch(() => {
-          // Autoplay blocked — will retry on next interaction
-        });
+        }).catch(() => {});
       }
     };
 
-    const handleScroll = () => {
-      startMusic();
+    window.addEventListener('scroll', startMusic, { once: true, passive: true });
+    window.addEventListener('touchstart', startMusic, { once: true, passive: true });
+
+    // Listen for video playing events from BentoPortfolio
+    const handleVideoPlaying = (e: Event) => {
+      const { playing } = (e as CustomEvent).detail;
+      if (!audioRef.current) return;
+      if (playing) {
+        // Remember current mute state, then mute
+        mutedBeforeVideoRef.current = audioRef.current.muted;
+        audioRef.current.muted = true;
+        setMuted(true);
+      } else {
+        // Restore previous mute state
+        audioRef.current.muted = mutedBeforeVideoRef.current;
+        setMuted(mutedBeforeVideoRef.current);
+      }
     };
 
-    const handleTouch = () => {
-      startMusic();
-    };
-
-    window.addEventListener('scroll', handleScroll, { once: true, passive: true });
-    window.addEventListener('touchstart', handleTouch, { once: true, passive: true });
+    window.addEventListener('weave-video-playing', handleVideoPlaying);
 
     return () => {
       clearTimeout(textTimer);
       clearTimeout(fallback);
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchstart', handleTouch);
+      window.removeEventListener('scroll', startMusic);
+      window.removeEventListener('touchstart', startMusic);
+      window.removeEventListener('weave-video-playing', handleVideoPlaying);
       bgAudio.pause();
       bgAudio.src = '';
     };
@@ -54,18 +71,24 @@ export default function HeroSection() {
   const toggleMute = useCallback(() => {
     if (!audioRef.current) return;
     if (!musicStarted) {
-      // First interaction — start music and unmute
       audioRef.current.play().then(() => {
         setMusicStarted(true);
         setMuted(false);
         audioRef.current!.muted = false;
+        dispatchAudioState(false, true, toggleMute);
       }).catch(() => {});
       return;
     }
     const next = !muted;
     audioRef.current.muted = next;
     setMuted(next);
-  }, [muted, musicStarted]);
+    dispatchAudioState(next, musicStarted, toggleMute);
+  }, [muted, musicStarted, dispatchAudioState]);
+
+  // Dispatch audio state whenever it changes so WeaveHeader stays in sync
+  useEffect(() => {
+    dispatchAudioState(muted, musicStarted, toggleMute);
+  }, [muted, musicStarted, toggleMute, dispatchAudioState]);
 
   const fadeStyle = (delay: number, duration: number): React.CSSProperties => ({
     opacity: textVisible ? 1 : 0,
@@ -74,12 +97,6 @@ export default function HeroSection() {
     willChange: 'opacity, transform',
   });
 
-  const words = [
-    { text: 'Every', className: 'text-pearl' },
-    { text: 'development', className: 'text-pearl' },
-    { text: 'deserves', className: 'text-lavender' },
-    { text: 'desire.', className: 'text-transparent', extra: { WebkitTextStroke: '1px rgba(232,228,240,0.4)' } as React.CSSProperties },
-  ];
   const wordBaseDelay = 0;
   const wordStagger = 1200;
   const wordDuration = 3200;
@@ -168,7 +185,7 @@ export default function HeroSection() {
         </video>
       </div>
 
-      {/* Dark overlay with iridescent tint — always visible for text legibility */}
+      {/* Dark overlay with iridescent tint */}
       <div className="absolute inset-0 z-2 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
       <div className="absolute inset-0 z-2 bg-gradient-to-br from-lavender/5 via-transparent to-magenta/5" />
 
@@ -190,13 +207,13 @@ export default function HeroSection() {
         className="absolute inset-0 z-10 flex flex-col justify-end px-8 md:px-16 pb-20"
         style={{ willChange: 'transform, opacity', transform: 'translate3d(0,0,0)' }}
       >
-        {/* Label — fades in first */}
+        {/* Label */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
           <span className="w-12 h-px bg-lavender/60" />
           <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
-        {/* Main headline — each word fades in sequentially */}
+        {/* Main headline */}
         <h1
           className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
@@ -219,38 +236,8 @@ export default function HeroSection() {
           We turn your project into content that does the selling before anyone picks up the phone.
         </p>
 
-        {/* CTA row */}
+        {/* CTA row — ENQUIRE only; Mute button is now in WeaveHeader */}
         <div className="flex flex-wrap items-center gap-4" style={fadeStyle(400, 700)}>
-          {/* Mute/Unmute button — left of Enquire */}
-          <button
-            onClick={toggleMute}
-            aria-label={muted || !musicStarted ? 'Unmute music' : 'Mute music'}
-            className="flex items-center gap-2 px-3 py-4 rounded-full border border-pearl/20 bg-loom-black/40 backdrop-blur-sm hover:border-lavender/50 hover:bg-loom-black/60 transition-all duration-300"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            {/* Equaliser bars — animated when playing */}
-            <span className="flex items-end gap-[2px] h-4">
-              {[1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  style={{
-                    display: 'block',
-                    width: '3px',
-                    borderRadius: '2px',
-                    background: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
-                    height: muted || !musicStarted ? '6px' : `${8 + i * 3}px`,
-                    animation: muted || !musicStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ${i * 0.1}s ease-in-out infinite`,
-                    minHeight: '4px',
-                    maxHeight: '16px',
-                  }}
-                />
-              ))}
-            </span>
-            <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.7)' }}>
-              {muted || !musicStarted ? 'Unmute' : 'Mute'}
-            </span>
-          </button>
-
           <button
             onClick={() => {
               const panel = document.getElementById('commission-panel');
