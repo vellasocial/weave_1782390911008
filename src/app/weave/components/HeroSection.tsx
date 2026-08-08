@@ -41,7 +41,7 @@ export default function HeroSection() {
   });
 
   return (
-    <section className="relative w-full h-screen overflow-hidden grain-overlay">
+    <section className="relative w-full aspect-video md:aspect-auto md:h-screen overflow-hidden grain-overlay">
       <style>{`
         @keyframes wordFadeIn {
           from { opacity: 0; transform: translate3d(0,12px,0); }
