@@ -32,11 +32,13 @@ export default function HeroSection() {
 
     const startMusic = () => {
       if (musicStartedRef.current || !audioRef.current) return;
+      audioRef.current.muted = false;
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           musicStartedRef.current = true;
           setMusicStarted(true);
+          setMuted(false);
           // Remove all triggers once started
           window.removeEventListener('scroll', startMusic);
           window.removeEventListener('touchstart', startMusic);
