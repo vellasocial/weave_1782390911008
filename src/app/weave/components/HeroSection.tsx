@@ -10,6 +10,7 @@ export default function HeroSection() {
   const [muted, setMuted] = useState(false);
   // Track whether audio was muted before a video started playing
   const mutedBeforeVideoRef = useRef(false);
+  const musicStartedRef = useRef(false);
 
   // Dispatch audio state to WeaveHeader
   const dispatchAudioState = useCallback((currentMuted: boolean, currentStarted: boolean, toggleFn: () => void) => {
@@ -26,18 +27,31 @@ export default function HeroSection() {
     bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786187128/fkjjjj_qnuvwj.wav';
     bgAudio.loop = true;
     bgAudio.volume = 0.35;
+    bgAudio.preload = 'auto';
     audioRef.current = bgAudio;
 
     const startMusic = () => {
-      if (!musicStarted && audioRef.current) {
-        audioRef.current.play().then(() => {
+      if (musicStartedRef.current || !audioRef.current) return;
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          musicStartedRef.current = true;
           setMusicStarted(true);
-        }).catch(() => {});
+          // Remove all triggers once started
+          window.removeEventListener('scroll', startMusic);
+          window.removeEventListener('touchstart', startMusic);
+          window.removeEventListener('click', startMusic);
+          window.removeEventListener('keydown', startMusic);
+        }).catch(() => {
+          // Play failed (autoplay policy), keep listeners active for next interaction
+        });
       }
     };
 
-    window.addEventListener('scroll', startMusic, { once: true, passive: true });
-    window.addEventListener('touchstart', startMusic, { once: true, passive: true });
+    window.addEventListener('scroll', startMusic, { passive: true });
+    window.addEventListener('touchstart', startMusic, { passive: true });
+    window.addEventListener('click', startMusic, { passive: true });
+    window.addEventListener('keydown', startMusic, { passive: true });
 
     // Listen for video playing events from BentoPortfolio
     const handleVideoPlaying = (e: Event) => {
@@ -62,6 +76,8 @@ export default function HeroSection() {
       clearTimeout(fallback);
       window.removeEventListener('scroll', startMusic);
       window.removeEventListener('touchstart', startMusic);
+      window.removeEventListener('click', startMusic);
+      window.removeEventListener('keydown', startMusic);
       window.removeEventListener('weave-video-playing', handleVideoPlaying);
       bgAudio.pause();
       bgAudio.src = '';
