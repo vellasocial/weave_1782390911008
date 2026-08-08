@@ -41,7 +41,7 @@ export default function WeaveHeader() {
 
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {['Portfolio', 'Process', 'About']?.map((item) => (
+          {['Portfolio', 'Process']?.map((item) => (
             <a
               key={item}
               href={`#${item?.toLowerCase()}`}
