@@ -40,20 +40,20 @@ export default function WeaveHeader() {
         </div>
 
         {/* Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {['Portfolio', 'Process']?.map((item) => (
-            <a
-              key={item}
-              href={`#${item?.toLowerCase()}`}
-              className="font-mono text-xs text-pearl/50 hover:text-pearl transition-colors duration-300 tracking-wider uppercase"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-8">
+            {['Portfolio', 'Process']?.map((item) => (
+              <a
+                key={item}
+                href={`#${item?.toLowerCase()}`}
+                className="font-mono text-xs text-pearl/50 hover:text-pearl transition-colors duration-300 tracking-wider uppercase"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
+          {/* CTA */}
           <button
             onClick={() => {
               vibrate();
