@@ -23,7 +23,7 @@ export default function HeroSection() {
     const fallback = setTimeout(() => setVideoReady(true), 1500);
 
     const bgAudio = new Audio();
-    bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786186397/FKJ_-_Different_Masks_For_Different_Days_Official_Music_Video_-_Starring_Ms_Lesne_ljn9gm.wav';
+    bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786187128/fkjjjj_qnuvwj.wav';
     bgAudio.loop = true;
     bgAudio.volume = 0.35;
     audioRef.current = bgAudio;
