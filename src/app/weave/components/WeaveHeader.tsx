@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { vibrate } from '@/lib/vibrate';
 
 export default function WeaveHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -55,6 +56,7 @@ export default function WeaveHeader() {
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={() => {
+              vibrate();
               const panel = document.getElementById('commission-panel');
               if (panel) {
                 panel?.classList?.add('open');

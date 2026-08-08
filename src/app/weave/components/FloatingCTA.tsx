@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { vibrate } from '@/lib/vibrate';
 
 export default function FloatingCTA() {
   const [visible, setVisible] = useState(false);
@@ -43,6 +44,7 @@ export default function FloatingCTA() {
   }, []);
 
   const openPanel = () => {
+    vibrate();
     const panel = document.getElementById('commission-panel');
     if (panel) {
       panel?.classList?.add('open');

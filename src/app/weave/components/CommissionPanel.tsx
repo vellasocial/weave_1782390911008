@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { vibrate } from '@/lib/vibrate';
 
 export default function CommissionPanel() {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ export default function CommissionPanel() {
   const [error, setError] = useState('');
 
   const closePanel = () => {
+    vibrate(20);
     const panel = document.getElementById('commission-panel');
     if (panel) {
       panel.classList.remove('open');
