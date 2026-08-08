@@ -168,6 +168,8 @@ export default function HeroSection() {
             inset: 0,
             width: '100%',
             height: '100%',
+            minWidth: '100%',
+            minHeight: '100%',
             objectFit: 'cover',
             objectPosition: 'center',
           }}
@@ -190,6 +192,8 @@ export default function HeroSection() {
             inset: 0,
             width: '100%',
             height: '100%',
+            minWidth: '100%',
+            minHeight: '100%',
             objectFit: 'cover',
             objectPosition: 'center',
           }}
