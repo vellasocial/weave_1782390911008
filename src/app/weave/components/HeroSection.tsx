@@ -221,6 +221,38 @@ export default function HeroSection() {
 
         {/* CTA row */}
         <div className="flex flex-wrap items-center gap-4" style={fadeStyle(400, 700)}>
+          {/* Mute/Unmute button — left of Enquire */}
+          <button
+            onClick={toggleMute}
+            aria-label={muted || !musicStarted ? 'Unmute music' : 'Mute music'}
+            className="flex items-center gap-2 px-3 py-4 rounded-full border border-pearl/20 bg-loom-black/40 backdrop-blur-sm hover:border-lavender/50 hover:bg-loom-black/60 transition-all duration-300"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            {/* Equaliser bars — animated when playing */}
+            <span className="flex items-end gap-[2px] h-4">
+              {[1, 2, 3].map((i) => (
+                <span
+                  key={i}
+                  style={{
+                    display: 'block',
+                    width: '3px',
+                    borderRadius: '2px',
+                    background: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
+                    height: muted || !musicStarted ? '6px' : undefined,
+                    animation: muted || !musicStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ease-in-out infinite`,
+                    animationDelay: `${i * 0.1}s`,
+                    minHeight: '4px',
+                    maxHeight: '16px',
+                    ...(!(muted || !musicStarted) && { height: `${8 + i * 3}px` }),
+                  }}
+                />
+              ))}
+            </span>
+            <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.7)' }}>
+              {muted || !musicStarted ? 'Unmute' : 'Mute'}
+            </span>
+          </button>
+
           <button
             onClick={() => {
               const panel = document.getElementById('commission-panel');
@@ -242,45 +274,6 @@ export default function HeroSection() {
         <span className="font-mono text-[10px] text-pearl/30 tracking-[0.3em] uppercase rotate-90 mb-4">Scroll</span>
         <div className="w-px h-16 bg-gradient-to-b from-lavender/40 to-transparent" />
       </div>
-
-      {/* Music toggle button */}
-      <button
-        onClick={toggleMute}
-        aria-label={muted || !musicStarted ? 'Unmute music' : 'Mute music'}
-        className="absolute bottom-8 left-8 z-20 flex items-center gap-2 px-3 py-2 rounded-full border border-pearl/20 bg-loom-black/40 backdrop-blur-sm hover:border-lavender/50 hover:bg-loom-black/60 transition-all duration-300"
-        style={{ WebkitTapHighlightColor: 'transparent' }}
-      >
-        {/* Equaliser bars — animated when playing */}
-        <span className="flex items-end gap-[2px] h-4">
-          {[1, 2, 3].map((i) => (
-            <span
-              key={i}
-              style={{
-                display: 'block',
-                width: '3px',
-                borderRadius: '2px',
-                background: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.8)',
-                height: muted || !musicStarted ? '6px' : undefined,
-                animation: muted || !musicStarted ? 'none' : `musicPulse ${0.6 + i * 0.15}s ease-in-out infinite`,
-                animationDelay: `${i * 0.1}s`,
-                minHeight: '4px',
-                maxHeight: '16px',
-                ...(!(muted || !musicStarted) && { height: `${8 + i * 3}px` }),
-              }}
-            />
-          ))}
-        </span>
-        <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: muted || !musicStarted ? 'rgba(232,228,240,0.3)' : 'rgba(196,181,247,0.7)' }}>
-          {muted || !musicStarted ? 'Music' : 'Music'}
-        </span>
-        {/* Muted slash indicator */}
-        {(muted || !musicStarted) && (
-          <span className="font-mono text-[10px] text-pearl/30">off</span>
-        )}
-        {!(muted || !musicStarted) && (
-          <span className="font-mono text-[10px] text-lavender/60">on</span>
-        )}
-      </button>
     </section>
   );
 }
