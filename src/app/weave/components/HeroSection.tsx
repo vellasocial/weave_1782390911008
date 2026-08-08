@@ -15,7 +15,7 @@ export default function HeroSection() {
 
     // Background music — replace this URL with your preferred track
     const bgAudio = new Audio();
-    bgAudio.src = 'https://cdn.pixabay.com/audio/2022/10/16/audio_12a6c1a3b2.mp3';
+    bgAudio.src = 'https://res.cloudinary.com/wle6dmxs/video/upload/v1786186397/FKJ_-_Different_Masks_For_Different_Days_Official_Music_Video_-_Starring_Ms_Lesne_ljn9gm.wav';
     bgAudio.loop = true;
     bgAudio.volume = 0.35;
     audioRef.current = bgAudio;
