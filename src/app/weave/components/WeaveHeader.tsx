@@ -47,8 +47,8 @@ export default function WeaveHeader() {
               <a
                 key={item}
                 href={`#${item?.toLowerCase()}`}
-                className="font-mono text-xs tracking-wider uppercase transition-colors duration-300"
-                style={{ color: 'rgba(245,241,234,0.6)' }}
+                className="text-xs tracking-wider uppercase transition-colors duration-300"
+                style={{ color: 'rgba(245,241,234,0.6)', fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 400 }}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F5F1EA'}
                 onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.6)'}
               >
