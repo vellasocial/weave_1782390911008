@@ -180,6 +180,7 @@ export default function HeroSection() {
               background: '#2A2622',
               color: '#F5F1EA',
               boxShadow: '0 0 32px rgba(42,38,34,0.5)',
+              border: '1px solid rgba(255,255,255,0.35)',
               WebkitTapHighlightColor: 'transparent',
               touchAction: 'manipulation'
             }}
