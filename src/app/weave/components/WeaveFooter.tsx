@@ -25,8 +25,8 @@ export default function WeaveFooter() {
           <a
             key={link}
             href={`#${link?.toLowerCase()}`}
-            className="font-mono text-xs tracking-wider transition-colors duration-300"
-            style={{ color: 'rgba(245,241,234,0.3)' }}
+            className="text-xs tracking-wider transition-colors duration-300"
+            style={{ color: 'rgba(245,241,234,0.3)', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300 }}
             onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.7)'}
             onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.3)'}>
 
