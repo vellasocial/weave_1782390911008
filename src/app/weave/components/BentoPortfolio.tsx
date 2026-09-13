@@ -182,23 +182,23 @@ export default function BentoPortfolio() {
         }}>
           {/* Close button — always on top, outside the video click-stop zone */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setPlayingVideo(null);
-              setUnmuted(false);
-              // Notify HeroSection to restore background audio
-              window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
-            }}
-            className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
-            style={{
-              background: 'rgba(0,0,0,0.6)',
-              border: '1px solid rgba(255,255,255,0.3)',
-              borderRadius: '999px',
-              padding: '8px 16px',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              touchAction: 'manipulation',
-            }}>
+          onClick={(e) => {
+            e.stopPropagation();
+            setPlayingVideo(null);
+            setUnmuted(false);
+            // Notify HeroSection to restore background audio
+            window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
+          }}
+          className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
+          style={{
+            background: 'rgba(0,0,0,0.6)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            borderRadius: '999px',
+            padding: '8px 16px',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            touchAction: 'manipulation'
+          }}>
             ✕ Close
           </button>
           <div
@@ -209,9 +209,9 @@ export default function BentoPortfolio() {
             ref={iframeRef}
             key={playingVideo}
             src={(() => {
-              const base = playingVideo.includes('?')
-                ? `${playingVideo}&autoplay=1&loop=1&muted=false&volume=1.0&controls=1`
-                : `${playingVideo}?autoplay=1&loop=1&muted=false&volume=1.0&controls=1`;
+              const base = playingVideo.includes('?') ?
+              `${playingVideo}&autoplay=1&loop=1&muted=false&volume=1.0&controls=1` :
+              `${playingVideo}?autoplay=1&loop=1&muted=false&volume=1.0&controls=1`;
               return base;
             })()}
             title="Video"
@@ -231,31 +231,31 @@ export default function BentoPortfolio() {
             }}
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
             {/* Unmute overlay — intercepts the first tap on the video player's play button */}
-            {!unmuted && (
-              <div
-                className="absolute inset-0 z-10 rounded-2xl"
-                style={{ background: 'transparent', cursor: 'pointer' }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  // Send unmute + play via postMessage to video iframe
-                  try {
-                    iframeRef.current?.contentWindow?.postMessage(
-                      JSON.stringify({ method: 'unmute' }),
-                      '*'
-                    );
-                    iframeRef.current?.contentWindow?.postMessage(
-                      JSON.stringify({ method: 'setVolume', value: 1 }),
-                      '*'
-                    );
-                    iframeRef.current?.contentWindow?.postMessage(
-                      JSON.stringify({ method: 'play' }),
-                      '*'
-                    );
-                  } catch (_) {}
-                  setUnmuted(true);
-                }}
-              />
-            )}
+            {!unmuted &&
+          <div
+            className="absolute inset-0 z-10 rounded-2xl"
+            style={{ background: 'transparent', cursor: 'pointer' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Send unmute + play via postMessage to video iframe
+              try {
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'unmute' }),
+                  '*'
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'setVolume', value: 1 }),
+                  '*'
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'play' }),
+                  '*'
+                );
+              } catch (_) {}
+              setUnmuted(true);
+            }} />
+
+          }
           </div>
         </div>
       }
@@ -274,7 +274,7 @@ export default function BentoPortfolio() {
 
             </h2>
           </div>
-          <p className="font-mono text-sm max-w-xs leading-relaxed" style={{ color: '#B8B0A4' }}>Examples of the work we create for projects like yours.
+          <p className="font-mono max-w-xs text-base" style={{ color: '#B8B0A4' }}>Examples of the work we create for projects like yours.
 
           </p>
         </div>
