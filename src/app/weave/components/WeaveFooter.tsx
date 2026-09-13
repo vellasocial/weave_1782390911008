@@ -21,7 +21,7 @@ export default function WeaveFooter() {
 
         {/* Links */}
         <nav className="flex items-center gap-6">
-          {['Portfolio', 'Process', 'About']?.map((link) =>
+          {['Portfolio', 'Process']?.map((link) =>
           <a
             key={link}
             href={`#${link?.toLowerCase()}`}
