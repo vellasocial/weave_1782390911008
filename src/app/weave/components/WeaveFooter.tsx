@@ -36,7 +36,7 @@ export default function WeaveFooter() {
         </nav>
 
         {/* Copyright */}
-        <p className="font-mono text-xs tracking-wider" style={{ color: 'rgba(245,241,234,0.25)' }}>© 2026 VELLASOCIAL
+        <p className="text-xs tracking-wider" style={{ color: 'rgba(245,241,234,0.25)', fontFamily: "'Mytupi', sans-serif", fontWeight: 700 }}>© 2026 VELLASOCIAL
 
         </p>
       </div>
