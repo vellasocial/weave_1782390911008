@@ -146,7 +146,7 @@ export default function ProcessSection() {
                 <h3 className="font-manrope font-semibold text-base tracking-tight" style={{ color: '#F5F1EA' }}>
                   {step?.label}
                 </h3>
-                <p className="text-xs leading-relaxed" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 400 }}>
+                <p className="text-[13px]" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 400 }}>
                   {step?.description}
                 </p>
               </div>
