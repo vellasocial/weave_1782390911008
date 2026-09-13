@@ -86,7 +86,7 @@ export default function ProcessSection() {
               <span style={{ color: '#F5F1EA' }}>to Buyers</span>
             </h2>
           </div>
-          <p className="font-mono text-sm max-w-sm leading-relaxed" style={{ color: '#B8B0A4', fontFamily: 'Helvetica', fontStyle: 'oblique' }}>
+          <p className="font-mono max-w-sm text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica', fontStyle: 'oblique' }}>
             Every project moves through four clear phases —<br />
             kick-off, rolling delivery, refinement,<br />
             and published, ready-to-run content.
