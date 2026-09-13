@@ -264,17 +264,17 @@ export default function BentoPortfolio() {
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <span className="font-mono text-xs text-lavender/60 tracking-[0.2em] uppercase block mb-3">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase block mb-3" style={{ color: '#8A7E6D' }}>
               — Portfolio
             </span>
             <h2
-              className="font-manrope font-semibold text-pearl leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Ad Library
+              className="font-manrope font-semibold leading-none tracking-tight"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>Ad Library
 
 
             </h2>
           </div>
-          <p className="font-mono text-sm text-pearl/40 max-w-xs leading-relaxed">Examples of the work we create for projects like yours.
+          <p className="font-mono text-sm max-w-xs leading-relaxed" style={{ color: '#B8B0A4' }}>Examples of the work we create for projects like yours.
 
           </p>
         </div>
@@ -289,13 +289,13 @@ export default function BentoPortfolio() {
           className={`iridescent-cell rounded-2xl overflow-hidden cursor-pointer reveal-up flex-shrink-0`}
           style={{
             transitionDelay: `${idx * 60}ms`,
-            border: '1px solid rgba(196,181,247,0.1)',
+            border: '1px solid rgba(138,126,109,0.15)',
             background: 'var(--loom-black-2)',
             width: '240px',
             scrollSnapAlign: 'start',
             transform: hoveredId === cell.id ? 'scale(1.04)' : 'scale(1)',
             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            boxShadow: hoveredId === cell.id ? '0 8px 32px rgba(196,181,247,0.18)' : 'none'
+            boxShadow: hoveredId === cell.id ? '0 8px 32px rgba(138,126,109,0.18)' : 'none'
           }}
           onMouseEnter={() => setHoveredId(cell.id)}
           onMouseLeave={() => setHoveredId(null)}
@@ -320,12 +320,12 @@ export default function BentoPortfolio() {
                   style={{
                     width: '52px',
                     height: '52px',
-                    background: 'rgba(196,181,247,0.2)',
-                    border: '2px solid rgba(196,181,247,0.7)',
+                    background: 'rgba(138,126,109,0.2)',
+                    border: '2px solid rgba(138,126,109,0.7)',
                     backdropFilter: 'blur(6px)',
                     transform: hoveredId === cell.id ? 'scale(1.12)' : 'scale(1)'
                   }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-pearl ml-1">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#F5F1EA', marginLeft: '4px' }}>
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
@@ -351,10 +351,10 @@ export default function BentoPortfolio() {
                 className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
                 style={{
                   background: cell.accent ?
-                  'rgba(217,70,168,0.3)' :
-                  'rgba(196,181,247,0.15)',
-                  border: `1px solid ${cell.accent ? 'rgba(217,70,168,0.5)' : 'rgba(196,181,247,0.3)'}`,
-                  color: cell.accent ? '#D946A8' : '#C4B5F7'
+                  'rgba(138,126,109,0.3)' :
+                  'rgba(138,126,109,0.15)',
+                  border: `1px solid ${cell.accent ? 'rgba(138,126,109,0.6)' : 'rgba(138,126,109,0.35)'}`,
+                  color: '#8A7E6D'
                 }}>
                 
                     {cell.tag}
@@ -365,16 +365,16 @@ export default function BentoPortfolio() {
               {/* Bottom info (appears on hover) */}
               <div className="absolute bottom-0 left-0 right-0 z-10 p-4 translate-y-2 opacity-0 group-hover:opacity-100 transition-all duration-400"
             style={{ background: 'linear-gradient(to top, rgba(13,13,18,0.95) 0%, transparent 100%)' }}>
-                <p className="font-manrope font-semibold text-pearl text-sm leading-tight">{cell.title}</p>
-                <p className="font-mono text-[10px] text-lavender/70 mt-0.5">{cell.subtitle}</p>
+                <p className="font-manrope font-semibold text-sm leading-tight" style={{ color: '#F5F1EA' }}>{cell.title}</p>
+                <p className="font-mono text-[10px] mt-0.5" style={{ color: '#8A7E6D' }}>{cell.subtitle}</p>
               </div>
             </div>
 
             {/* Card footer (always visible) */}
             <div className="px-4 py-3 flex items-center justify-between" style={{ background: 'var(--loom-black-2)' }}>
               <div>
-                <p className="font-manrope text-sm font-medium text-pearl/90 leading-tight">{cell.title}</p>
-                <p className="font-mono text-[10px] text-pearl/40 mt-0.5">{cell.subtitle}</p>
+                <p className="font-manrope text-sm font-medium leading-tight" style={{ color: 'rgba(245,241,234,0.9)' }}>{cell.title}</p>
+                <p className="font-mono text-[10px] mt-0.5" style={{ color: 'rgba(245,241,234,0.4)' }}>{cell.subtitle}</p>
               </div>
               <svg
               width="14"
@@ -383,7 +383,7 @@ export default function BentoPortfolio() {
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"
-              className="text-lavender/40 flex-shrink-0">
+              style={{ color: 'rgba(138,126,109,0.5)', flexShrink: 0 }}>
               
                 <path d="M7 17L17 7M7 7h10v10" />
               </svg>
@@ -394,14 +394,12 @@ export default function BentoPortfolio() {
 
       {/* Stats row */}
       <div className="max-w-7xl mx-auto mt-16 pt-12 border-t reveal-up"
-      style={{ borderColor: 'rgba(196,181,247,0.1)' }}>
+      style={{ borderColor: 'rgba(138,126,109,0.15)' }}>
         <span
           className="font-manrope font-semibold"
           style={{
             fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-            background: 'linear-gradient(135deg, #C4B5F7, #D946A8)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+            color: '#B8B0A4'
           }}>
           Every ad is built from a full production toolkit: script, voiceover, AI photo, AI video, editing, sound design, original music, and captions, tailored to what each ad needs.
         </span>

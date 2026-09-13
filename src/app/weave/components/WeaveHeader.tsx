@@ -24,8 +24,9 @@ export default function WeaveHeader() {
       suppressHydrationWarning
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'py-3 bg-loom-black/90 backdrop-blur-md border-b border-lavender-border' :'py-6 bg-transparent'
+          ? 'py-3 bg-loom-black/90 backdrop-blur-md' :'py-6 bg-transparent'
       }`}
+      style={isScrolled ? { borderBottom: '1px solid rgba(138,126,109,0.2)' } : {}}
     >
       <div suppressHydrationWarning className="max-w-7xl mx-auto px-6 flex items-center justify-center md:justify-between">
         {/* Logo */}
@@ -46,7 +47,10 @@ export default function WeaveHeader() {
               <a
                 key={item}
                 href={`#${item?.toLowerCase()}`}
-                className="font-mono text-xs text-pearl/50 hover:text-pearl transition-colors duration-300 tracking-wider uppercase"
+                className="font-mono text-xs tracking-wider uppercase transition-colors duration-300"
+                style={{ color: 'rgba(245,241,234,0.6)' }}
+                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F5F1EA'}
+                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.6)'}
               >
                 {item}
               </a>
@@ -63,7 +67,14 @@ export default function WeaveHeader() {
                 document.body.style.overflow = 'hidden';
               }
             }}
-            className="flex items-center gap-2 px-5 py-2 rounded-full border border-magenta/50 text-magenta font-mono text-xs tracking-wider uppercase hover:bg-magenta/10 transition-all duration-300"
+            className="flex items-center gap-2 px-5 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all duration-300"
+            style={{
+              background: '#2A2622',
+              color: '#F5F1EA',
+              border: '1px solid rgba(42,38,34,0.8)'
+            }}
+            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
+            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.opacity = '1'}
           >
             ENQUIRE
           </button>

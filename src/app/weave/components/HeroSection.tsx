@@ -115,16 +115,15 @@ export default function HeroSection() {
         </video>
       </div>
 
-      {/* Dark overlay with iridescent tint */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 z-2 bg-gradient-to-b from-loom-black/70 via-loom-black/40 to-loom-black/90" />
-      <div className="absolute inset-0 z-2 bg-gradient-to-br from-lavender/5 via-transparent to-magenta/5" />
 
-      {/* Animated warp/weft grid lines */}
+      {/* Animated warp/weft grid lines — warm neutral tint */}
       <div
         className="absolute inset-0 z-3 pointer-events-none opacity-10"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(196,181,247,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,247,0.4) 1px, transparent 1px)',
+            'linear-gradient(rgba(138,126,109,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(138,126,109,0.4) 1px, transparent 1px)',
           backgroundSize: '80px 80px',
           maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
         }}
@@ -139,34 +138,34 @@ export default function HeroSection() {
       >
         {/* Label */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
-          <span className="w-12 h-px bg-lavender/60" />
-          <span className="font-mono text-xs text-lavender/70 tracking-[0.2em] uppercase">PROPERTY MARKETING CAMPAIGNS</span>
+          <span className="w-12 h-px" style={{ background: '#8A7E6D', opacity: 0.6 }} />
+          <span className="font-mono text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D' }}>PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
         {/* Main headline */}
         <h1
-          className="pulse-opacity font-manrope font-semibold text-pearl leading-[0.9] tracking-tight mb-8 max-w-3xl"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
+          className="pulse-opacity font-manrope font-semibold leading-[0.9] tracking-tight mb-8 max-w-3xl"
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: '#F5F1EA' }}
         >
           <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
-            <span className="text-pearl" style={{ ...wordFadeStyle(0) }}>Every</span>
+            <span style={{ color: '#F5F1EA', ...wordFadeStyle(0) }}>Every</span>
             {' '}
-            <span className="text-pearl" style={{ ...wordFadeStyle(1) }}>development</span>
+            <span style={{ color: '#F5F1EA', ...wordFadeStyle(1) }}>development</span>
           </span>
           <span style={{ display: 'block' }}>
-            <span className="text-lavender" style={{ ...wordFadeStyle(2) }}>deserves</span>
+            <span style={{ color: '#F5F1EA', ...wordFadeStyle(2) }}>deserves</span>
           </span>
           <span style={{ display: 'block' }}>
-            <span className="text-transparent" style={{ ...wordFadeStyle(3), WebkitTextStroke: '1px rgba(232,228,240,0.4)' }}>desire.</span>
+            <span className="text-transparent" style={{ ...wordFadeStyle(3), WebkitTextStroke: '1px rgba(245,241,234,0.4)' }}>desire.</span>
           </span>
         </h1>
 
         {/* Sub-copy */}
-        <p className="font-mono text-sm text-pearl/50 max-w-md leading-relaxed mb-10 tracking-wide" style={fadeStyle(300, 700)}>
+        <p className="font-mono text-sm max-w-md leading-relaxed mb-10 tracking-wide" style={{ color: '#B8B0A4' }} suppressHydrationWarning>
           We turn your project into content that does the selling before anyone picks up the phone.
         </p>
 
-        {/* CTA row — ENQUIRE only; Mute button is now in WeaveHeader */}
+        {/* CTA row */}
         <div className="flex flex-wrap items-center gap-4" style={fadeStyle(400, 700)}>
           <button
             onClick={() => {
@@ -176,8 +175,14 @@ export default function HeroSection() {
                 document.body.style.overflow = 'hidden';
               }
             }}
-            className="px-8 py-4 rounded-full bg-magenta text-white font-manrope font-semibold text-sm tracking-wide hover:bg-magenta/90 transition-all duration-300"
-            style={{ boxShadow: '0 0 32px rgba(217,70,168,0.4)', WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+            className="px-8 py-4 rounded-full font-manrope font-semibold text-sm tracking-wide transition-all duration-300"
+            style={{
+              background: '#2A2622',
+              color: '#F5F1EA',
+              boxShadow: '0 0 32px rgba(42,38,34,0.5)',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            }}
           >
             ENQUIRE
           </button>
@@ -186,11 +191,9 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 right-8 z-10 flex flex-col items-center gap-2">
-        <span className="font-mono text-[10px] text-pearl/30 tracking-[0.3em] uppercase rotate-90 mb-4">Scroll</span>
-        <div className="w-px h-16 bg-gradient-to-b from-lavender/40 to-transparent" />
+        <span className="font-mono text-[10px] tracking-[0.3em] uppercase rotate-90 mb-4" style={{ color: 'rgba(245,241,234,0.3)' }}>Scroll</span>
+        <div className="w-px h-16" style={{ background: 'linear-gradient(to bottom, rgba(138,126,109,0.4), transparent)' }} />
       </div>
-
-      {/* Mobile mute/unmute button — hidden */}
     </section>
   );
 }

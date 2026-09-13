@@ -56,16 +56,11 @@ export default function FloatingCTA() {
     }
   };
 
-  // Show button: must be scrolled past threshold AND (not on mobile OR no video open)
-  const showButton = visible && !(videoOpen);
-  // On desktop (md+), always show if scrolled past threshold regardless of video
-  // We achieve this via CSS: hide on mobile when videoOpen, always respect visible on desktop
-
   return (
     <button
       onClick={openPanel}
-      aria-label="Commission a Pattern"
-      className={`fixed right-8 z-50 flex items-center gap-3 px-6 py-4 rounded-full font-manrope font-semibold text-sm text-white transition-all duration-300 ${
+      aria-label="Enquire"
+      className={`fixed right-8 z-50 flex items-center gap-3 px-6 py-4 rounded-full font-manrope font-semibold text-sm transition-all duration-300 ${
         pulsing ? 'cta-pulse' : ''
       } ${
         visible
@@ -75,10 +70,11 @@ export default function FloatingCTA() {
       style={{
         bottom: `${bottomOffset}px`,
         transition: 'bottom 0.3s ease, opacity 0.3s ease, transform 0.3s ease',
-        background: 'linear-gradient(135deg, #D946A8, #C026A0)',
+        background: '#2A2622',
+        color: '#F5F1EA',
         boxShadow: pulsing
-          ? '0 0 32px rgba(217,70,168,0.5), 0 8px 24px rgba(0,0,0,0.4)'
-          : '0 8px 24px rgba(217,70,168,0.35), 0 4px 12px rgba(0,0,0,0.3)',
+          ? '0 0 32px rgba(42,38,34,0.6), 0 8px 24px rgba(0,0,0,0.4)'
+          : '0 8px 24px rgba(42,38,34,0.4), 0 4px 12px rgba(0,0,0,0.3)',
       }}
     >
       ENQUIRE

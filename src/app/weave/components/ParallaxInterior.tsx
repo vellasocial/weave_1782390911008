@@ -69,7 +69,7 @@ export default function ParallaxInterior() {
           {/* Label */}
           <p
             className="text-xs uppercase tracking-[0.25em] mb-4 font-medium"
-            style={{ color: 'rgba(196,181,247,0.85)' }}>
+            style={{ color: '#8A7E6D' }}>
             About Me
           </p>
 
@@ -91,7 +91,7 @@ export default function ParallaxInterior() {
           <div
             className="w-12 h-px mb-6"
             style={{
-              background: 'linear-gradient(90deg, rgba(196,181,247,0.8), rgba(217,70,168,0.6))'
+              background: 'linear-gradient(90deg, rgba(138,126,109,0.8), rgba(138,126,109,0.3))'
             }} />
 
           {/* Bio */}
@@ -103,11 +103,11 @@ export default function ParallaxInterior() {
         </div>
       </div>
 
-      {/* Iridescent bottom divider */}
+      {/* Bottom divider */}
       <div
         className="absolute bottom-0 left-0 right-0 h-px"
         style={{
-          background: 'linear-gradient(90deg, transparent, rgba(196,181,247,0.5), rgba(217,70,168,0.5), rgba(196,181,247,0.3), transparent)'
+          background: 'linear-gradient(90deg, transparent, rgba(138,126,109,0.5), rgba(138,126,109,0.3), transparent)'
         }} />
 
     </div>);

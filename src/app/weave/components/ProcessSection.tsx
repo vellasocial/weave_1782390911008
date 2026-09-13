@@ -62,31 +62,31 @@ export default function ProcessSection() {
       ref={sectionRef}
       className="relative py-24 px-6 md:px-12 overflow-hidden"
       style={{ background: 'var(--loom-black-2)' }}>
-      {/* Background grid */}
+      {/* Background grid — warm neutral tint */}
       <div
         className="absolute inset-0 pointer-events-none opacity-5"
         style={{
           backgroundImage:
-          'linear-gradient(rgba(196,181,247,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,247,0.6) 1px, transparent 1px)',
+          'linear-gradient(rgba(138,126,109,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(138,126,109,0.6) 1px, transparent 1px)',
           backgroundSize: '60px 60px'
         }} />
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 reveal-up">
           <div>
-            <span className="font-mono text-xs text-lavender/60 tracking-[0.2em] uppercase block mb-3">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase block mb-3" style={{ color: '#8A7E6D' }}>
               — Process
             </span>
             <h2
-              className="font-manrope font-semibold text-pearl leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
+              className="font-manrope font-semibold leading-none tracking-tight"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>
               
               From Brief
               <br />
-              <span className="text-lavender">to Buyers</span>
+              <span style={{ color: '#F5F1EA' }}>to Buyers</span>
             </h2>
           </div>
-          <p className="font-mono text-sm text-pearl/40 max-w-sm leading-relaxed">
+          <p className="font-mono text-sm max-w-sm leading-relaxed" style={{ color: '#B8B0A4' }}>
             Every project moves through four clear phases, from kick-off brief to rolling delivery to refinement to published,{' '}
             <br />
             ready-to-run content.
@@ -101,7 +101,7 @@ export default function ProcessSection() {
             className={`iridescent-cell rounded-2xl overflow-hidden reveal-up flex flex-col`}
             style={{
               transitionDelay: `${idx * 100}ms`,
-              border: '1px solid rgba(196,181,247,0.1)',
+              border: '1px solid rgba(138,126,109,0.15)',
               background: 'var(--loom-black)'
             }}>
             
@@ -132,8 +132,8 @@ export default function ProcessSection() {
                   className="font-mono text-xs font-bold px-2 py-1 rounded"
                   style={{
                     background: 'rgba(13,13,18,0.8)',
-                    border: '1px solid rgba(196,181,247,0.3)',
-                    color: '#C4B5F7'
+                    border: '1px solid rgba(138,126,109,0.35)',
+                    color: '#8A7E6D'
                   }}>
                   
                     {step?.step}
@@ -143,10 +143,10 @@ export default function ProcessSection() {
 
               {/* Content */}
               <div className="p-5 flex-1 flex flex-col gap-2">
-                <h3 className="font-manrope font-semibold text-pearl text-base tracking-tight">
+                <h3 className="font-manrope font-semibold text-base tracking-tight" style={{ color: '#F5F1EA' }}>
                   {step?.label}
                 </h3>
-                <p className="font-mono text-xs text-pearl/50 leading-relaxed">
+                <p className="font-mono text-xs leading-relaxed" style={{ color: '#B8B0A4' }}>
                   {step?.description}
                 </p>
               </div>
@@ -155,7 +155,7 @@ export default function ProcessSection() {
               <div
               className="h-px mx-5 mb-4"
               style={{
-                background: 'linear-gradient(90deg, rgba(217,70,168,0.5), rgba(196,181,247,0.2), transparent)'
+                background: 'linear-gradient(90deg, rgba(138,126,109,0.5), rgba(138,126,109,0.2), transparent)'
               }} />
             
             </div>
@@ -175,11 +175,11 @@ export default function ProcessSection() {
               key={i}
               className="font-manrope text-2xl font-semibold whitespace-nowrap"
               style={{
-                color: i % 3 === 0 ? 'rgba(196,181,247,0.4)' : i % 3 === 1 ? 'rgba(217,70,168,0.3)' : 'rgba(232,228,240,0.15)'
+                color: i % 3 === 0 ? 'rgba(138,126,109,0.5)' : i % 3 === 1 ? 'rgba(138,126,109,0.3)' : 'rgba(245,241,234,0.15)'
               }}>
               
                 {tech}
-                <span className="mx-6 text-lavender/20">·</span>
+                <span className="mx-6" style={{ color: 'rgba(138,126,109,0.25)' }}>·</span>
               </span>
             )}
           </div>
