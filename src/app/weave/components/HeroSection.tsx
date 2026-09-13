@@ -144,8 +144,8 @@ export default function HeroSection() {
 
         {/* Main headline */}
         <h1
-          className="pulse-opacity font-manrope font-semibold leading-[0.9] tracking-tight mb-8 max-w-3xl"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: '#F5F1EA' }}>
+          className="pulse-opacity font-semibold leading-[0.9] tracking-tight mb-8 max-w-3xl"
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: '#F5F1EA', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif' }}>
 
           <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
             <span style={{ color: '#F5F1EA', ...wordFadeStyle(0) }}>Every</span>
