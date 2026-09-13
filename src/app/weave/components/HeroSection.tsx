@@ -161,7 +161,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Sub-copy */}
-        <p className="max-w-md mb-10 tracking-wide text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }} suppressHydrationWarning>
+        <p className="max-w-md mb-10 tracking-wide text-base font-normal" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }} suppressHydrationWarning>
           We turn your project into content that does the selling before anyone picks up the phone.
         </p>
 
