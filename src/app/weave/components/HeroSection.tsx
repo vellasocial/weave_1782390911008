@@ -182,7 +182,8 @@ export default function HeroSection() {
               boxShadow: '0 0 32px rgba(42,38,34,0.5)',
               border: '1px solid rgba(255,255,255,0.35)',
               WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
+              touchAction: 'manipulation',
+              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif'
             }}>
 
             ENQUIRE
