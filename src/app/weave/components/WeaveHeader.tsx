@@ -71,7 +71,7 @@ export default function WeaveHeader() {
             style={{
               background: '#2A2622',
               color: '#F5F1EA',
-              border: '0.5px solid rgba(255,255,255,0.8)',
+              border: '1px solid rgba(255,255,255,0.35)',
               fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
             }}
             onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
