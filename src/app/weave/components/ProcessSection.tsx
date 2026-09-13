@@ -87,9 +87,9 @@ export default function ProcessSection() {
             </h2>
           </div>
           <p className="font-mono text-sm max-w-sm leading-relaxed" style={{ color: '#B8B0A4', fontFamily: 'Helvetica', fontStyle: 'oblique' }}>
-            Every project moves through four clear phases, from kick-off brief to rolling delivery to refinement to published,{' '}
-            <br />
-            ready-to-run content.
+            Every project moves through four clear phases —<br />
+            kick-off, rolling delivery, refinement,<br />
+            and published, ready-to-run content.
           </p>
         </div>
 
