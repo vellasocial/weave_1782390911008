@@ -193,7 +193,7 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 right-8 z-10 flex flex-col items-center gap-2">
-        <span className="font-mono text-[10px] tracking-[0.3em] uppercase rotate-90 mb-4" style={{ color: 'rgba(245,241,234,0.3)' }}>Scroll</span>
+        <span className="font-mono text-[10px] tracking-[0.3em] uppercase rotate-90 mb-4" style={{ color: 'rgba(245,241,234,0.3)', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300 }}>Scroll</span>
         <div className="w-px h-16" style={{ background: 'linear-gradient(to bottom, rgba(138,126,109,0.4), transparent)' }} />
       </div>
     </section>);
