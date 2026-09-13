@@ -67,11 +67,12 @@ export default function WeaveHeader() {
                 document.body.style.overflow = 'hidden';
               }
             }}
-            className="flex items-center gap-2 px-5 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all duration-300"
+            className="flex items-center gap-2 px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300"
             style={{
               background: '#2A2622',
               color: '#F5F1EA',
-              border: '1px solid rgba(255,255,255,1)'
+              border: '1px solid rgba(255,255,255,1)',
+              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
             }}
             onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
             onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.opacity = '1'}
