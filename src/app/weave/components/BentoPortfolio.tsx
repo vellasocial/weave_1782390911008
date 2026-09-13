@@ -274,7 +274,7 @@ export default function BentoPortfolio() {
 
             </h2>
           </div>
-          <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'italic' }}>Examples of the work we create for projects like yours.
+          <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}>Examples of the work we create for projects like yours.
 
           </p>
         </div>
