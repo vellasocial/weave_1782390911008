@@ -139,7 +139,7 @@ export default function HeroSection() {
         {/* Label */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
           <span className="w-12 h-px" style={{ background: '#8A7E6D', opacity: 0.6 }} />
-          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D', fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 400 }}>PROPERTY MARKETING CAMPAIGNS</span>
+          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D', fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 300 }}>PROPERTY MARKETING CAMPAIGNS</span>
         </div>
 
         {/* Main headline */}
