@@ -60,7 +60,7 @@ export default function FloatingCTA() {
     <button
       onClick={openPanel}
       aria-label="Enquire"
-      className={`fixed right-8 z-50 flex items-center gap-3 px-6 py-4 rounded-full font-manrope font-semibold text-sm transition-all duration-300 ${
+      className={`fixed right-8 z-50 flex items-center gap-3 px-6 py-4 rounded-full font-semibold text-sm transition-all duration-300 ${
         pulsing ? 'cta-pulse' : ''
       } ${
         visible
@@ -76,6 +76,7 @@ export default function FloatingCTA() {
         boxShadow: pulsing
           ? '0 0 32px rgba(42,38,34,0.6), 0 8px 24px rgba(0,0,0,0.4)'
           : '0 8px 24px rgba(42,38,34,0.4), 0 4px 12px rgba(0,0,0,0.3)',
+        fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif',
       }}
     >
       ENQUIRE
