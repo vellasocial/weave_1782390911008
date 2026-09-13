@@ -401,7 +401,9 @@ export default function BentoPortfolio() {
             fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
             color: '#B8B0A4'
           }}>
-          Every ad is built from a full production toolkit: script, voiceover, AI photo, AI video, editing, sound design, original music, and captions, tailored to what each ad needs.
+          Every ad is built from a full production toolkit: <br />
+          script, voiceover, AI photo, AI video, editing, sound design, original music, and captions. <br />
+          Tailored to what each ad needs.
         </span>
       </div>
     </section>);
