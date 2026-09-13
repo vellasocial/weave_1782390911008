@@ -71,7 +71,7 @@ export default function WeaveHeader() {
             style={{
               background: '#2A2622',
               color: '#F5F1EA',
-              border: '1px solid rgba(42,38,34,0.8)'
+              border: '1px solid rgba(255,255,255,0.35)'
             }}
             onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
             onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.opacity = '1'}

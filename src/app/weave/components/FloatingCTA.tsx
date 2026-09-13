@@ -72,6 +72,7 @@ export default function FloatingCTA() {
         transition: 'bottom 0.3s ease, opacity 0.3s ease, transform 0.3s ease',
         background: '#2A2622',
         color: '#F5F1EA',
+        border: '1px solid rgba(255,255,255,0.35)',
         boxShadow: pulsing
           ? '0 0 32px rgba(42,38,34,0.6), 0 8px 24px rgba(0,0,0,0.4)'
           : '0 8px 24px rgba(42,38,34,0.4), 0 4px 12px rgba(0,0,0,0.3)',
