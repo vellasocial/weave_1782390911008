@@ -25,11 +25,20 @@ export const metadata: Metadata = {
     url: 'https://vellasocial.com',
     siteName: 'VELLASOCIAL',
     type: 'website',
+    images: [
+      {
+        url: 'https://vellasocial.com/assets/images/vella_circle_grey-1789299848363.png',
+        width: 1200,
+        height: 1200,
+        alt: 'VELLASOCIAL Logo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'VELLASOCIAL',
     description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
+    images: ['https://vellasocial.com/assets/images/vella_circle_grey-1789299848363.png'],
   },
 };
 
