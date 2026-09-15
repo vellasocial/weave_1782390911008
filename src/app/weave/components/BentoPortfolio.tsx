@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
-type FilterType = 'All' | 'Ads' | 'Reels' | 'Carousels';
+type FilterType = 'All';
 
 interface BentoCell {
   id: number;
@@ -19,15 +19,37 @@ interface BentoCell {
 
 const cells: BentoCell[] = [
 {
+  id: 18,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  category: ['Ads'],
+  size: 'wide',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png",
+  alt: 'The Sanctuary - Tranquility Bali campaign video',
+  tag: 'ad',
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga&profile=cld-default'
+},
+{
+  id: 19,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  category: ['Ads'],
+  size: 'wide',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
+  alt: 'The Sanctuary - Tranquility Bali original campaign video',
+  tag: 'ad',
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Three_Bedroom_Hero_evdphr'
+},
+{
   id: 1,
   title: 'Nara Villas',
   subtitle: 'Balitecture',
   category: ['Ads'],
   size: 'wide',
-  image: "https://cdn-cf-east.streamable.com/image/ugrvg7.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg",
   alt: 'Close-up of midnight blue jacquard weave with gold thread repeats',
   tag: 'ad',
-  video: 'https://streamable.com/e/v9rquu'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Balitecture_-_Nara_Villas_3_bedroom_fzc2g6'
 },
 {
   id: 15,
@@ -35,10 +57,10 @@ const cells: BentoCell[] = [
   subtitle: 'Roam International',
   category: ['Ads'],
   size: 'small',
-  image: "https://cdn-cf-east.streamable.com/image/hxxe4z.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png",
   alt: 'Digital campaign video reel',
   tag: 'ad',
-  video: 'https://streamable.com/e/c5vxww'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=The_Nest_5_xyo8ln'
 },
 {
   id: 17,
@@ -46,14 +68,14 @@ const cells: BentoCell[] = [
   subtitle: 'Element Bali',
   category: ['Ads'],
   size: 'small',
-  image: "https://cdn-cf-east.streamable.com/image/bzwwvl.jpg",
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847673/penthouse_vertical_s1ssnr.png",
   alt: 'Campaign video reel',
   tag: 'ad',
-  video: 'https://streamable.com/e/vxf8ih'
+  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Elements_4_v1_final_bvxkhd'
 }];
 
 
-const FILTERS: FilterType[] = ['All', 'Ads', 'Reels', 'Carousels'];
+const FILTERS: FilterType[] = ['All'];
 
 const sizeClasses: Record<BentoCell['size'], string> = {
   small: 'col-span-2 row-span-1',
@@ -76,7 +98,38 @@ export default function BentoPortfolio() {
   const [visibleCells, setVisibleCells] = useState<BentoCell[]>(cells);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [unmuted, setUnmuted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const handlePlayClick = (cell: BentoCell) => {
+    if (!cell.video) return;
+    setUnmuted(true);
+    setPlayingVideo(cell.video);
+    // Notify HeroSection to mute background audio
+    window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: true } }));
+  };
+
+  useEffect(() => {
+    if (playingVideo) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.setAttribute('data-video-open', 'true');
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.removeAttribute('data-video-open');
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.removeAttribute('data-video-open');
+    };
+  }, [playingVideo]);
 
   useEffect(() => {
     if (activeFilter === 'All') {
@@ -118,24 +171,91 @@ export default function BentoPortfolio() {
       {/* Video Lightbox Modal */}
       {playingVideo &&
       <div
+        ref={videoContainerRef}
         className="fixed inset-0 z-50 flex items-center justify-center"
-        style={{ background: 'rgba(0,0,0,0.85)' }}
-        onClick={() => setPlayingVideo(null)}>
+        style={{ background: 'rgba(0,0,0,0.95)' }}
+        onClick={() => {
+          setPlayingVideo(null);
+          setUnmuted(false);
+          // Notify HeroSection to restore background audio
+          window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
+        }}>
+          {/* Close button — always on top, outside the video click-stop zone */}
+          <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setPlayingVideo(null);
+            setUnmuted(false);
+            // Notify HeroSection to restore background audio
+            window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
+          }}
+          className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
+          style={{
+            background: 'rgba(0,0,0,0.6)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            borderRadius: '999px',
+            padding: '8px 16px',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            touchAction: 'manipulation'
+          }}>
+            ✕ Close
+          </button>
           <div
           className="relative w-full max-w-2xl mx-4"
           style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
           onClick={(e) => e.stopPropagation()}>
             <iframe
-            src={`${playingVideo}?autoplay=1&loop=1`}
+            ref={iframeRef}
+            key={playingVideo}
+            src={(() => {
+              const base = playingVideo.includes('?') ?
+              `${playingVideo}&autoplay=1&loop=1&muted=false&volume=1.0&controls=1` :
+              `${playingVideo}?autoplay=1&loop=1&muted=false&volume=1.0&controls=1`;
+              return base;
+            })()}
             title="Video"
-            allow="autoplay; encrypted-media"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
+            onLoad={() => {
+              try {
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'setVolume', value: 1 }),
+                  '*'
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'unmute' }),
+                  '*'
+                );
+              } catch (_) {}
+            }}
             className="absolute inset-0 w-full h-full rounded-2xl border-0" />
-            <button
-            onClick={() => setPlayingVideo(null)}
-            className="absolute -top-10 right-0 text-white/70 hover:text-white font-mono text-sm tracking-wider uppercase transition-colors">
-              ✕ Close
-            </button>
+            {/* Unmute overlay — intercepts the first tap on the video player's play button */}
+            {!unmuted &&
+          <div
+            className="absolute inset-0 z-10 rounded-2xl"
+            style={{ background: 'transparent', cursor: 'pointer' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Send unmute + play via postMessage to video iframe
+              try {
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'unmute' }),
+                  '*'
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'setVolume', value: 1 }),
+                  '*'
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ method: 'play' }),
+                  '*'
+                );
+              } catch (_) {}
+              setUnmuted(true);
+            }} />
+
+          }
           </div>
         </div>
       }
@@ -144,44 +264,21 @@ export default function BentoPortfolio() {
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <span className="font-mono text-xs text-lavender/60 tracking-[0.2em] uppercase block mb-3">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase block mb-3" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300 }}>
               — Portfolio
             </span>
             <h2
-              className="font-manrope font-semibold text-pearl leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Campaign Library
+              className="font-manrope font-semibold leading-none tracking-tight"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>Ad Library
 
 
             </h2>
           </div>
-          <p className="font-mono text-sm text-pearl/40 max-w-xs leading-relaxed">Examples of the work we create for projects like yours.
+          <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}>Examples of the work we create for projects like yours.
 
           </p>
         </div>
 
-        {/* Filter pills */}
-        <div className="flex flex-wrap gap-3">
-          {FILTERS.map((filter) =>
-          <button
-            key={filter}
-            onClick={() => setActiveFilter(filter)}
-            className={`filter-pill px-5 py-2 rounded-full font-mono text-xs tracking-wider uppercase ${
-            activeFilter === filter ? 'active' : ''}`
-            }>
-            
-              {filter}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Ads section heading */}
-      <div className="max-w-7xl mx-auto mb-6 reveal-up">
-        <h3
-          className="font-manrope font-semibold text-pearl/80 tracking-widest uppercase"
-          style={{ fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', letterSpacing: '0.25em' }}>
-          Ads
-        </h3>
       </div>
 
       {/* Bento Grid */}
@@ -192,17 +289,17 @@ export default function BentoPortfolio() {
           className={`iridescent-cell rounded-2xl overflow-hidden cursor-pointer reveal-up flex-shrink-0`}
           style={{
             transitionDelay: `${idx * 60}ms`,
-            border: '1px solid rgba(196,181,247,0.1)',
+            border: '1px solid rgba(138,126,109,0.15)',
             background: 'var(--loom-black-2)',
             width: '240px',
             scrollSnapAlign: 'start',
             transform: hoveredId === cell.id ? 'scale(1.04)' : 'scale(1)',
             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            boxShadow: hoveredId === cell.id ? '0 8px 32px rgba(196,181,247,0.18)' : 'none'
+            boxShadow: hoveredId === cell.id ? '0 8px 32px rgba(138,126,109,0.18)' : 'none'
           }}
           onMouseEnter={() => setHoveredId(cell.id)}
           onMouseLeave={() => setHoveredId(null)}
-          onClick={() => cell.video && setPlayingVideo(cell.video)}>
+          onClick={() => handlePlayClick(cell)}>
           
             {/* Image */}
             <div className={`relative w-full overflow-hidden`} style={{ aspectRatio: '9/16' }}>
@@ -223,12 +320,12 @@ export default function BentoPortfolio() {
                   style={{
                     width: '52px',
                     height: '52px',
-                    background: 'rgba(196,181,247,0.2)',
-                    border: '2px solid rgba(196,181,247,0.7)',
+                    background: 'rgba(138,126,109,0.2)',
+                    border: '2px solid rgba(138,126,109,0.7)',
                     backdropFilter: 'blur(6px)',
                     transform: hoveredId === cell.id ? 'scale(1.12)' : 'scale(1)'
                   }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-pearl ml-1">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#F5F1EA', marginLeft: '4px' }}>
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
@@ -254,10 +351,10 @@ export default function BentoPortfolio() {
                 className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
                 style={{
                   background: cell.accent ?
-                  'rgba(217,70,168,0.3)' :
-                  'rgba(196,181,247,0.15)',
-                  border: `1px solid ${cell.accent ? 'rgba(217,70,168,0.5)' : 'rgba(196,181,247,0.3)'}`,
-                  color: cell.accent ? '#D946A8' : '#C4B5F7'
+                  'rgba(138,126,109,0.3)' :
+                  'rgba(138,126,109,0.15)',
+                  border: `1px solid ${cell.accent ? 'rgba(138,126,109,0.6)' : 'rgba(138,126,109,0.35)'}`,
+                  color: '#8A7E6D'
                 }}>
                 
                     {cell.tag}
@@ -268,16 +365,16 @@ export default function BentoPortfolio() {
               {/* Bottom info (appears on hover) */}
               <div className="absolute bottom-0 left-0 right-0 z-10 p-4 translate-y-2 opacity-0 group-hover:opacity-100 transition-all duration-400"
             style={{ background: 'linear-gradient(to top, rgba(13,13,18,0.95) 0%, transparent 100%)' }}>
-                <p className="font-manrope font-semibold text-pearl text-sm leading-tight">{cell.title}</p>
-                <p className="font-mono text-[10px] text-lavender/70 mt-0.5">{cell.subtitle}</p>
+                <p className="font-manrope font-semibold text-sm leading-tight" style={{ color: '#F5F1EA' }}>{cell.title}</p>
+                <p className="font-mono text-[10px] mt-0.5" style={{ color: '#8A7E6D' }}>{cell.subtitle}</p>
               </div>
             </div>
 
             {/* Card footer (always visible) */}
             <div className="px-4 py-3 flex items-center justify-between" style={{ background: 'var(--loom-black-2)' }}>
               <div>
-                <p className="font-manrope text-sm font-medium text-pearl/90 leading-tight">{cell.title}</p>
-                <p className="font-mono text-[10px] text-pearl/40 mt-0.5">{cell.subtitle}</p>
+                <p className="font-manrope text-sm font-medium leading-tight" style={{ color: 'rgba(245,241,234,0.9)' }}>{cell.title}</p>
+                <p className="font-mono text-[10px] mt-0.5" style={{ color: 'rgba(245,241,234,0.4)' }}>{cell.subtitle}</p>
               </div>
               <svg
               width="14"
@@ -286,7 +383,7 @@ export default function BentoPortfolio() {
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"
-              className="text-lavender/40 flex-shrink-0">
+              style={{ color: 'rgba(138,126,109,0.5)', flexShrink: 0 }}>
               
                 <path d="M7 17L17 7M7 7h10v10" />
               </svg>
@@ -297,18 +394,16 @@ export default function BentoPortfolio() {
 
       {/* Stats row */}
       <div className="max-w-7xl mx-auto mt-16 pt-12 border-t reveal-up"
-      style={{ borderColor: 'rgba(196,181,247,0.1)' }}>
+      style={{ borderColor: 'rgba(138,126,109,0.15)' }}>
         <span
           className="font-manrope font-semibold"
           style={{
             fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-            background: 'linear-gradient(135deg, #C4B5F7, #D946A8)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+            color: '#B8B0A4'
           }}>
-          Every ad includes the full production process:{' '}
-          <br />
-          script, voiceover, AI video, editing, sound design, original music, and captions
+          Every ad is built from a full production toolkit: <br />
+          script, voiceover, AI photo, AI video, editing, sound design, original music, and captions. <br />
+          Tailored to what each ad needs.
         </span>
       </div>
     </section>);
