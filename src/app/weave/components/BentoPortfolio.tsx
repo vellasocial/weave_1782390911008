@@ -304,9 +304,6 @@ export default function BentoPortfolio() {
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <span className="font-mono text-xs tracking-[0.2em] uppercase block mb-3" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300 }}>
-              — Portfolio
-            </span>
             <h2
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>
@@ -421,9 +418,6 @@ export default function BentoPortfolio() {
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <span className="font-mono text-xs tracking-[0.2em] uppercase block mb-3" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300 }}>
-              — Portfolio
-            </span>
             <h2
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>Ad Library
