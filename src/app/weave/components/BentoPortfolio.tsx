@@ -310,7 +310,7 @@ export default function BentoPortfolio() {
             <h2
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>
-              Pure Imagination
+              AI Hero Films
             </h2>
           </div>
           <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}>
