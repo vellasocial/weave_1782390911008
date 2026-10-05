@@ -27,55 +27,55 @@ export interface CharacterCard {
 export const charactersData: CharacterCard[] = [
   {
     id: 1,
-    name: 'Woman in Linen',
-    type: 'Character Sheet',
+    name: 'The Daughter',
+    type: 'Character',
     tag: 'character',
     images: [
       {
-        src: 'https://placehold.co/600x600/1a1a1a/8A7E6D?text=Portrait+%E2%80%94+Woman+in+Linen',
-        alt: 'Portrait of woman in linen outfit — square',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181108/Daughter_Headshot_e3zz2z.png',
+        alt: 'The Daughter — headshot portrait',
         aspectRatio: 'square',
-        fullSrc: 'https://placehold.co/1200x1200/1a1a1a/8A7E6D?text=Portrait+%E2%80%94+Woman+in+Linen+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181108/Daughter_Headshot_e3zz2z.png',
       },
       {
-        src: 'https://placehold.co/1200x600/1a1a1a/8A7E6D?text=Full-body+turnaround+%E2%80%94+Woman+in+Linen',
-        alt: 'Full-body turnaround of woman in linen outfit — wide',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180808/Daughter_froo8x.png',
+        alt: 'The Daughter — full turnaround',
         aspectRatio: 'wide',
-        fullSrc: 'https://placehold.co/2400x1200/1a1a1a/8A7E6D?text=Turnaround+%E2%80%94+Woman+in+Linen+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180808/Daughter_froo8x.png',
       },
     ],
   },
   {
     id: 2,
-    name: 'Older Man in Red Cap',
-    type: 'Character Sheet',
+    name: 'The Farmer',
+    type: 'Character',
     tag: 'character',
     images: [
       {
-        src: 'https://placehold.co/600x600/1a1a1a/8A7E6D?text=Portrait+%E2%80%94+Older+Man',
-        alt: 'Portrait of older man in red cap — square',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181163/Farmer_Headshot_fvsdms.png',
+        alt: 'The Farmer — headshot portrait',
         aspectRatio: 'square',
-        fullSrc: 'https://placehold.co/1200x1200/1a1a1a/8A7E6D?text=Portrait+%E2%80%94+Older+Man+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181163/Farmer_Headshot_fvsdms.png',
       },
       {
-        src: 'https://placehold.co/1200x600/1a1a1a/8A7E6D?text=Full-body+turnaround+%E2%80%94+Older+Man',
-        alt: 'Full-body turnaround of older man in red cap — wide',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180807/Farmer_br4upt.png',
+        alt: 'The Farmer — full turnaround',
         aspectRatio: 'wide',
-        fullSrc: 'https://placehold.co/2400x1200/1a1a1a/8A7E6D?text=Turnaround+%E2%80%94+Older+Man+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180807/Farmer_br4upt.png',
       },
     ],
   },
   {
     id: 3,
-    name: 'Model in Knit Set',
-    type: 'Character Sheet',
+    name: 'Casual Clothing',
+    type: 'Character Turnaround',
     tag: 'character',
     images: [
       {
-        src: 'https://placehold.co/1200x600/1a1a1a/8A7E6D?text=Full-body+turnaround+%E2%80%94+Knit+Set',
-        alt: 'Full-body turnaround of model in knit set — wide',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180817/Casual_clothing_s3ao6z.png',
+        alt: 'Casual Clothing — character turnaround',
         aspectRatio: 'wide',
-        fullSrc: 'https://placehold.co/2400x1200/1a1a1a/8A7E6D?text=Turnaround+%E2%80%94+Knit+Set+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180817/Casual_clothing_s3ao6z.png',
       },
     ],
   },
@@ -86,10 +86,10 @@ export const charactersData: CharacterCard[] = [
     tag: 'character',
     images: [
       {
-        src: 'https://placehold.co/600x900/1a1a1a/8A7E6D?text=Character+Reference+Sheet+%E2%80%94+Peter',
-        alt: 'Tall character reference sheet for Peter',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180854/Peter_-_Full_Character_Sheet_xr8jza.png',
+        alt: 'Peter — full character reference sheet',
         aspectRatio: 'tall',
-        fullSrc: 'https://placehold.co/1200x1800/1a1a1a/8A7E6D?text=Character+Sheet+%E2%80%94+Peter+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180854/Peter_-_Full_Character_Sheet_xr8jza.png',
       },
     ],
   },
@@ -100,10 +100,10 @@ export const charactersData: CharacterCard[] = [
     tag: 'location',
     images: [
       {
-        src: 'https://placehold.co/600x900/1a1a1a/8A7E6D?text=Location+Reference+Sheet+%E2%80%94+Sanaya+Rooftop',
-        alt: 'Tall location reference sheet for Sanaya Rooftop',
+        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181266/SANAYA_Location_Reference_Sheet_m4rlkr.png',
+        alt: 'Sanaya Rooftop — location reference sheet',
         aspectRatio: 'tall',
-        fullSrc: 'https://placehold.co/1200x1800/1a1a1a/8A7E6D?text=Location+Sheet+%E2%80%94+Sanaya+Rooftop+%28Full%29',
+        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181266/SANAYA_Location_Reference_Sheet_m4rlkr.png',
       },
     ],
   },
@@ -295,7 +295,7 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
 // ─── ASPECT RATIO HELPER ──────────────────────────────────────────────────────
 function aspectRatioStyle(ar: CharacterImage['aspectRatio']): string {
   if (ar === 'square') return '1 / 1';
-  if (ar === 'wide') return '2 / 1';
+  if (ar === 'wide') return '16 / 9';
   return '2 / 3';
 }
 
@@ -406,7 +406,7 @@ export default function CharactersLocations() {
                       inset: 0,
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
+                      objectFit: 'contain',
                       display: 'block',
                     }}
                   />
