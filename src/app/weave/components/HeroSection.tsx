@@ -161,8 +161,8 @@ export default function HeroSection() {
         </h1>
 
         {/* Sub-copy */}
-        <p className="max-w-md mb-10 tracking-wide text-base font-normal" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }} suppressHydrationWarning>
-          Make your brand unforgettable.
+        <p className="max-w-md mb-10 tracking-wide text-base font-normal" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'normal' }} suppressHydrationWarning>
+          Make your brand <span style={{ fontStyle: 'italic' }}>unforgettable.</span>
         </p>
 
         {/* CTA row */}
