@@ -304,6 +304,11 @@ export default function BentoPortfolio() {
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
+            <span
+              className="font-mono text-xs tracking-widest uppercase mb-3 block"
+              style={{ color: '#8A7E6D' }}>
+              — Portfolio
+            </span>
             <h2
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>
@@ -412,7 +417,7 @@ export default function BentoPortfolio() {
       {/* ── END AI FILMS ────────────────────────────────────────────────────── */}
 
       {/* Generous spacing between AI Films and Ad Library */}
-      <div className="max-w-7xl mx-auto" style={{ paddingTop: '80px', borderTop: '1px solid rgba(138,126,109,0.1)', marginTop: '64px' }} />
+      <div className="max-w-7xl mx-auto" style={{ paddingTop: '80px' }} />
 
       {/* Section header — Ad Library */}
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
