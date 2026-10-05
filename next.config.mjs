@@ -33,12 +33,6 @@ const nextConfig = {
       dev: dev
     }
   ) {
-    config.module.rules.push({
-          test: /\.(jsx|tsx)$/,
-          exclude: [/node_modules/],
-          use: [{ loader: '@dhiwise/component-tagger/nextLoader' }],
-        });
-
     if (dev) {
       const ignoredPaths = (process.env.WATCH_IGNORED_PATHS || '')
         .split(',')
@@ -49,6 +43,16 @@ const nextConfig = {
           ? ignoredPaths.map((p) => `**/${p.replace(/^\/+|\/+$/g, '')}/**`)
           : undefined,
       };
+    }
+
+    if (dev) {
+      config.module.rules.push({
+        test: /\.(jsx|tsx)$/,
+        exclude: [/node_modules/],
+        use: [{
+          loader: '@dhiwise/component-tagger/nextLoader',
+        }],
+      });
     }
 
     return config;

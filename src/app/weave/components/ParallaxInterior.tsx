@@ -47,15 +47,13 @@ export default function ParallaxInterior() {
           src="/assets/images/luke_mobile-1782429219637.jpg"
           alt="Luke, the designer behind Weave"
           fill
-          className="object-cover w-full h-full md:hidden"
-          priority />
+          className="object-cover w-full h-full md:hidden" />
         {/* Desktop image */}
         <AppImage
           src="/assets/images/mlmlm-1782425174123.jpg"
           alt="Luke, the designer behind Weave"
           fill
-          className="object-cover w-full h-full hidden md:block"
-          priority />
+          className="object-cover w-full h-full hidden md:block" />
       </div>
 
       {/* Dark gradient overlay */}
@@ -71,7 +69,7 @@ export default function ParallaxInterior() {
           {/* Label */}
           <p
             className="text-xs uppercase tracking-[0.25em] mb-4 font-medium"
-            style={{ color: 'rgba(196,181,247,0.85)' }}>
+            style={{ color: '#8A7E6D' }}>
             About Me
           </p>
 
@@ -93,25 +91,25 @@ export default function ParallaxInterior() {
           <div
             className="w-12 h-px mb-6"
             style={{
-              background: 'linear-gradient(90deg, rgba(196,181,247,0.8), rgba(217,70,168,0.6))'
+              background: 'linear-gradient(90deg, rgba(138,126,109,0.8), rgba(138,126,109,0.3))'
             }} />
 
           {/* Bio */}
           <p
             className="text-sm md:text-base leading-relaxed"
-            style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '38ch' }}>
-            I'm Luke, the founder of Vella Social. When I first arrived in bali, I couldn't ignore how many developments sat unfinished in a market this hot, often let down by marketing that never gave buyers a reason to act. I started this agency to change that, with cinematic AI-driven marketing campaigns built to sell projects before a buyer ever sets foot on site.
+            style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '38ch' }}>I'm Luke, the founder of Vella Social. Working across property markets, I kept seeing the same thing: developments sitting unfinished in areas with real demand, often let down by marketing that never gave buyers a reason to act. I started this agency to change that, with cinematic AI-driven marketing campaigns built to sell projects before a buyer ever sets foot on site.
+
           </p>
         </div>
       </div>
 
-      {/* Iridescent bottom divider */}
+      {/* Bottom divider */}
       <div
         className="absolute bottom-0 left-0 right-0 h-px"
         style={{
-          background: 'linear-gradient(90deg, transparent, rgba(196,181,247,0.5), rgba(217,70,168,0.5), rgba(196,181,247,0.3), transparent)'
+          background: 'linear-gradient(90deg, transparent, rgba(138,126,109,0.5), rgba(138,126,109,0.3), transparent)'
         }} />
 
-    </div>
-  );
+    </div>);
+
 }
