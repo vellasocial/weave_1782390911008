@@ -139,7 +139,7 @@ export default function HeroSection() {
         {/* Label */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
           <span className="w-12 h-px" style={{ background: '#8A7E6D', opacity: 0.6 }} />
-          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif', fontWeight: 300 }}>PROPERTY MARKETING CAMPAIGNS</span>
+          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif', fontWeight: 300 }}>AI CREATIVE STUDIO</span>
         </div>
 
         {/* Main headline */}
@@ -150,7 +150,7 @@ export default function HeroSection() {
           <span style={{ display: 'block', whiteSpace: 'nowrap', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif' }}>
             <span style={{ color: '#F5F1EA', ...wordFadeStyle(0) }}>Every</span>
             {' '}
-            <span style={{ color: '#F5F1EA', ...wordFadeStyle(1) }}>development</span>
+            <span style={{ color: '#F5F1EA', ...wordFadeStyle(1) }}>brand</span>
           </span>
           <span style={{ display: 'block' }}>
             <span style={{ color: '#F5F1EA', ...wordFadeStyle(2) }}>deserves</span>
@@ -162,7 +162,7 @@ export default function HeroSection() {
 
         {/* Sub-copy */}
         <p className="max-w-md mb-10 tracking-wide text-base font-normal" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }} suppressHydrationWarning>
-          We turn your project into content that does the selling before anyone picks up the phone.
+          Make your brand unforgettable.
         </p>
 
         {/* CTA row */}

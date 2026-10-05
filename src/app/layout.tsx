@@ -10,7 +10,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'VELLASOCIAL',
-  description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
+  description: 'Cinematic AI content and ads that make your brand unforgettable. No film crews, no shoot days, no agency markup.',
   icons: {
     icon: [
       { url: '/assets/images/vella_circle_grey-1789299848363.png', type: 'image/png', sizes: '32x32' },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'VELLASOCIAL',
-    description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
+    description: 'Cinematic AI content and ads that make your brand unforgettable. No film crews, no shoot days, no agency markup.',
     url: 'https://vellasocial.com',
     siteName: 'VELLASOCIAL',
     type: 'website',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'VELLASOCIAL',
-    description: 'We create cinematic video ads that sell Bali luxury property to international investors. No film crews, no agency markup.',
+    description: 'Cinematic AI content and ads that make your brand unforgettable. No film crews, no shoot days, no agency markup.',
     images: ['https://vellasocial.com/assets/images/vella_circle_grey-1789299848363.png'],
   },
 };
