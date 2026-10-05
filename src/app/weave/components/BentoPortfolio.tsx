@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import CharactersLocations from './CharactersLocations';
 
@@ -23,7 +23,7 @@ const cells: BentoCell[] = [
   id: 18,
   title: 'The Sanctuary',
   subtitle: 'Tranquility Bali',
-  category: ['Ads'],
+  category: ['All'],
   size: 'wide',
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png",
   alt: 'The Sanctuary - Tranquility Bali campaign video',
@@ -34,7 +34,7 @@ const cells: BentoCell[] = [
   id: 19,
   title: 'The Sanctuary',
   subtitle: 'Tranquility Bali',
-  category: ['Ads'],
+  category: ['All'],
   size: 'wide',
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
   alt: 'The Sanctuary - Tranquility Bali original campaign video',
@@ -45,7 +45,7 @@ const cells: BentoCell[] = [
   id: 1,
   title: 'Nara Villas',
   subtitle: 'Balitecture',
-  category: ['Ads'],
+  category: ['All'],
   size: 'wide',
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg",
   alt: 'Close-up of midnight blue jacquard weave with gold thread repeats',
@@ -56,7 +56,7 @@ const cells: BentoCell[] = [
   id: 15,
   title: 'The Nest',
   subtitle: 'Roam International',
-  category: ['Ads'],
+  category: ['All'],
   size: 'small',
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png",
   alt: 'Digital campaign video reel',
@@ -64,10 +64,7 @@ const cells: BentoCell[] = [
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=The_Nest_5_xyo8ln'
 }];
 
-
 // ─── AI Films ────────────────────────────────────────────────────────────────
-// Add more entries by duplicating an object in this array.
-// Each entry needs: video (Cloudinary .mp4 or embed URL), image (poster), title, subtitle.
 const aiFilmsData: BentoCell[] = [
   {
     id: 1001,
@@ -123,39 +120,79 @@ const heightClasses: Record<BentoCell['size'], string> = {
   large: 'h-64'
 };
 
+// Returns true if the URL is a direct video file (not an embed page)
+function isDirectMp4(url: string): boolean {
+  return url.includes('res.cloudinary.com') && url.includes('/video/upload/') && url.endsWith('.mp4');
+}
+
+// Build iframe src for Cloudinary embed URLs
+function buildIframeSrc(url: string): string {
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}autoplay=1&muted=0&controls=1&loop=0`;
+}
+
 export default function BentoPortfolio() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('All');
   const [visibleCells, setVisibleCells] = useState<BentoCell[]>(cells);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-  const [unmuted, setUnmuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const nativeVideoRef = useRef<HTMLVideoElement>(null);
 
-  // Helper: build the iframe src for both embed URLs and raw .mp4 URLs
-  const buildVideoSrc = (url: string) => {
-    // Raw Cloudinary .mp4 → wrap in Cloudinary player embed
-    if (url.includes('res.cloudinary.com') && url.endsWith('.mp4')) {
-      const match = url.match(/res\.cloudinary\.com\/([^/]+)\/video\/upload\/(?:v\d+\/)?(.+)\.mp4/);
-      if (match) {
-        const cloudName = match[1];
-        const publicId = match[2];
-        return `https://player.cloudinary.com/embed/?cloud_name=${cloudName}&public_id=${publicId}&profile=cld-default&autoplay=1&loop=1&muted=false&volume=1.0&controls=1`;
-      }
+  const closeVideo = useCallback(() => {
+    // Pause and reset native video
+    if (nativeVideoRef.current) {
+      nativeVideoRef.current.pause();
+      nativeVideoRef.current.currentTime = 0;
     }
-    // Already an embed URL
-    const sep = url.includes('?') ? '&' : '?';
-    return `${url}${sep}autoplay=1&loop=1&muted=false&volume=1.0&controls=1`;
-  };
+    setPlayingVideo(null);
+    setIsMuted(false);
+    window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
+  }, []);
 
-  const handlePlayClick = (cell: BentoCell) => {
+  const handlePlayClick = useCallback((cell: BentoCell) => {
     if (!cell.video) return;
-    setUnmuted(true);
+
+    // Stop any currently playing native video
+    if (nativeVideoRef.current) {
+      nativeVideoRef.current.pause();
+      nativeVideoRef.current.currentTime = 0;
+    }
+
+    setIsMuted(false);
     setPlayingVideo(cell.video);
-    // Notify HeroSection to mute background audio
     window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: true } }));
-  };
+  }, []);
+
+  // When a native video is ready, attempt to play with sound; fall back to muted
+  const handleNativeVideoReady = useCallback(() => {
+    const video = nativeVideoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    video.volume = 1;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Browser blocked unmuted autoplay — play muted instead
+        video.muted = true;
+        setIsMuted(true);
+        video.play().catch(() => {});
+      });
+    }
+  }, []);
+
+  const handleUnmute = useCallback(() => {
+    const video = nativeVideoRef.current;
+    if (!video) return;
+    video.muted = false;
+    video.volume = 1;
+    setIsMuted(false);
+  }, []);
 
   useEffect(() => {
     if (playingVideo) {
@@ -186,7 +223,6 @@ export default function BentoPortfolio() {
   }, [activeFilter]);
 
   useEffect(() => {
-    // Force all reveal-up elements visible after filter change
     const items = sectionRef.current?.querySelectorAll('.reveal-up');
     items?.forEach((el) => el.classList.add('visible'));
   }, [visibleCells]);
@@ -207,6 +243,8 @@ export default function BentoPortfolio() {
     return () => observer.disconnect();
   }, [visibleCells]);
 
+  const isNative = playingVideo ? isDirectMp4(playingVideo) : false;
+
   return (
     <section
       id="portfolio"
@@ -214,92 +252,85 @@ export default function BentoPortfolio() {
       className="relative py-24 px-6 md:px-12"
       style={{ background: 'var(--loom-black)' }}>
       
-      {/* Video Lightbox Modal */}
-      {playingVideo &&
-      <div
-        ref={videoContainerRef}
-        className="fixed inset-0 z-50 flex items-center justify-center"
-        style={{ background: 'rgba(0,0,0,0.95)' }}
-        onClick={() => {
-          setPlayingVideo(null);
-          setUnmuted(false);
-          // Notify HeroSection to restore background audio
-          window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
-        }}>
-          {/* Close button — always on top, outside the video click-stop zone */}
+      {/* ── VIDEO LIGHTBOX MODAL ─────────────────────────────────────────────── */}
+      {playingVideo && (
+        <div
+          ref={videoContainerRef}
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.95)' }}
+          onClick={closeVideo}>
+
+          {/* Close button */}
           <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setPlayingVideo(null);
-            setUnmuted(false);
-            // Notify HeroSection to restore background audio
-            window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: false } }));
-          }}
-          className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
-          style={{
-            background: 'rgba(0,0,0,0.6)',
-            border: '1px solid rgba(255,255,255,0.3)',
-            borderRadius: '999px',
-            padding: '8px 16px',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            touchAction: 'manipulation'
-          }}>
+            onClick={(e) => { e.stopPropagation(); closeVideo(); }}
+            className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 text-white font-mono text-sm tracking-wider uppercase transition-colors"
+            style={{
+              background: 'rgba(0,0,0,0.6)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '999px',
+              padding: '8px 16px',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              touchAction: 'manipulation'
+            }}>
             ✕ Close
           </button>
-          <div
-          className="relative w-full max-w-2xl mx-4"
-          style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
-          onClick={(e) => e.stopPropagation()}>
-            <iframe
-            ref={iframeRef}
-            key={playingVideo}
-            src={buildVideoSrc(playingVideo)}
-            title="Video"
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowFullScreen
-            onLoad={() => {
-              try {
-                iframeRef.current?.contentWindow?.postMessage(
-                  JSON.stringify({ method: 'setVolume', value: 1 }),
-                  '*'
-                );
-                iframeRef.current?.contentWindow?.postMessage(
-                  JSON.stringify({ method: 'unmute' }),
-                  '*'
-                );
-              } catch (_) {}
-            }}
-            className="absolute inset-0 w-full h-full rounded-2xl border-0" />
-            {/* Unmute overlay — intercepts the first tap on the video player's play button */}
-            {!unmuted &&
-          <div
-            className="absolute inset-0 z-10 rounded-2xl"
-            style={{ background: 'transparent', cursor: 'pointer' }}
-            onClick={(e) => {
-              e.stopPropagation();
-              // Send unmute + play via postMessage to video iframe
-              try {
-                iframeRef.current?.contentWindow?.postMessage(
-                  JSON.stringify({ method: 'unmute' }),
-                  '*'
-                );
-                iframeRef.current?.contentWindow?.postMessage(
-                  JSON.stringify({ method: 'setVolume', value: 1 }),
-                  '*'
-                );
-                iframeRef.current?.contentWindow?.postMessage(
-                  JSON.stringify({ method: 'play' }),
-                  '*'
-                );
-              } catch (_) {}
-              setUnmuted(true);
-            }} />
 
-          }
+          <div
+            className="relative w-full max-w-2xl mx-4"
+            style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
+            onClick={(e) => e.stopPropagation()}>
+
+            {isNative ? (
+              /* ── Native <video> for direct .mp4 files (AI Films) ── */
+              <>
+                <video
+                  ref={nativeVideoRef}
+                  key={playingVideo}
+                  src={playingVideo}
+                  playsInline
+                  controls
+                  preload="auto"
+                  onCanPlay={handleNativeVideoReady}
+                  className="absolute inset-0 w-full h-full rounded-2xl"
+                  style={{ objectFit: 'contain', background: '#000' }}
+                />
+                {/* Muted fallback unmute button */}
+                {isMuted && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleUnmute(); }}
+                    className="absolute bottom-16 left-1/2 z-20 flex items-center gap-2 font-mono text-xs tracking-wider uppercase"
+                    style={{
+                      transform: 'translateX(-50%)',
+                      background: 'rgba(0,0,0,0.75)',
+                      border: '1px solid rgba(255,255,255,0.4)',
+                      borderRadius: '999px',
+                      padding: '8px 20px',
+                      color: '#F5F1EA',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      touchAction: 'manipulation'
+                    }}>
+                    🔊 Tap to unmute
+                  </button>
+                )}
+              </>
+            ) : (
+              /* ── Iframe for Cloudinary embed URLs (Ad Library) ── */
+              <iframe
+                ref={iframeRef}
+                key={playingVideo}
+                src={buildIframeSrc(playingVideo)}
+                title="Video"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full rounded-2xl border-0"
+              />
+            )}
           </div>
         </div>
-      }
+      )}
+      {/* ── END VIDEO LIGHTBOX ───────────────────────────────────────────────── */}
 
       {/* ── AI FILMS SUBSECTION ─────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
@@ -427,15 +458,11 @@ export default function BentoPortfolio() {
             <h2
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>Ad Library
-
-
             </h2>
           </div>
           <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}>Examples of the work we create for projects like yours.
-
           </p>
         </div>
-
       </div>
 
       {/* Bento Grid */}
@@ -496,7 +523,6 @@ export default function BentoPortfolio() {
               fill
               className="cell-img object-cover w-full h-full" />
             }
-            
 
               {/* Iridescent overlay on hover */}
               <div className="cell-overlay" />
@@ -513,7 +539,6 @@ export default function BentoPortfolio() {
                   border: `1px solid ${cell.accent ? 'rgba(138,126,109,0.6)' : 'rgba(138,126,109,0.35)'}`,
                   color: '#8A7E6D'
                 }}>
-                
                     {cell.tag}
                   </span>
                 </div>
@@ -541,7 +566,6 @@ export default function BentoPortfolio() {
               stroke="currentColor"
               strokeWidth="1.5"
               style={{ color: 'rgba(138,126,109,0.5)', flexShrink: 0 }}>
-              
                 <path d="M7 17L17 7M7 7h10v10" />
               </svg>
             </div>
@@ -550,7 +574,6 @@ export default function BentoPortfolio() {
       </div>
 
       {/* ── CHARACTERS & LOCATIONS ──────────────────────────────────────────── */}
-      {/* Same 80px spacing as between AI Films and Ad Library */}
       <div className="max-w-7xl mx-auto" style={{ paddingTop: '80px' }} />
       <CharactersLocations />
       {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
@@ -569,6 +592,6 @@ export default function BentoPortfolio() {
           Tailored to what each project needs.
         </span>
       </div>
-    </section>);
-
+    </section>
+  );
 }
