@@ -71,7 +71,7 @@ const aiFilmsData: BentoCell[] = [
   {
     id: 1001,
     video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172771/Bali_Beans_Reel_pgvb3x.mp4',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791172771/Bali_Beans_Reel_pgvb3x.jpg',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png',
     title: 'Bali Beans',
     subtitle: 'AI Film',
     alt: 'Bali Beans Reel',
@@ -82,7 +82,7 @@ const aiFilmsData: BentoCell[] = [
   {
     id: 1002,
     video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172768/The_Hum_Reel_tu7u7m.mp4',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791172768/The_Hum_Reel_tu7u7m.jpg',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png',
     title: 'The Hum',
     subtitle: 'AI Film',
     alt: 'The Hum Reel',
@@ -93,7 +93,7 @@ const aiFilmsData: BentoCell[] = [
   {
     id: 1003,
     video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172768/Sanaya_Reel_dohd3g.mp4',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791172768/Sanaya_Reel_dohd3g.jpg',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png',
     title: 'Sanaya',
     subtitle: 'AI Film',
     alt: 'Sanaya Reel',
