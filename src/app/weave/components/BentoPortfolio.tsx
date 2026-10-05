@@ -305,7 +305,7 @@ export default function BentoPortfolio() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <span className="font-mono text-xs tracking-[0.2em] uppercase block mb-3" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300 }}>
-              — AI Films
+              — Portfolio
             </span>
             <h2
               className="font-manrope font-semibold leading-none tracking-tight"
