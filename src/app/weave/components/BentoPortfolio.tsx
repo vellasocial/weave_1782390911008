@@ -28,7 +28,7 @@ const cells: BentoCell[] = [
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png",
   alt: 'The Sanctuary - Tranquility Bali campaign video',
   tag: 'ad',
-  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga&profile=cld-default'
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga.mp4'
 },
 {
   id: 19,
@@ -39,7 +39,7 @@ const cells: BentoCell[] = [
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
   alt: 'The Sanctuary - Tranquility Bali original campaign video',
   tag: 'ad',
-  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Three_Bedroom_Hero_evdphr'
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/Three_Bedroom_Hero_evdphr.mp4'
 },
 {
   id: 1,
@@ -50,7 +50,7 @@ const cells: BentoCell[] = [
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg",
   alt: 'Close-up of midnight blue jacquard weave with gold thread repeats',
   tag: 'ad',
-  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Balitecture_-_Nara_Villas_3_bedroom_fzc2g6'
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6.mp4'
 },
 {
   id: 15,
@@ -61,7 +61,7 @@ const cells: BentoCell[] = [
   image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png",
   alt: 'Digital campaign video reel',
   tag: 'ad',
-  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=The_Nest_5_xyo8ln'
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/The_Nest_5_xyo8ln.mp4'
 }];
 
 // ─── AI Films ────────────────────────────────────────────────────────────────
