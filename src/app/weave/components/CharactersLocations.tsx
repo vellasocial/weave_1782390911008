@@ -343,7 +343,7 @@ export default function CharactersLocations() {
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}
             >
-              Every Face, Every Place
+              Consistent by Design
             </h2>
           </div>
           <p
