@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import AppImage from '@/components/ui/AppImage';
+import CharactersLocations from './CharactersLocations';
 
 type FilterType = 'All';
 
@@ -547,6 +548,12 @@ export default function BentoPortfolio() {
           </div>
         )}
       </div>
+
+      {/* ── CHARACTERS & LOCATIONS ──────────────────────────────────────────── */}
+      {/* Same 80px spacing as between AI Films and Ad Library */}
+      <div className="max-w-7xl mx-auto" style={{ paddingTop: '80px' }} />
+      <CharactersLocations />
+      {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
 
       {/* Stats row */}
       <div className="max-w-7xl mx-auto mt-16 pt-12 border-t reveal-up"
