@@ -61,17 +61,6 @@ const cells: BentoCell[] = [
   alt: 'Digital campaign video reel',
   tag: 'ad',
   video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=The_Nest_5_xyo8ln'
-},
-{
-  id: 17,
-  title: 'Residence',
-  subtitle: 'Element Bali',
-  category: ['Ads'],
-  size: 'small',
-  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847673/penthouse_vertical_s1ssnr.png",
-  alt: 'Campaign video reel',
-  tag: 'ad',
-  video: 'https://player.cloudinary.com/embed/?cloud_name=wle6dmxs&public_id=Elements_4_v1_final_bvxkhd'
 }];
 
 
