@@ -13,7 +13,7 @@ interface PricingGroup {
 
 const pricingGroups: PricingGroup[] = [
   {
-    title: 'SIGNATURE WORK',
+    title: 'PREMIUM',
     items: [
       { name: 'Signature Films', price: '$350 per film', note: 'Hero films, social and website' },
       { name: 'Luxury Property Films', price: '$350 per film', note: 'Villas and resorts from renders' },

@@ -419,7 +419,7 @@ export default function BentoPortfolio() {
         label="Signature Films"
         heading="The hero film your brand is remembered by."
         description="Our highest tier. Full cinematic production, built shot by shot for launches and flagship campaigns."
-        tier={{ title: 'Signature Work', subtext: 'Premium films, made to set the standard for a brand.' }}
+        tier={{ title: 'Premium', subtext: 'Premium films, made to set the standard for a brand.' }}
         price="$350"
         service="Signature Films">
         <div className="grid grid-cols-2 gap-4">

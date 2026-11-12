@@ -10,17 +10,17 @@ interface SplitService {
   price: string;
   thumb: string;
   thumbAlt: string;
-  group: 'SIGNATURE' | 'ADS & CONTENT';
+  group: 'PREMIUM' | 'ADS & CONTENT';
 }
 
 const services: SplitService[] = [
-  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png', thumbAlt: 'Bali Beans signature film still', group: 'SIGNATURE' },
-  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'From $950', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png', thumbAlt: 'Sudana family documentary-style film still', group: 'SIGNATURE' },
-  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas luxury property film still', group: 'SIGNATURE' },
-  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png', thumbAlt: 'Sanaya character still', group: 'SIGNATURE' },
-  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum presenter-led video still', group: 'GROWTH' },
-  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: 'From $25', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png', thumbAlt: 'Three bedroom villa pool render made photoreal', group: 'GROWTH' },
-  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png', thumbAlt: 'The Nest vertical performance ad still', group: 'GROWTH' },
+  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png', thumbAlt: 'Bali Beans signature film still', group: 'PREMIUM' },
+  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'From $950', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png', thumbAlt: 'Sudana family documentary-style film still', group: 'PREMIUM' },
+  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas luxury property film still', group: 'PREMIUM' },
+  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png', thumbAlt: 'Sanaya character still', group: 'PREMIUM' },
+  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum presenter-led video still', group: 'ADS & CONTENT' },
+  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: 'From $25', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png', thumbAlt: 'Three bedroom villa pool render made photoreal', group: 'ADS & CONTENT' },
+  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png', thumbAlt: 'The Nest vertical performance ad still', group: 'ADS & CONTENT' },
 ];
 
 const MONO = "'JetBrains Mono', monospace";
@@ -102,7 +102,7 @@ export default function ServiceSplitIndex() {
         <div className="flex-1 min-w-0" onMouseLeave={() => setHoverIdx(null)}>
           {services.map((s, i) => (
             <div key={s.num}>
-              {i === 0 && groupLabel('SIGNATURE')}
+              {i === 0 && groupLabel('PREMIUM')}
               {i === 4 && groupLabel('ADS & CONTENT')}
               <a
                 href={`#${s.target}`}

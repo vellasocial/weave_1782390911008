@@ -133,11 +133,28 @@ interface TierHeaderProps {
 
 export function TierHeader({ title, subtext }: TierHeaderProps) {
   return (
-    <div className="max-w-7xl mx-auto" style={{ paddingTop: '48px', paddingBottom: '32px' }}>
+    <div className="max-w-7xl mx-auto" style={{ paddingTop: '64px', paddingBottom: '48px' }}>
       <div style={{ borderTop: '1px solid rgba(138,126,109,0.25)' }} />
-      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-8" style={{ paddingTop: '16px' }}>
-        <span className="uppercase" style={{ ...labelStyle, textTransform: 'uppercase' }}>{title}</span>
-        <span className="md:text-right" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '14px', color: '#B8B0A4' }}>{subtext}</span>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-8" style={{ paddingTop: '20px' }}>
+        <div className="flex items-center" style={{ gap: '12px' }}>
+          <span
+            aria-hidden="true"
+            className="flex-shrink-0"
+            style={{ width: '8px', height: '8px', borderRadius: '9999px', background: BRASS, display: 'inline-block' }} />
+          <span
+            style={{
+              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+              fontWeight: 600,
+              fontSize: '32px',
+              lineHeight: 1.1,
+              letterSpacing: '-0.5px',
+              textTransform: 'none',
+              color: '#F5F1EA',
+            }}>
+            {title}
+          </span>
+        </div>
+        <span className="md:text-right" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', color: '#B8B0A4' }}>{subtext}</span>
       </div>
     </div>
   );

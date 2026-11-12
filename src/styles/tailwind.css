@@ -131,10 +131,15 @@ p, li {
 .type-h2 {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 32px;
+  font-size: 40px;
   line-height: 1.15;
   letter-spacing: -0.8px;
   color: var(--text);
+}
+@media (max-width: 767px) {
+  .type-h2 {
+    font-size: 36px;
+  }
 }
 .type-card-title {
   font-family: var(--font-heading);
