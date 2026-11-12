@@ -106,15 +106,17 @@ export function SectionNumber({ num }: SectionNumberProps) {
 interface SectionBandProps {
   tone: 'dark' | 'charcoal';
   children: ReactNode;
+  id?: string;
 }
 
-export function SectionBand({ tone, children }: SectionBandProps) {
+export function SectionBand({ tone, children, id }: SectionBandProps) {
   return (
-    <div
-      className="-mx-6 md:-mx-12 px-6 md:px-12 pt-[120px] pb-[60px]"
+    <section
+      id={id}
+      className="-mx-6 md:-mx-12 px-6 md:px-12 pt-[120px] pb-[60px] scroll-mt-24"
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
       {children}
-    </div>
+    </section>
   );
 }
 
@@ -129,17 +131,17 @@ export function TierBanner({ title, subtext, image, alt }: TierBannerProps) {
   return (
     <div
       className="relative -mx-6 md:-mx-12 overflow-hidden flex items-center"
-      style={{ height: '320px', borderTop: '1px solid rgba(138,126,109,0.25)', borderBottom: '1px solid rgba(138,126,109,0.25)' }}>
+      style={{ minHeight: '60vh', borderTop: '1px solid rgba(138,126,109,0.25)', borderBottom: '1px solid rgba(138,126,109,0.25)' }}>
       <AppImage src={image} alt={alt} fill className="object-cover w-full h-full" />
       <div className="absolute inset-0" style={{ background: 'rgba(13,13,18,0.78)' }} />
       <div className="relative z-10 w-full px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <h2
-            className="uppercase leading-none text-[48px] md:text-[84px]"
-            style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, color: '#F5F1EA', letterSpacing: '-0.02em' }}>
+            className="uppercase text-[40px] md:text-[84px]"
+            style={{ fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif', fontWeight: 600, lineHeight: 0.9, color: '#FFFFFF', letterSpacing: '-0.03em' }}>
             {title}
           </h2>
-          <p className="mt-4 max-w-2xl" style={{ ...bodyTextStyle, color: '#F5F1EA' }}>
+          <p className="mt-6 max-w-2xl" style={{ ...bodyTextStyle, color: '#B8B0A4' }}>
             {subtext}
           </p>
         </div>
@@ -161,18 +163,20 @@ export const SERVICE_LINKS: { id: string; label: string }[] = [
 export function ServiceSubNav() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
+  const [topOffset, setTopOffset] = useState(64);
   const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
     const update = () => {
-      const probe = 150;
-      const first = document.getElementById(SERVICE_LINKS[0].id);
+      const probe = 160;
+      const index = document.getElementById('service-index');
       const lastEl = document.getElementById('pricing') || document.getElementById('cta');
-      const firstTop = first ? first.getBoundingClientRect().top : Infinity;
+      const indexBottom = index ? index.getBoundingClientRect().bottom : Infinity;
       const lastTop = lastEl ? lastEl.getBoundingClientRect().top : Infinity;
-      const inRange = firstTop <= probe + 200 && lastTop > probe;
+      const inRange = indexBottom <= 64 && lastTop > probe;
       setVisible(inRange);
+      setTopOffset(window.scrollY > 80 ? 61 : 110);
 
       let current: string | null = null;
       for (const link of SERVICE_LINKS) {
@@ -204,9 +208,9 @@ export function ServiceSubNav() {
   return (
     <div
       aria-label="Services"
-      className="fixed left-0 right-0 z-40 transition-all duration-300"
+      className="hidden md:block fixed left-0 right-0 z-40 transition-all duration-300"
       style={{
-        top: '64px',
+        top: `${topOffset}px`,
         background: 'rgba(13,13,18,0.94)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',

@@ -267,6 +267,37 @@ section h2, section h3.section-h {
   transition: none !important;
 }
 
+/* ── SERVICE INDEX ROWS ── */
+.service-row .service-row-text {
+  color: inherit;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  opacity: 0.8;
+}
+.service-row .service-row-arrow {
+  opacity: 0.6;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.service-row .service-row-thumb {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.96);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.service-row:hover .service-row-text,
+.service-row:focus-visible .service-row-text {
+  opacity: 1;
+  filter: brightness(1.15);
+}
+.service-row:hover .service-row-arrow,
+.service-row:focus-visible .service-row-arrow {
+  opacity: 1;
+  transform: translateX(6px);
+}
+.service-row:hover .service-row-thumb,
+.service-row:focus-visible .service-row-thumb {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
 /* ── HERO WORD-BY-WORD FADE-IN (1.2s apart) ── */
 @keyframes heroWordIn {
   from { opacity: 0; transform: translate3d(0, 16px, 0); }

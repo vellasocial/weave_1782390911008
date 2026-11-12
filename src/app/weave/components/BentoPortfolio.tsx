@@ -100,17 +100,19 @@ interface ServiceTile {
   title: string;
   desc: string;
   target: string;
-  group: 'SIGNATURE' | 'GROWTH';
+  price: string;
+  thumb: string;
+  thumbAlt: string;
 }
 
 const serviceTiles: ServiceTile[] = [
-  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', group: 'SIGNATURE' },
-  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', group: 'SIGNATURE' },
-  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', group: 'SIGNATURE' },
-  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', group: 'SIGNATURE' },
-  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', group: 'GROWTH' },
-  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', group: 'GROWTH' },
-  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', group: 'GROWTH' },
+  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png', thumbAlt: 'Bali Beans signature film still' },
+  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'From $950', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png', thumbAlt: 'Sudana family documentary-style film still' },
+  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas luxury property film still' },
+  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png', thumbAlt: 'Sanaya character still' },
+  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum presenter-led video still' },
+  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: 'From $25', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png', thumbAlt: 'Three bedroom villa pool render made photoreal' },
+  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png', thumbAlt: 'The Nest vertical performance ad still' },
 ];
 
 function scrollToSection(id: string) {
@@ -354,11 +356,11 @@ export default function BentoPortfolio() {
   const isNative = playingVideo ? isDirectMp4(playingVideo) : false;
 
   return (
-    <section
+    <div
       id="portfolio"
       ref={sectionRef}
       className="relative pb-24 px-6 md:px-12 overflow-x-hidden"
-      style={{ background: '#0B0B0D' }}>
+      style={{ background: '#0D0D12' }}>
       <span id="services" aria-hidden="true" className="absolute top-0 left-0 w-0 h-0" />
       
       {/* ── VIDEO LIGHTBOX MODAL ─────────────────────────────────────────────── */}
@@ -442,51 +444,63 @@ export default function BentoPortfolio() {
       {/* ── END VIDEO LIGHTBOX ───────────────────────────────────────────────── */}
 
       {/* ── WHAT WE MAKE OVERVIEW ───────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto pt-[120px] mb-[120px]">
+      <div id="service-index" className="max-w-7xl mx-auto pt-[120px] mb-[120px]">
         <span className="type-label mb-4 block">
           — What We Make
         </span>
         <h2 className="type-h2 mb-10">
           Seven ways to be unforgettable.
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div style={{ borderTop: '1px solid rgba(138,126,109,0.2)' }}>
           {serviceTiles.map((tile) => (
             <button
               key={tile.num}
               type="button"
               onClick={() => scrollToSection(tile.target)}
-              className="text-left p-6 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-0.5"
+              className="service-row group relative w-full text-left flex items-center gap-4 md:gap-8 py-6 md:py-8"
               style={{
-                border: '1px solid rgba(242,239,233,0.10)',
-                background: '#141417',
-                borderRadius: '4px',
+                borderBottom: '1px solid rgba(138,126,109,0.2)',
                 touchAction: 'manipulation',
                 minHeight: '44px',
+                background: 'transparent',
               }}>
-              <div className="flex items-center justify-between">
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
-                  {tile.num}
+              <span
+                className="flex-shrink-0 w-8 md:w-12"
+                style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
+                {tile.num}
+              </span>
+              <span className="flex-1 min-w-0 flex flex-col md:flex-row md:items-baseline md:gap-8">
+                <span className="service-row-text type-h2 md:text-[32px] md:flex-shrink-0 md:w-[380px]" style={{ color: '#F5F1EA' }}>
+                  {tile.title}
                 </span>
-                <span
-                  className="px-3 py-1 uppercase"
-                  style={{
-                    border: '1px solid rgba(242,239,233,0.10)',
-                    color: '#8A857C',
-                    borderRadius: '9999px',
-                    fontFamily: 'Manrope, sans-serif',
-                    fontWeight: 600,
-                    fontSize: '11px',
-                    letterSpacing: '0.14em'
-                  }}>
-                  {tile.group}
+                <span className="service-row-text type-body mt-1 md:mt-0" style={{ color: '#B8B0A4' }}>
+                  {tile.desc}
                 </span>
-              </div>
-              <p className="type-card-title">
-                {tile.title}
-              </p>
-              <p className="type-body">
-                {tile.desc}
-              </p>
+              </span>
+              <span
+                className="flex-shrink-0 text-right"
+                style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D', textTransform: 'uppercase' }}>
+                {tile.price}
+              </span>
+              <svg
+                className="service-row-arrow flex-shrink-0"
+                aria-hidden="true"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#F5F1EA"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+              <span
+                aria-hidden="true"
+                className="service-row-thumb hidden md:block absolute overflow-hidden pointer-events-none"
+                style={{ right: '110px', top: '50%', width: '120px', height: '76px', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.35)', zIndex: 5 }}>
+                <AppImage src={tile.thumb} alt={tile.thumbAlt} fill className="object-cover w-full h-full" />
+              </span>
             </button>
           ))}
         </div>
@@ -499,10 +513,8 @@ export default function BentoPortfolio() {
         subtext="Premium films, made to set the standard for a brand."
         image="https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png"
         alt="Bali Beans film still behind the Signature Work banner" />
-      <span id="signature-films" aria-hidden="true" className="block h-0 scroll-mt-24" />
-
       {/* ── 01 SIGNATURE FILMS ──────────────────────────────────────────────── */}
-      <SectionBand tone="dark">
+      <SectionBand tone="dark" id="signature-films">
       <SectionHeader
         label="01 Signature Films"
         heading="The hero film your brand is remembered by."
@@ -579,8 +591,7 @@ export default function BentoPortfolio() {
       </SectionBand>
 
       {/* ── 02 REALISM STORYTELLING ─────────────────────────────────────────── */}
-      <SectionBand tone="charcoal">
-      <span id="realism-storytelling" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionBand tone="charcoal" id="realism-storytelling">
       <SectionHeader
         label="02 Realism Storytelling"
         heading="Real stories. Footage that feels lived in."
@@ -611,8 +622,7 @@ export default function BentoPortfolio() {
       </SectionBand>
 
       {/* ── 03 LUXURY PROPERTY FILMS ────────────────────────────────────────── */}
-      <SectionBand tone="dark">
-      <span id="luxury-property-films" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionBand tone="dark" id="luxury-property-films">
       <SectionHeader
         label="03 Luxury Property Films"
         heading="Sell it before it's built."
@@ -633,8 +643,7 @@ export default function BentoPortfolio() {
       </SectionBand>
 
       {/* ── 04 CHARACTERS & LOCATIONS ───────────────────────────────────────── */}
-      <SectionBand tone="charcoal">
-      <span id="characters-locations" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionBand tone="charcoal" id="characters-locations">
       <CharactersLocations />
       </SectionBand>
       {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
@@ -647,8 +656,7 @@ export default function BentoPortfolio() {
         alt="The Sanctuary still behind the Growth Work banner" />
 
       {/* ── 05 TALKING HEAD & VSL ───────────────────────────────────────────── */}
-      <SectionBand tone="dark">
-      <span id="talking-head-vsl" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionBand tone="dark" id="talking-head-vsl">
       <SectionHeader
         label="05 Talking Head & VSL"
         heading="A face that sells, every week."
@@ -679,14 +687,12 @@ export default function BentoPortfolio() {
       </SectionBand>
 
       {/* ── 06 RENDER TO REALITY ────────────────────────────────────────────── */}
-      <SectionBand tone="charcoal">
-      <span id="render-to-reality" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionBand tone="charcoal" id="render-to-reality">
       <RenderToReality />
       </SectionBand>
 
       {/* ── 07 PERFORMANCE ADS ──────────────────────────────────────────────── */}
-      <SectionBand tone="dark">
-      <span id="performance-ads" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionBand tone="dark" id="performance-ads">
       <SectionHeader
         label="07 Performance Ads"
         heading="Ads built for volume."
@@ -771,6 +777,6 @@ export default function BentoPortfolio() {
           Tailored to what each project needs.
         </span>
       </div>
-    </section>
+    </div>
   );
 }
