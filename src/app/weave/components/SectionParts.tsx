@@ -2,14 +2,14 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
-export const BODY_GREY = '#D4CEC4';
-export const BRASS = '#8A7E6D';
-export const BAND_DARK = '#0D0D12';
-export const BAND_CHARCOAL = '#17171F';
+export const BODY_GREY = '#B9B3A8';
+export const BRASS = '#C9A86A';
+export const BAND_DARK = '#0B0B0D';
+export const BAND_CHARCOAL = '#141417';
 
 export const bodyTextStyle = {
   color: BODY_GREY,
-  fontFamily: 'Helvetica, Arial, sans-serif',
+  fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal' as const,
   fontSize: '18px',
   lineHeight: 1.6,
@@ -18,6 +18,8 @@ export const bodyTextStyle = {
 export const labelStyle = {
   color: BRASS,
   fontSize: '13px',
+  fontWeight: 600,
+  letterSpacing: '0.18em',
 };
 
 export function openEnquiryFor(service: string) {
@@ -39,14 +41,7 @@ export function PricePill({ label, service }: PricePillProps) {
     <button
       type="button"
       onClick={() => openEnquiryFor(service)}
-      className="font-mono text-[13px] tracking-widest uppercase inline-flex items-center rounded-full px-5 py-3 transition-opacity duration-300 hover:opacity-85"
-      style={{
-        background: BRASS,
-        color: BAND_DARK,
-        fontWeight: 600,
-        touchAction: 'manipulation',
-        minHeight: '44px',
-      }}>
+      className="btn-primary btn-block-mobile">
       {label}
     </button>
   );
@@ -58,13 +53,13 @@ interface WhatYouGetProps {
 
 export function WhatYouGet({ points }: WhatYouGetProps) {
   return (
-    <div className="mt-6 mb-6 max-w-3xl">
-      <span className="font-mono text-[13px] tracking-widest uppercase mb-3 block" style={{ color: BRASS }}>
+    <div className="mt-6 mb-8 max-w-3xl">
+      <span className="type-label mb-4 block">
         What you get
       </span>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-3">
         {points.map((point, i) => (
-          <li key={i} className="flex items-start gap-3" style={{ ...bodyTextStyle, fontSize: '16px' }}>
+          <li key={i} className="flex items-start gap-3" style={{ ...bodyTextStyle, fontSize: '18px' }}>
             <svg
               aria-hidden="true"
               width="16"
@@ -75,7 +70,7 @@ export function WhatYouGet({ points }: WhatYouGetProps) {
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="flex-shrink-0 mt-[5px]">
+              className="flex-shrink-0 mt-[6px]">
               <path d="M20 6L9 17l-5-5" />
             </svg>
             <span>{point}</span>
@@ -94,8 +89,10 @@ export function SectionNumber({ num }: SectionNumberProps) {
   return (
     <span
       aria-hidden="true"
-      className="font-manrope font-semibold select-none flex-shrink-0 leading-none text-[72px] md:text-[120px]"
+      className="select-none flex-shrink-0 leading-none text-[72px] md:text-[120px]"
       style={{
+        fontFamily: 'Syne, sans-serif',
+        fontWeight: 700,
         color: 'transparent',
         WebkitTextStroke: `1.5px ${BRASS}`,
         letterSpacing: '-0.02em',
@@ -113,7 +110,7 @@ interface SectionBandProps {
 export function SectionBand({ tone, children }: SectionBandProps) {
   return (
     <div
-      className="-mx-6 md:-mx-12 px-6 md:px-12 py-20 md:py-24"
+      className="-mx-6 md:-mx-12 px-6 md:px-12 pt-[120px] pb-[60px]"
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
       {children}
     </div>
@@ -131,17 +128,17 @@ export function TierBanner({ title, subtext, image, alt }: TierBannerProps) {
   return (
     <div
       className="relative -mx-6 md:-mx-12 overflow-hidden flex items-center"
-      style={{ height: '320px' }}>
+      style={{ height: '320px', borderTop: '1px solid rgba(242,239,233,0.10)', borderBottom: '1px solid rgba(242,239,233,0.10)' }}>
       <AppImage src={image} alt={alt} fill className="object-cover w-full h-full" />
-      <div className="absolute inset-0" style={{ background: 'rgba(13,13,18,0.72)' }} />
+      <div className="absolute inset-0" style={{ background: 'rgba(11,11,13,0.78)' }} />
       <div className="relative z-10 w-full px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <h2
-            className="font-manrope font-semibold uppercase leading-none tracking-tight text-[60px] md:text-[84px]"
-            style={{ color: BRASS }}>
+            className="uppercase leading-none text-[48px] md:text-[84px]"
+            style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, color: '#F2EFE9', letterSpacing: '-0.02em' }}>
             {title}
           </h2>
-          <p className="mt-4 max-w-2xl" style={{ ...bodyTextStyle, color: '#F5F1EA' }}>
+          <p className="mt-4 max-w-2xl" style={{ ...bodyTextStyle, color: '#F2EFE9' }}>
             {subtext}
           </p>
         </div>
@@ -209,17 +206,17 @@ export function ServiceSubNav() {
       className="fixed left-0 right-0 z-40 transition-all duration-300"
       style={{
         top: '64px',
-        background: 'rgba(13,13,18,0.92)',
+        background: 'rgba(11,11,13,0.94)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
-        borderBottom: '1px solid rgba(138,126,109,0.2)',
+        borderBottom: '1px solid rgba(242,239,233,0.10)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
         pointerEvents: visible ? 'auto' : 'none',
       }}>
       <div
         ref={listRef}
-        className="max-w-7xl mx-auto px-4 md:px-6 flex items-center gap-1 md:gap-2 overflow-x-auto md:justify-center"
+        className="max-w-7xl mx-auto px-4 md:px-12 flex items-center gap-1 md:gap-2 overflow-x-auto md:justify-center"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         {SERVICE_LINKS.map((link, i) => {
           const active = activeId === link.id;
@@ -232,14 +229,19 @@ export function ServiceSubNav() {
               onClick={() => {
                 document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className="font-mono text-[11px] tracking-wider uppercase whitespace-nowrap flex-shrink-0 px-3 py-3 transition-colors duration-300"
+              className="whitespace-nowrap flex-shrink-0 px-3 py-3 transition-colors duration-300"
               style={{
-                color: active ? BRASS : 'rgba(245,241,234,0.55)',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: 600,
+                fontSize: '11px',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: active ? BRASS : '#8A857C',
                 borderBottom: `2px solid ${active ? BRASS : 'transparent'}`,
                 touchAction: 'manipulation',
                 minHeight: '44px',
               }}>
-              <span style={{ opacity: 0.6 }}>{String(i + 1).padStart(2, '0')}</span> {link.label}
+              <span style={{ opacity: 0.7 }}>{String(i + 1).padStart(2, '0')}</span> {link.label}
             </button>
           );
         })}

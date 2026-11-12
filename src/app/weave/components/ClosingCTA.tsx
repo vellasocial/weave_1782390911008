@@ -4,7 +4,7 @@ export default function ClosingCTA() {
   const openEnquiry = () => {
     const panel = document.getElementById('commission-panel');
     if (panel) {
-      panel.classList.add('open');
+      panel?.classList?.add('open');
       document.body.style.overflow = 'hidden';
     }
   };
@@ -12,84 +12,25 @@ export default function ClosingCTA() {
   return (
     <section
       id="cta"
-      className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden flex flex-col items-center justify-center text-center"
-      style={{ background: '#17171F' }}
+      className="relative px-6 md:px-12 overflow-hidden"
+      style={{ background: '#141417', paddingTop: '120px', paddingBottom: '120px' }}
     >
-      {/* Subtle background grid */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(138,126,109,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(138,126,109,0.6) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <p className="type-label mb-6">Your Turn</p>
 
-      <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto">
-        {/* Eyebrow — matches other section eyebrows */}
-        <div className="flex items-center gap-3 mb-6">
-          <span className="w-12 h-px" style={{ background: '#8A7E6D', opacity: 0.6 }} />
-          <span
-            className="font-mono text-[13px] tracking-[0.2em] uppercase"
-            style={{
-              color: '#8A7E6D',
-              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif',
-              fontWeight: 300,
-            }}
-          >
-            Your Turn
-          </span>
-        </div>
-
-        {/* Title — matches hero headline style */}
-        <h2
-          className="font-semibold leading-[0.9] tracking-tight mb-8"
-          style={{
-            fontSize: 'clamp(2.2rem, 5.5vw, 5rem)',
-            fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
-          }}
-        >
-          <span style={{ display: 'block', color: '#F5F1EA' }}>Be the brand</span>
-          <span
-            className="text-transparent"
-            style={{
-              display: 'block',
-              WebkitTextStroke: '1px rgba(245,241,234,0.4)',
-            }}
-          >
-            others copy.
-          </span>
+        <h2 className="type-h2 mb-8" style={{ color: '#F2EFE9' }}>
+          <span style={{ display: 'block' }}>Be the brand</span>
+          <span style={{ display: 'block' }}>others copy.</span>
         </h2>
 
-        {/* Subline — matches hero subline italic style */}
-        <p
-          className="max-w-md mb-12 tracking-wide font-normal"
-          style={{
-            color: '#D4CEC4',
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontStyle: 'normal',
-            fontSize: '18px',
-            lineHeight: 1.6,
-          }}
-        >
+        <p className="type-body mb-10 max-w-md">
           Tell us what you&apos;re making.
         </p>
 
-        {/* ENQUIRE button — exact hero style */}
         <button
+          type="button"
           onClick={openEnquiry}
-          className="px-8 py-4 rounded-full font-manrope font-semibold text-sm tracking-wide transition-all duration-300"
-          style={{
-            background: '#2A2622',
-            color: '#F5F1EA',
-            boxShadow: '0 0 32px rgba(42,38,34,0.5)',
-            border: '1px solid rgba(255,255,255,0.35)',
-            WebkitTapHighlightColor: 'transparent',
-            touchAction: 'manipulation',
-            fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif',
-          }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
+          className="btn-primary btn-block-mobile"
         >
           ENQUIRE
         </button>

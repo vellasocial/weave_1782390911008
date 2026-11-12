@@ -22,13 +22,16 @@ export default function WeaveHeader() {
   return (
     <header
       suppressHydrationWarning
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'py-3 bg-loom-black/90 backdrop-blur-md' :'py-6 bg-transparent'
-      }`}
-      style={isScrolled ? { borderBottom: '1px solid rgba(138,126,109,0.2)' } : {}}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        padding: isScrolled ? '12px 0' : '24px 0',
+        background: isScrolled ? 'rgba(11,11,13,0.92)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(242,239,233,0.10)' : '1px solid transparent'
+      }}
     >
-      <div suppressHydrationWarning className="max-w-7xl mx-auto px-6 flex items-center justify-center md:justify-between">
+      <div suppressHydrationWarning className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-center md:justify-between">
         {/* Logo */}
         <div suppressHydrationWarning className="flex items-center gap-3">
           <Image
@@ -41,7 +44,7 @@ export default function WeaveHeader() {
         </div>
 
         {/* Nav */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           <nav className="flex items-center gap-8">
             {[
             { label: 'Work', id: 'services', fallback: 'portfolio' },
@@ -55,10 +58,18 @@ export default function WeaveHeader() {
                   const target = document.getElementById(item.id) || document.getElementById(item.fallback);
                   target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
-                className="text-xs tracking-wider uppercase transition-colors duration-300"
-                style={{ color: 'rgba(245,241,234,0.6)', fontFamily: '-apple-system, "SF Pro Display", BlinkMacSystemFont, Helvetica, Arial, sans-serif', fontWeight: 400 }}
-                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F5F1EA'}
-                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.6)'}
+                className="inline-flex items-center transition-colors duration-300"
+                style={{
+                  minHeight: '44px',
+                  color: '#B9B3A8',
+                  fontFamily: 'Inter, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase'
+                }}
+                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F2EFE9'}
+                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = '#B9B3A8'}
               >
                 {item.label}
               </a>
@@ -67,6 +78,7 @@ export default function WeaveHeader() {
 
           {/* CTA */}
           <button
+            type="button"
             onClick={() => {
               vibrate();
               const panel = document.getElementById('commission-panel');
@@ -75,15 +87,8 @@ export default function WeaveHeader() {
                 document.body.style.overflow = 'hidden';
               }
             }}
-            className="flex items-center gap-2 px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300"
-            style={{
-              background: '#2A2622',
-              color: '#F5F1EA',
-              border: '1px solid rgba(255,255,255,0.35)',
-              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
-            }}
-            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
-            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.opacity = '1'}
+            className="btn-primary"
+            style={{ height: '44px', minHeight: '44px', padding: '0 24px', fontSize: '13px' }}
           >
             ENQUIRE
           </button>

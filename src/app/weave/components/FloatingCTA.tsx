@@ -4,7 +4,6 @@ import { vibrate } from '@/lib/vibrate';
 
 export default function FloatingCTA() {
   const [visible, setVisible] = useState(false);
-  const [pulsing, setPulsing] = useState(false);
   const [bottomOffset, setBottomOffset] = useState(32);
   const [videoOpen, setVideoOpen] = useState(false);
 
@@ -13,7 +12,6 @@ export default function FloatingCTA() {
       const scrolled = window.scrollY;
       const threshold = window.innerHeight * 0.5;
       setVisible(scrolled > threshold);
-      setPulsing(scrolled > window.innerHeight * 2.5);
 
       const footer = document.querySelector('footer');
       if (footer) {
@@ -58,25 +56,18 @@ export default function FloatingCTA() {
 
   return (
     <button
+      type="button"
       onClick={openPanel}
       aria-label="Enquire"
-      className={`fixed right-8 z-50 flex items-center gap-3 px-6 py-4 rounded-full font-semibold text-sm transition-all duration-300 ${
-        pulsing ? 'cta-pulse' : ''
-      } ${
+      className={`btn-primary fixed right-4 md:right-8 z-50 ${
         visible
           ? videoOpen
-            ? 'translate-y-16 opacity-0 pointer-events-none md:translate-y-0 md:opacity-100 md:pointer-events-auto' :'translate-y-0 opacity-100' :'translate-y-16 opacity-0 pointer-events-none'
+            ? 'translate-y-16 opacity-0 pointer-events-none md:translate-y-0 md:opacity-100 md:pointer-events-auto' :'opacity-100' :'translate-y-16 opacity-0 pointer-events-none'
       }`}
       style={{
         bottom: `${bottomOffset}px`,
-        transition: 'bottom 0.3s ease, opacity 0.3s ease, transform 0.3s ease',
-        background: '#2A2622',
-        color: '#F5F1EA',
-        border: '1px solid rgba(255,255,255,0.35)',
-        boxShadow: pulsing
-          ? '0 0 32px rgba(42,38,34,0.6), 0 8px 24px rgba(0,0,0,0.4)'
-          : '0 8px 24px rgba(42,38,34,0.4), 0 4px 12px rgba(0,0,0,0.3)',
-        fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif',
+        transition: 'bottom 0.3s ease, opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
       }}
     >
       ENQUIRE

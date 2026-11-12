@@ -5,7 +5,7 @@ export default function WeaveFooter() {
   return (
     <footer
       className="py-10 px-6 md:px-12 border-t"
-      style={{ borderColor: 'rgba(138,126,109,0.15)', background: 'var(--loom-black)' }}>
+      style={{ borderColor: 'rgba(242,239,233,0.10)', background: '#0B0B0D' }}>
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo mark */}
@@ -25,10 +25,10 @@ export default function WeaveFooter() {
           <a
             key={link}
             href={`#${link?.toLowerCase()}`}
-            className="text-xs tracking-wider transition-colors duration-300"
-            style={{ color: 'rgba(245,241,234,0.3)', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 300, textTransform: 'uppercase' }}
-            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.7)'}
-            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.3)'}>
+            className="inline-flex items-center transition-colors duration-300"
+            style={{ minHeight: '44px', color: '#8A857C', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', textTransform: 'uppercase' }}
+            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F2EFE9'}
+            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = '#8A857C'}>
 
               {link}
             </a>
@@ -36,7 +36,7 @@ export default function WeaveFooter() {
         </nav>
 
         {/* Copyright */}
-        <p className="text-xs tracking-wider" style={{ color: 'rgba(245,241,234,0.25)', fontFamily: "'Mytupi', sans-serif", fontWeight: 700 }}>© 2026 VELLASOCIAL
+        <p className="text-xs tracking-wider" style={{ color: '#8A857C', fontFamily: 'Inter, sans-serif', fontWeight: 400 }}>© 2026 VELLASOCIAL
 
         </p>
       </div>

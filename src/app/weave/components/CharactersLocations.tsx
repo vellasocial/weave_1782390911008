@@ -331,20 +331,14 @@ export default function CharactersLocations() {
       )}
 
       {/* ── CHARACTERS & LOCATIONS SUBSECTION ─────────────────────────────── */}
-      <div className="max-w-7xl mx-auto mb-12 reveal-up">
+      <div className="max-w-7xl mx-auto mb-12">
         <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-10 mb-10">
           <SectionNumber num="04" />
           <div>
-            <span
-              className="font-mono text-[13px] tracking-widest uppercase mb-3 block"
-              style={{ color: '#8A7E6D' }}
-            >
+            <span className="type-label mb-4 block">
               — Characters &amp; Locations
             </span>
-            <h2
-              className="font-manrope font-semibold leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}
-            >
+            <h2 className="type-h2">
               Consistent by design.
             </h2>
             <p className="mt-5" style={bodyTextStyle}>
@@ -364,13 +358,13 @@ export default function CharactersLocations() {
           ].map((step) => (
             <div
               key={step.n}
-              className="rounded-2xl p-5 flex flex-col gap-3"
-              style={{ border: '1px solid rgba(138,126,109,0.15)', background: 'var(--loom-black-2)' }}
+              className="p-6 flex flex-col gap-3"
+              style={{ border: '1px solid rgba(242,239,233,0.10)', background: '#1C1C20', borderRadius: '4px' }}
             >
-              <span className="font-mono text-xs tracking-widest" style={{ color: '#8A7E6D' }}>
+              <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
                 {step.n}
               </span>
-              <p className="font-manrope font-semibold text-lg leading-tight" style={{ color: '#F5F1EA' }}>
+              <p className="type-card-title">
                 {step.t}
               </p>
             </div>
@@ -389,15 +383,10 @@ export default function CharactersLocations() {
         {charactersData.map((card) => (
           <div
             key={card.id}
-            className="iridescent-cell rounded-2xl overflow-hidden cursor-pointer reveal-up"
+            className="iridescent-cell overflow-hidden cursor-pointer"
             style={{
               breakInside: 'avoid',
               marginBottom: '16px',
-              border: '1px solid rgba(138,126,109,0.15)',
-              background: 'var(--loom-black-2)',
-              transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              boxShadow: hoveredCard === card.id ? '0 8px 32px rgba(138,126,109,0.18)' : 'none',
               display: 'inline-block',
               width: '100%',
             }}
@@ -424,6 +413,7 @@ export default function CharactersLocations() {
                     src={img.src}
                     alt={img.alt}
                     loading="lazy"
+                    className="cell-img"
                     style={{
                       position: 'absolute',
                       inset: 0,
@@ -451,12 +441,12 @@ export default function CharactersLocations() {
                       style={{
                         width: '40px',
                         height: '40px',
-                        background: 'rgba(138,126,109,0.2)',
-                        border: '1px solid rgba(138,126,109,0.6)',
+                        background: 'rgba(11,11,13,0.6)',
+                        border: '1px solid rgba(242,239,233,0.35)',
                         backdropFilter: 'blur(6px)',
                       }}
                     >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F5F1EA" strokeWidth="2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2EFE9" strokeWidth="2">
                         <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                       </svg>
                     </div>
@@ -465,11 +455,16 @@ export default function CharactersLocations() {
                   {imgIdx === 0 && (
                     <div className="absolute top-3 left-3 z-10">
                       <span
-                        className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
+                        className="px-3 py-1 uppercase"
                         style={{
-                          background: 'rgba(138,126,109,0.15)',
-                          border: '1px solid rgba(138,126,109,0.35)',
-                          color: '#8A7E6D',
+                          background: 'rgba(11,11,13,0.7)',
+                          border: '1px solid rgba(242,239,233,0.10)',
+                          color: '#F2EFE9',
+                          borderRadius: '9999px',
+                          fontFamily: 'Inter, sans-serif',
+                          fontWeight: 600,
+                          fontSize: '11px',
+                          letterSpacing: '0.14em',
                         }}
                       >
                         {card.tag}
@@ -482,15 +477,15 @@ export default function CharactersLocations() {
 
             {/* Card footer label */}
             <div
-              className="px-4 py-3 flex items-center justify-between"
-              style={{ background: 'var(--loom-black-2)' }}
+              className="px-4 py-4 flex items-center justify-between"
+              style={{ background: '#141417' }}
               onClick={() => openLightbox(card.id)}
             >
               <div>
-                <p className="font-manrope text-sm font-medium leading-tight" style={{ color: 'rgba(245,241,234,0.9)' }}>
+                <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
                   {card.name}
                 </p>
-                <p className="font-mono text-[10px] mt-0.5" style={{ color: 'rgba(245,241,234,0.4)' }}>
+                <p className="mt-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#8A857C' }}>
                   {card.type}
                 </p>
               </div>
@@ -501,7 +496,7 @@ export default function CharactersLocations() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
-                style={{ color: 'rgba(138,126,109,0.5)', flexShrink: 0 }}
+                style={{ color: '#8A857C', flexShrink: 0 }}
               >
                 <path d="M7 17L17 7M7 7h10v10" />
               </svg>

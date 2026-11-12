@@ -86,15 +86,13 @@ export default function RenderToReality() {
   return (
     <div className="max-w-7xl mx-auto">
       {/* Section header */}
-      <div className="mb-10 reveal-up flex flex-col md:flex-row md:items-start gap-4 md:gap-10" data-service="Render to Reality">
+      <div className="mb-12 flex flex-col md:flex-row md:items-start gap-4 md:gap-10" data-service="Render to Reality">
         <SectionNumber num="06" />
         <div className="min-w-0">
-          <span className="font-mono text-[13px] tracking-widest uppercase mb-3 block" style={{ color: ACCENT }}>
+          <span className="type-label mb-4 block">
             Render to Reality
           </span>
-          <h3
-            className="font-manrope font-semibold leading-tight tracking-tight mb-4"
-            style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', color: '#F5F1EA' }}>
+          <h3 className="type-h2 mb-6">
             From CGI to photograph.
           </h3>
           <p className="mb-3 max-w-3xl" style={bodyTextStyle}>
@@ -107,12 +105,12 @@ export default function RenderToReality() {
 
       {/* Before / after slider */}
       <div
-        className="rounded-2xl overflow-hidden reveal-up"
-        style={{ border: '1px solid rgba(138,126,109,0.15)', background: 'var(--loom-black-2)' }}>
+        className="overflow-hidden"
+        style={{ border: '1px solid rgba(242,239,233,0.10)', background: '#141417', borderRadius: '4px' }}>
         <div
           ref={containerRef}
           className="relative w-full overflow-hidden select-none"
-          style={{ aspectRatio: '16/9', touchAction: 'pan-y', cursor: 'ew-resize', background: 'var(--loom-black-3)' }}
+          style={{ aspectRatio: '16/9', touchAction: 'pan-y', cursor: 'ew-resize', background: '#1C1C20' }}
           onMouseDown={(e) => {
             e.preventDefault();
             setDragging(true);
@@ -132,7 +130,7 @@ export default function RenderToReality() {
               className="object-cover w-full h-full pointer-events-none" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'rgba(245,241,234,0.4)' }}>
+              <span className="uppercase" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
                 Upload client render below
               </span>
             </div>
@@ -141,7 +139,7 @@ export default function RenderToReality() {
           {/* After (on top, revealed by clip) */}
           <div
             className="absolute inset-0"
-            style={{ clipPath: `inset(0 ${100 - position}% 0 0)`, background: active.after ? undefined : 'var(--loom-black-2)' }}>
+            style={{ clipPath: `inset(0 ${100 - position}% 0 0)`, background: active.after ? undefined : '#141417' }}>
             {active.after ? (
               <AppImage
                 src={active.after}
@@ -151,7 +149,7 @@ export default function RenderToReality() {
                 className="object-cover w-full h-full pointer-events-none" />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'rgba(245,241,234,0.4)' }}>
+                <span className="uppercase" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
                   Upload realistic version below
                 </span>
               </div>
@@ -161,15 +159,15 @@ export default function RenderToReality() {
           {/* Labels */}
           <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
             <span
-              className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
-              style={{ background: 'rgba(13,13,18,0.7)', border: '1px solid rgba(138,126,109,0.35)', color: '#F5F1EA' }}>
+              className="px-3 py-1 uppercase"
+              style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
               After · Vella Realism
             </span>
           </div>
           <div className="absolute bottom-3 right-3 z-10 pointer-events-none">
             <span
-              className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
-              style={{ background: 'rgba(13,13,18,0.7)', border: '1px solid rgba(138,126,109,0.35)', color: '#F5F1EA' }}>
+              className="px-3 py-1 uppercase"
+              style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
               Before · Client Render
             </span>
           </div>
@@ -197,7 +195,7 @@ export default function RenderToReality() {
                 height: '40px',
                 background: ACCENT,
                 boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
-                color: '#0D0D12',
+                color: '#0B0B0D',
                 touchAction: 'none',
               }}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -216,11 +214,12 @@ export default function RenderToReality() {
           return (
             <div
               key={pair.id}
-              className="rounded-2xl overflow-hidden reveal-up flex flex-col transition-all duration-300"
+              className="overflow-hidden flex flex-col transition-all duration-300 media-zoom"
               style={{
-                border: selected ? `1px solid ${ACCENT}` : '1px solid rgba(138,126,109,0.15)',
+                border: selected ? `1px solid ${ACCENT}` : '1px solid rgba(242,239,233,0.10)',
                 outline: selected ? `1px solid ${ACCENT}` : 'none',
-                background: 'var(--loom-black-2)',
+                background: '#141417',
+                borderRadius: '4px',
               }}>
               <button
                 type="button"
@@ -233,17 +232,17 @@ export default function RenderToReality() {
                 style={{ touchAction: 'manipulation' }}>
                 <div
                   className="relative w-full overflow-hidden flex items-center justify-center"
-                  style={{ aspectRatio: '4/3', background: 'var(--loom-black-3)' }}>
+                  style={{ aspectRatio: '4/3', background: '#1C1C20' }}>
                   {thumb ? (
                     <AppImage src={thumb} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
                   ) : (
-                    <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'rgba(245,241,234,0.4)' }}>
+                    <span className="uppercase" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
                       Coming soon
                     </span>
                   )}
                 </div>
-                <div className="px-4 py-3">
-                  <p className="font-manrope text-sm font-medium leading-tight" style={{ color: 'rgba(245,241,234,0.9)' }}>
+                <div className="px-4 py-4">
+                  <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
                     {pair.name}
                   </p>
                 </div>
@@ -253,11 +252,15 @@ export default function RenderToReality() {
                 {(['before', 'after'] as const).map((side) => (
                   <label
                     key={side}
-                    className="font-mono text-[10px] tracking-wider uppercase rounded-full px-3 py-2 text-center cursor-pointer transition-opacity duration-300 hover:opacity-70"
+                    className="uppercase rounded-full px-3 text-center cursor-pointer transition-opacity duration-300 hover:opacity-70 flex items-center justify-center"
                     style={{
-                      border: '1px solid rgba(138,126,109,0.35)',
-                      color: pair[side] ? '#F5F1EA' : ACCENT,
-                      background: 'rgba(138,126,109,0.15)',
+                      border: '1px solid rgba(242,239,233,0.10)',
+                      color: pair[side] ? '#F2EFE9' : '#B9B3A8',
+                      fontFamily: 'Inter, sans-serif',
+                      fontWeight: 600,
+                      fontSize: '11px',
+                      letterSpacing: '0.14em',
+                      minHeight: '44px',
                       touchAction: 'manipulation',
                     }}>
                     {side === 'before'
