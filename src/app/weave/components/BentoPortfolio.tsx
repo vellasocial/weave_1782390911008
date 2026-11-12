@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import CharactersLocations from './CharactersLocations';
 import RenderToReality from '@/app/weave/components/RenderToReality';
-import { SectionBand, SectionNumber, TierBanner, bodyTextStyle } from './SectionParts';
+import { SectionBand, SectionNumber, TierBanner, bodyTextStyle, PricePill, WhatYouGet } from './SectionParts';
 
 type FilterType = 'All';
 
@@ -31,17 +31,6 @@ const cells: BentoCell[] = [
   alt: 'The Sanctuary - Tranquility Bali campaign video',
   tag: 'ad',
   video: 'https://res.cloudinary.com/wle6dmxs/video/upload/03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga.mp4'
-},
-{
-  id: 19,
-  title: 'The Sanctuary',
-  subtitle: 'Tranquility Bali',
-  category: ['All'],
-  size: 'wide',
-  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
-  alt: 'The Sanctuary - Tranquility Bali original campaign video',
-  tag: 'ad',
-  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/Three_Bedroom_Hero_evdphr.mp4'
 },
 {
   id: 1,
@@ -162,13 +151,13 @@ interface SectionHeaderProps {
   label: string;
   heading: string;
   description: string;
-  price: string;
-  bestFor: string;
+  pillLabel: string;
+  points: [string, string, string];
   service: string;
   labelColor?: string;
 }
 
-function SectionHeader({ label, heading, description, price, bestFor, service, labelColor }: SectionHeaderProps) {
+function SectionHeader({ label, heading, description, pillLabel, points, service, labelColor }: SectionHeaderProps) {
   const numMatch = label.match(/^(\d{2})\s+(.*)$/);
   const num = numMatch ? numMatch[1] : '';
   const labelText = numMatch ? numMatch[2] : label;
@@ -189,23 +178,8 @@ function SectionHeader({ label, heading, description, price, bestFor, service, l
         <p className="mb-3 max-w-3xl" style={bodyTextStyle}>
           {description}
         </p>
-        <p className="font-mono text-[13px] tracking-wider uppercase" style={{ color: '#8A7E6D' }}>
-          {price} · Best for {bestFor}
-        </p>
-        <button
-          type="button"
-          onClick={() => {
-            window.dispatchEvent(new CustomEvent('weave-enquiry-service', { detail: { service } }));
-            const panel = document.getElementById('commission-panel');
-            if (panel) {
-              panel.classList.add('open');
-              document.body.style.overflow = 'hidden';
-            }
-          }}
-          className="font-mono text-[13px] tracking-widest uppercase mt-4 inline-flex items-center gap-2 transition-opacity duration-300 hover:opacity-70"
-          style={{ color: '#8A7E6D', touchAction: 'manipulation' }}>
-          Enquire about this →
-        </button>
+        <WhatYouGet points={points} />
+        <PricePill label={pillLabel} service={service} />
       </div>
     </div>
   );
@@ -553,8 +527,8 @@ export default function BentoPortfolio() {
         label="01 Signature Films"
         heading="The hero film your brand is remembered by."
         description="Our highest tier. Full cinematic production, built shot by shot for launches and flagship campaigns."
-        price="$350 per film"
-        bestFor="brand launches, flagship campaigns."
+        pillLabel="From $350 · Enquire"
+        points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']}
         service="Signature Films" />
       
 
@@ -661,8 +635,8 @@ export default function BentoPortfolio() {
         label="02 Realism Storytelling"
         heading="Real stories. Footage that feels lived in."
         description="Documentary-style films that tell the human story behind a brand, built from real people, real history and real places."
-        price="$950 per film"
-        bestFor="family businesses, founder stories, heritage brands."
+        pillLabel="From $950 · Enquire"
+        points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']}
         service="Realism Storytelling" />
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -693,8 +667,8 @@ export default function BentoPortfolio() {
         label="03 Luxury Property Films"
         heading="Sell it before it's built."
         description="Cinematic villa and resort films made from your renders and plans. No shoot day, no waiting for construction."
-        price="$350 per film"
-        bestFor="developers, off-plan launches, resorts."
+        pillLabel="From $350 · Enquire"
+        points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']}
         service="Luxury Property Films" />
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -729,8 +703,8 @@ export default function BentoPortfolio() {
         label="05 Talking Head & VSL"
         heading="A face that sells, every week."
         description="Presenter-led video sales letters and talking-head content, with no filming. Use your own presenter, or add a custom AI character as a consistent on-screen host."
-        price="$250 per 30 sec video, AI presenter extra"
-        bestFor="trust-building, explainers, sales pages."
+        pillLabel="From $250 · Enquire"
+        points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']}
         service="Talking Head & VSL" />
       
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:items-start">
@@ -767,8 +741,8 @@ export default function BentoPortfolio() {
         label="07 Performance Ads"
         heading="Ads built for volume."
         description="Short vertical ads made fast and in batches, so you can test hooks and keep your feed fresh."
-        price="$150 each, or 5 for $700"
-        bestFor="always-on social, ad testing."
+        pillLabel="From $150 · Enquire"
+        points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']}
         service="Performance Ads"
         labelColor="#8A7E6D" />
       

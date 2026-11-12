@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+'use client';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
 export const BODY_GREY = '#D4CEC4';
@@ -18,6 +19,72 @@ export const labelStyle = {
   color: BRASS,
   fontSize: '13px',
 };
+
+export function openEnquiryFor(service: string) {
+  window.dispatchEvent(new CustomEvent('weave-enquiry-service', { detail: { service } }));
+  const panel = document.getElementById('commission-panel');
+  if (panel) {
+    panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+interface PricePillProps {
+  label: string;
+  service: string;
+}
+
+export function PricePill({ label, service }: PricePillProps) {
+  return (
+    <button
+      type="button"
+      onClick={() => openEnquiryFor(service)}
+      className="font-mono text-[13px] tracking-widest uppercase inline-flex items-center rounded-full px-5 py-3 transition-opacity duration-300 hover:opacity-85"
+      style={{
+        background: BRASS,
+        color: BAND_DARK,
+        fontWeight: 600,
+        touchAction: 'manipulation',
+        minHeight: '44px',
+      }}>
+      {label}
+    </button>
+  );
+}
+
+interface WhatYouGetProps {
+  points: [string, string, string];
+}
+
+export function WhatYouGet({ points }: WhatYouGetProps) {
+  return (
+    <div className="mt-6 mb-6 max-w-3xl">
+      <span className="font-mono text-[13px] tracking-widest uppercase mb-3 block" style={{ color: BRASS }}>
+        What you get
+      </span>
+      <ul className="flex flex-col gap-2">
+        {points.map((point, i) => (
+          <li key={i} className="flex items-start gap-3" style={{ ...bodyTextStyle, fontSize: '16px' }}>
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke={BRASS}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="flex-shrink-0 mt-[5px]">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 interface SectionNumberProps {
   num: string;
@@ -78,6 +145,104 @@ export function TierBanner({ title, subtext, image, alt }: TierBannerProps) {
             {subtext}
           </p>
         </div>
+      </div>
+    </div>
+  );
+}
+
+export const SERVICE_LINKS: { id: string; label: string }[] = [
+  { id: 'signature-films', label: 'Signature Films' },
+  { id: 'realism-storytelling', label: 'Realism Storytelling' },
+  { id: 'luxury-property-films', label: 'Luxury Property Films' },
+  { id: 'characters-locations', label: 'Characters & Locations' },
+  { id: 'talking-head-vsl', label: 'Talking Head & VSL' },
+  { id: 'render-to-reality', label: 'Render to Reality' },
+  { id: 'performance-ads', label: 'Performance Ads' },
+];
+
+export function ServiceSubNav() {
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [visible, setVisible] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  useEffect(() => {
+    const update = () => {
+      const probe = 150;
+      const first = document.getElementById(SERVICE_LINKS[0].id);
+      const lastEl = document.getElementById('pricing') || document.getElementById('cta');
+      const firstTop = first ? first.getBoundingClientRect().top : Infinity;
+      const lastTop = lastEl ? lastEl.getBoundingClientRect().top : Infinity;
+      const inRange = firstTop <= probe + 200 && lastTop > probe;
+      setVisible(inRange);
+
+      let current: string | null = null;
+      for (const link of SERVICE_LINKS) {
+        const el = document.getElementById(link.id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= probe) current = link.id;
+      }
+      setActiveId(inRange ? current : null);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!activeId) return;
+    const btn = itemRefs.current[activeId];
+    const list = listRef.current;
+    if (btn && list) {
+      const target = btn.offsetLeft - list.clientWidth / 2 + btn.clientWidth / 2;
+      list.scrollTo({ left: target, behavior: 'smooth' });
+    }
+  }, [activeId]);
+
+  return (
+    <div
+      aria-label="Services"
+      className="fixed left-0 right-0 z-40 transition-all duration-300"
+      style={{
+        top: '64px',
+        background: 'rgba(13,13,18,0.92)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        borderBottom: '1px solid rgba(138,126,109,0.2)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        pointerEvents: visible ? 'auto' : 'none',
+      }}>
+      <div
+        ref={listRef}
+        className="max-w-7xl mx-auto px-4 md:px-6 flex items-center gap-1 md:gap-2 overflow-x-auto md:justify-center"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        {SERVICE_LINKS.map((link, i) => {
+          const active = activeId === link.id;
+          return (
+            <button
+              key={link.id}
+              ref={(el) => { itemRefs.current[link.id] = el; }}
+              type="button"
+              aria-current={active ? 'true' : undefined}
+              onClick={() => {
+                document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="font-mono text-[11px] tracking-wider uppercase whitespace-nowrap flex-shrink-0 px-3 py-3 transition-colors duration-300"
+              style={{
+                color: active ? BRASS : 'rgba(245,241,234,0.55)',
+                borderBottom: `2px solid ${active ? BRASS : 'transparent'}`,
+                touchAction: 'manipulation',
+                minHeight: '44px',
+              }}>
+              <span style={{ opacity: 0.6 }}>{String(i + 1).padStart(2, '0')}</span> {link.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

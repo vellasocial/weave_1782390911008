@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback, useRef, TouchEvent } from 'react';
-import { SectionNumber, bodyTextStyle } from './SectionParts';
+import { SectionNumber, bodyTextStyle, PricePill, WhatYouGet } from './SectionParts';
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 // Add more cards by duplicating an entry in this array.
@@ -347,30 +347,11 @@ export default function CharactersLocations() {
             >
               Consistent by design.
             </h2>
-            <p
-              className="font-manrope font-semibold text-xl mt-5"
-              style={{ color: '#8A7E6D' }}
-            >
-              From $250
+            <p className="mt-5" style={bodyTextStyle}>
+              A face and a world you own: custom characters and locations that stay consistent across every film.
             </p>
-            <p className="mt-2" style={bodyTextStyle}>
-              Best for: brand ambassadors, ongoing social series.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent('weave-enquiry-service', { detail: { service: 'Characters & Locations' } }));
-                const panel = document.getElementById('commission-panel');
-                if (panel) {
-                  panel.classList.add('open');
-                  document.body.style.overflow = 'hidden';
-                }
-              }}
-              className="font-mono text-[13px] tracking-widest uppercase mt-4 inline-flex items-center gap-2 transition-opacity duration-300 hover:opacity-70"
-              style={{ color: '#8A7E6D', touchAction: 'manipulation' }}
-            >
-              Enquire about this →
-            </button>
+            <WhatYouGet points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']} />
+            <PricePill label="From $250 · Enquire" service="Characters & Locations" />
           </div>
         </div>
 

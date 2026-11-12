@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import AppImage from '@/components/ui/AppImage';
-import { SectionNumber, bodyTextStyle } from './SectionParts';
+import { SectionNumber, bodyTextStyle, PricePill, WhatYouGet } from './SectionParts';
 
 interface RenderPair {
   id: string;
@@ -18,15 +18,6 @@ const INITIAL_PAIRS: RenderPair[] = [
 ];
 
 const ACCENT = '#8A7E6D';
-
-function openEnquiry() {
-  window.dispatchEvent(new CustomEvent('weave-enquiry-service', { detail: { service: 'Render to Reality' } }));
-  const panel = document.getElementById('commission-panel');
-  if (panel) {
-    panel.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-}
 
 export default function RenderToReality() {
   const [pairs, setPairs] = useState<RenderPair[]>(INITIAL_PAIRS);
@@ -109,16 +100,8 @@ export default function RenderToReality() {
           <p className="mb-3 max-w-3xl" style={bodyTextStyle}>
             Send us your renders. We turn them into images that look like they were shot on location. Drag the slider to compare.
           </p>
-          <p className="font-mono text-[13px] tracking-wider uppercase" style={{ color: ACCENT }}>
-            $25 per render, minimum 10 · Best for developers with existing CGI renders
-          </p>
-          <button
-            type="button"
-            onClick={openEnquiry}
-            className="font-mono text-[13px] tracking-widest uppercase mt-4 inline-flex items-center gap-2 transition-opacity duration-300 hover:opacity-70"
-            style={{ color: ACCENT, touchAction: 'manipulation' }}>
-            Enquire about this →
-          </button>
+          <WhatYouGet points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']} />
+          <PricePill label="From $25 · Enquire" service="Render to Reality" />
         </div>
       </div>
 
