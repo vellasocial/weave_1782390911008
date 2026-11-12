@@ -1,6 +1,6 @@
 'use client';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import AppImage from '@/components/ui/AppImage';
+
 
 export const BODY_GREY = '#B8B0A4';
 export const BRASS = '#8A7E6D';
@@ -48,75 +48,20 @@ export function PricePill({ label, service }: PricePillProps) {
   );
 }
 
-interface WhatYouGetProps {
-  points: [string, string, string];
-}
-
-export function WhatYouGet({ points }: WhatYouGetProps) {
-  return (
-    <div className="mt-6 mb-8 max-w-3xl">
-      <span className="type-label mb-4 block">
-        What you get
-      </span>
-      <ul className="flex flex-col gap-3">
-        {points.map((point, i) => (
-          <li key={i} className="flex items-start gap-3" style={{ ...bodyTextStyle, fontSize: '16px' }}>
-            <svg
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke={BRASS}
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="flex-shrink-0 mt-[6px]">
-              <path d="M20 6L9 17l-5-5" />
-            </svg>
-            <span>{point}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-interface SectionNumberProps {
-  num: string;
-}
-
-export function SectionNumber({ num }: SectionNumberProps) {
-  return (
-    <span
-      aria-hidden="true"
-      className="select-none block leading-none text-[96px] md:text-[140px]"
-      style={{
-        fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
-        fontWeight: 600,
-        color: 'transparent',
-        WebkitTextFillColor: 'transparent',
-        WebkitTextStroke: `1px ${BRASS}`,
-        letterSpacing: '-0.03em',
-        lineHeight: 0.9,
-      }}>
-      {num}
-    </span>
-  );
-}
-
 interface SectionBandProps {
   tone: 'dark' | 'charcoal';
   children: ReactNode;
   id?: string;
+  tier?: { title: string; subtext: string };
 }
 
-export function SectionBand({ tone, children, id }: SectionBandProps) {
+export function SectionBand({ tone, children, id, tier }: SectionBandProps) {
   return (
     <section
       id={id}
-      className="-mx-6 md:-mx-12 px-6 md:px-12 py-16 md:py-24 scroll-mt-24"
+      className={`-mx-6 md:-mx-12 px-6 md:px-12 pb-12 md:pb-16 scroll-mt-24 ${tier ? 'pt-0' : 'pt-12 md:pt-16'}`}
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
+      {tier && <TierHeader title={tier.title} subtext={tier.subtext} />}
       {children}
     </section>
   );
@@ -153,30 +98,24 @@ interface ServiceSectionProps {
   label: string;
   heading: string;
   description: string;
-  points: [string, string, string];
-  bestFor: string;
   price: string;
   service: string;
+  tier?: { title: string; subtext: string };
   children: ReactNode;
 }
 
-export function ServiceSection({ id, index, num, label, heading, description, points, bestFor, price, service, children }: ServiceSectionProps) {
+export function ServiceSection({ id, index, num, label, heading, description, price, service, tier, children }: ServiceSectionProps) {
   const textLeft = index % 2 === 1;
   const tone = index % 2 === 1 ? 'dark' : 'charcoal';
   return (
-    <SectionBand tone={tone} id={id}>
+    <SectionBand tone={tone} id={id} tier={tier}>
       <div
-        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-10 gap-10 md:gap-12 md:items-start"
+        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-10 gap-8 md:gap-12 md:items-start"
         data-service={service}>
         <div className={`min-w-0 md:col-span-4 ${textLeft ? 'md:order-1' : 'md:order-2'}`}>
-          <SectionNumber num={num} />
-          <span className="type-label mt-6 mb-4 block">— {label}</span>
-          <h3 className="type-h2 mb-5">{heading}</h3>
-          <p className="max-w-xl" style={bodyTextStyle}>{description}</p>
-          <WhatYouGet points={points} />
-          <p className="mb-8" style={{ ...bodyTextStyle, fontSize: '14px', color: 'rgba(245,241,234,0.45)' }}>
-            Best for: {bestFor}
-          </p>
+          <span className="type-label mb-4 block">{num} · {label}</span>
+          <h3 className="type-h2 mb-4">{heading}</h3>
+          <p className="max-w-xl mb-6" style={bodyTextStyle}>{description}</p>
           <PricePill label={`From ${price} · Enquire`} service={service} />
         </div>
         <div className={`min-w-0 md:col-span-6 ${textLeft ? 'md:order-2' : 'md:order-1'}`}>
@@ -187,31 +126,18 @@ export function ServiceSection({ id, index, num, label, heading, description, po
   );
 }
 
-interface TierBannerProps {
+interface TierHeaderProps {
   title: string;
   subtext: string;
-  image: string;
-  alt: string;
 }
 
-export function TierBanner({ title, subtext, image, alt }: TierBannerProps) {
+export function TierHeader({ title, subtext }: TierHeaderProps) {
   return (
-    <div
-      className="relative -mx-6 md:-mx-12 overflow-hidden flex items-center"
-      style={{ minHeight: '60vh', borderTop: '1px solid rgba(138,126,109,0.25)', borderBottom: '1px solid rgba(138,126,109,0.25)' }}>
-      <AppImage src={image} alt={alt} fill className="object-cover w-full h-full" />
-      <div className="absolute inset-0" style={{ background: 'rgba(13,13,18,0.78)' }} />
-      <div className="relative z-10 w-full px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          <h2
-            className="uppercase text-[40px] md:text-[84px]"
-            style={{ fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif', fontWeight: 600, lineHeight: 0.9, color: '#FFFFFF', letterSpacing: '-0.03em' }}>
-            {title}
-          </h2>
-          <p className="mt-6 max-w-2xl" style={{ ...bodyTextStyle, color: '#B8B0A4' }}>
-            {subtext}
-          </p>
-        </div>
+    <div className="max-w-7xl mx-auto" style={{ paddingTop: '48px', paddingBottom: '32px' }}>
+      <div style={{ borderTop: '1px solid rgba(138,126,109,0.25)' }} />
+      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-8" style={{ paddingTop: '16px' }}>
+        <span className="uppercase" style={{ ...labelStyle, textTransform: 'uppercase' }}>{title}</span>
+        <span className="md:text-right" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '14px', color: '#B8B0A4' }}>{subtext}</span>
       </div>
     </div>
   );

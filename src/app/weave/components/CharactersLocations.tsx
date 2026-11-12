@@ -1,26 +1,19 @@
 'use client';
 import { useState, useEffect, useCallback, useRef, TouchEvent } from 'react';
-// Layout (heading, points, price) is provided by ServiceSection in SectionParts.
+// Layout (heading, price) is provided by ServiceSection in SectionParts.
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
-// Add more cards by duplicating an entry in this array.
-// Each card needs: id, name, type ('character' | 'location'), tag ('character' | 'location'),
-// images: array of { src, alt, aspectRatio ('square'|'wide'|'tall') }
-// The lightbox shows all images in order; the grid shows them grouped in one card.
-
 export interface CharacterImage {
   src: string;
   alt: string;
-  /** 'square' ≈ 1:1 | 'wide' ≈ 16:9 or 3:1 | 'tall' ≈ 2:3 or taller */
   aspectRatio: 'square' | 'wide' | 'tall';
-  /** Full-resolution URL for lightbox (falls back to src if omitted) */
   fullSrc?: string;
 }
 
 export interface CharacterCard {
   id: number;
   name: string;
-  type: string; // e.g. "Character Sheet" | "Location Sheet"
+  type: string;
   tag: 'character' | 'location';
   images: CharacterImage[];
 }
@@ -69,7 +62,7 @@ export const charactersData: CharacterCard[] = [
   {
     id: 3,
     name: 'Casual Clothing',
-    type: 'Character Turnaround',
+    type: 'Character',
     tag: 'character',
     images: [
       {
@@ -83,7 +76,7 @@ export const charactersData: CharacterCard[] = [
   {
     id: 4,
     name: 'Peter',
-    type: 'Character Sheet',
+    type: 'Character',
     tag: 'character',
     images: [
       {
@@ -97,7 +90,7 @@ export const charactersData: CharacterCard[] = [
   {
     id: 5,
     name: 'Sanaya Rooftop',
-    type: 'Location Sheet',
+    type: 'Location',
     tag: 'location',
     images: [
       {
@@ -111,25 +104,26 @@ export const charactersData: CharacterCard[] = [
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Flatten all images into a single ordered list for lightbox navigation
-function buildLightboxImages(cards: CharacterCard[]) {
-  const result: { src: string; alt: string; cardName: string; cardType: string }[] = [];
-  cards.forEach((card) => {
-    card.images.forEach((img) => {
-      result.push({
-        src: img.fullSrc ?? img.src,
-        alt: img.alt,
-        cardName: card.name,
-        cardType: card.type,
-      });
-    });
-  });
-  return result;
+interface SheetItem {
+  src: string;
+  alt: string;
+  cardName: string;
+  cardType: string;
 }
+
+// One entry per sheet image, so the lightbox arrows move between sheets
+const sheetItems: SheetItem[] = charactersData.flatMap((card) =>
+  card.images.map((img) => ({
+    src: img.fullSrc ?? img.src,
+    alt: img.alt,
+    cardName: card.name,
+    cardType: card.type,
+  }))
+);
 
 // ─── LIGHTBOX ─────────────────────────────────────────────────────────────────
 interface LightboxProps {
-  images: { src: string; alt: string; cardName: string; cardType: string }[];
+  images: SheetItem[];
   startIndex: number;
   onClose: () => void;
 }
@@ -170,13 +164,25 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     const dy = e.changedTouches[0].clientY - (touchStartY.current ?? 0);
     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-      dx < 0 ? next() : prev();
+      if (dx < 0) next(); else prev();
     }
     touchStartX.current = null;
     touchStartY.current = null;
   };
 
   const img = images[current];
+
+  const arrowStyle = {
+    background: 'rgba(0,0,0,0.6)',
+    border: '1px solid rgba(255,255,255,0.25)',
+    borderRadius: '50%',
+    width: '44px',
+    height: '44px',
+    backdropFilter: 'blur(8px)',
+    WebkitBackdropFilter: 'blur(8px)',
+    color: '#F5F1EA',
+    touchAction: 'manipulation' as const,
+  };
 
   return (
     <div
@@ -186,7 +192,6 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Close */}
       <button
         onClick={(e) => { e.stopPropagation(); onClose(); }}
         className="fixed top-4 right-4 z-[9999] flex items-center gap-1.5 font-mono text-sm tracking-wider uppercase transition-colors"
@@ -204,23 +209,12 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
         ✕ Close
       </button>
 
-      {/* Prev */}
       {images.length > 1 && (
         <button
           onClick={(e) => { e.stopPropagation(); prev(); }}
           className="fixed left-4 top-1/2 -translate-y-1/2 z-[9999] flex items-center justify-center transition-colors"
-          style={{
-            background: 'rgba(0,0,0,0.6)',
-            border: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: '50%',
-            width: '44px',
-            height: '44px',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            color: '#F5F1EA',
-            touchAction: 'manipulation',
-          }}
-          aria-label="Previous image"
+          style={arrowStyle}
+          aria-label="Previous sheet"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M15 18l-6-6 6-6" />
@@ -228,23 +222,12 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
         </button>
       )}
 
-      {/* Next */}
       {images.length > 1 && (
         <button
           onClick={(e) => { e.stopPropagation(); next(); }}
           className="fixed right-4 top-1/2 -translate-y-1/2 z-[9999] flex items-center justify-center transition-colors"
-          style={{
-            background: 'rgba(0,0,0,0.6)',
-            border: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: '50%',
-            width: '44px',
-            height: '44px',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            color: '#F5F1EA',
-            touchAction: 'manipulation',
-          }}
-          aria-label="Next image"
+          style={arrowStyle}
+          aria-label="Next sheet"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 18l6-6-6-6" />
@@ -252,7 +235,6 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
         </button>
       )}
 
-      {/* Image */}
       <div
         className="relative flex items-center justify-center"
         style={{ maxWidth: '90vw', maxHeight: '90vh', touchAction: 'pinch-zoom' }}
@@ -270,7 +252,6 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
             display: 'block',
           }}
         />
-        {/* Caption */}
         <div
           className="absolute bottom-0 left-0 right-0 px-4 py-3 rounded-b-xl"
           style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)' }}
@@ -280,7 +261,6 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
         </div>
       </div>
 
-      {/* Counter */}
       {images.length > 1 && (
         <div
           className="fixed bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs tracking-widest"
@@ -293,168 +273,58 @@ function Lightbox({ images, startIndex, onClose }: LightboxProps) {
   );
 }
 
-// ─── ASPECT RATIO HELPER ──────────────────────────────────────────────────────
-function aspectRatioStyle(ar: CharacterImage['aspectRatio']): string {
-  if (ar === 'square') return '1 / 1';
-  if (ar === 'wide') return '16 / 9';
-  return '2 / 3';
-}
-
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function CharactersLocations() {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const lightboxImages = buildLightboxImages(charactersData);
-
-  // Build a map: cardId → starting lightbox index for that card's first image
-  const cardStartIndex: Record<number, number> = {};
-  let idx = 0;
-  charactersData.forEach((card) => {
-    cardStartIndex[card.id] = idx;
-    idx += card.images.length;
-  });
-
-  const openLightbox = (cardId: number, imageOffset = 0) => {
-    setLightboxIndex(cardStartIndex[cardId] + imageOffset);
-    setLightboxOpen(true);
-  };
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const closeLightbox = useCallback(() => setOpenIndex(null), []);
 
   return (
     <>
-      {lightboxOpen && (
-        <Lightbox
-          images={lightboxImages}
-          startIndex={lightboxIndex}
-          onClose={() => setLightboxOpen(false)}
-        />
+      {openIndex !== null && (
+        <Lightbox images={sheetItems} startIndex={openIndex} onClose={closeLightbox} />
       )}
 
-      {/* Tidy equal-gap grid, every image fully visible */}
-      <div className="grid grid-cols-2 gap-4 items-start">
-        {charactersData.map((card) => (
-          <div
-            key={card.id}
-            className="iridescent-cell overflow-hidden cursor-pointer"
-            style={{
-              width: '100%',
-              gridColumn: card.images.length > 1 || card.images[0]?.aspectRatio === 'wide' ? 'span 2' : 'span 1',
-            }}
-            onMouseEnter={() => setHoveredCard(card.id)}
-            onMouseLeave={() => setHoveredCard(null)}
+      <div
+        className="flex gap-3 overflow-x-auto pb-2"
+        style={{ scrollbarWidth: 'thin', WebkitOverflowScrolling: 'touch' }}
+      >
+        {sheetItems.map((item, i) => (
+          <button
+            key={`${item.cardName}-${i}`}
+            type="button"
+            onClick={() => setOpenIndex(i)}
+            className="group flex-shrink-0 text-left transition-transform duration-300 hover:-translate-y-1 focus-visible:-translate-y-1"
+            style={{ touchAction: 'manipulation' }}
+            aria-label={`Open ${item.cardName} ${item.cardType}`}
           >
-            {/* Images — stacked vertically, each at natural aspect ratio */}
-            <div className="relative">
-              {card.images.map((img, imgIdx) => (
-                <div
-                  key={imgIdx}
-                  className="relative w-full overflow-hidden"
-                  style={{
-                    aspectRatio: aspectRatioStyle(img.aspectRatio),
-                    borderBottom:
-                      imgIdx < card.images.length - 1
-                        ? '1px solid rgba(138,126,109,0.1)'
-                        : 'none',
-                  }}
-                  onClick={() => openLightbox(card.id, imgIdx)}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="cell-img"
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'contain',
-                      display: 'block',
-                    }}
-                  />
-                  {/* Hover overlay */}
-                  <div
-                    className="absolute inset-0 transition-opacity duration-300"
-                    style={{
-                      background: 'rgba(0,0,0,0.25)',
-                      opacity: hoveredCard === card.id ? 1 : 0,
-                    }}
-                  />
-                  {/* Expand icon on hover */}
-                  <div
-                    className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
-                    style={{ opacity: hoveredCard === card.id ? 1 : 0 }}
-                  >
-                    <div
-                      className="flex items-center justify-center rounded-full"
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        background: 'rgba(11,11,13,0.6)',
-                        border: '1px solid rgba(242,239,233,0.35)',
-                        backdropFilter: 'blur(6px)',
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2EFE9" strokeWidth="2">
-                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                      </svg>
-                    </div>
-                  </div>
-                  {/* Tag badge — only on first image */}
-                  {imgIdx === 0 && (
-                    <div className="absolute top-3 left-3 z-10">
-                      <span
-                        className="px-3 py-1 uppercase"
-                        style={{
-                          background: 'rgba(11,11,13,0.7)',
-                          border: '1px solid rgba(242,239,233,0.10)',
-                          color: '#F2EFE9',
-                          borderRadius: '9999px',
-                          fontFamily: 'Manrope, sans-serif',
-                          fontWeight: 600,
-                          fontSize: '11px',
-                          letterSpacing: '0.14em',
-                        }}
-                      >
-                        {card.tag}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Card footer label */}
             <div
-              className="px-4 py-4 flex items-center justify-between"
-              style={{ background: '#141417' }}
-              onClick={() => openLightbox(card.id)}
+              className="overflow-hidden"
+              style={{
+                height: '260px',
+                width: '200px',
+                borderRadius: '4px',
+                border: '1px solid rgba(138,126,109,0.2)',
+                background: '#0D0D12',
+              }}
             >
-              <div>
-                <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
-                  {card.name}
-                </p>
-                <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', color: '#8A857C' }}>
-                  {card.type}
-                </p>
-              </div>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                style={{ color: '#8A857C', flexShrink: 0 }}
-              >
-                <path d="M7 17L17 7M7 7h10v10" />
-              </svg>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                className="transition-transform duration-500 group-hover:scale-[1.06]"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
             </div>
-          </div>
+            <p className="mt-2 leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 500, fontSize: '13px', color: '#F5F1EA' }}>
+              {item.cardName}
+            </p>
+            <p className="mt-0.5 uppercase" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
+              {item.cardType}
+            </p>
+          </button>
         ))}
       </div>
-      {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
     </>
   );
 }

@@ -18,7 +18,7 @@ export default function ClosingCTA() {
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
         <p className="type-label mb-6">— Your Turn</p>
 
-        <h2 className="type-closing mb-8" style={{ color: '#F5F1EA' }}>
+        <h2 className="type-hero mb-8" style={{ color: '#F5F1EA' }}>
           <span style={{ display: 'block', color: '#F5F1EA' }}>Be the brand</span>
           <span className="text-outline" style={{ display: 'block' }}>others copy.</span>
         </h2>

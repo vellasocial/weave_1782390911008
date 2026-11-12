@@ -10,7 +10,7 @@ interface SplitService {
   price: string;
   thumb: string;
   thumbAlt: string;
-  group: 'SIGNATURE' | 'GROWTH';
+  group: 'SIGNATURE' | 'ADS & CONTENT';
 }
 
 const services: SplitService[] = [
@@ -69,7 +69,7 @@ export default function ServiceSplitIndex() {
           Seven ways to be unforgettable.
         </h2>
         <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: '16px', color: '#B8B0A4' }}>
-          Four premium film services and three built for growth. Hover to preview, click to see the work.
+          Four premium film services and three built for ads and content. Hover to preview, click to see the work.
         </p>
       </div>
 
@@ -103,7 +103,7 @@ export default function ServiceSplitIndex() {
           {services.map((s, i) => (
             <div key={s.num}>
               {i === 0 && groupLabel('SIGNATURE')}
-              {i === 4 && groupLabel('GROWTH')}
+              {i === 4 && groupLabel('ADS & CONTENT')}
               <a
                 href={`#${s.target}`}
                 className="ssi-row flex items-center gap-4 md:gap-5 py-3 md:py-0"

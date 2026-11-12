@@ -4,7 +4,7 @@ import AppImage from '@/components/ui/AppImage';
 import CharactersLocations from './CharactersLocations';
 import ServiceSplitIndex from './ServiceSplitIndex';
 import RenderToReality from '@/app/weave/components/RenderToReality';
-import { TierBanner, ServiceSection, ComingSoonFrame } from './SectionParts';
+import { ServiceSection, ComingSoonFrame } from './SectionParts';
 
 type FilterType = 'All';
 
@@ -32,6 +32,17 @@ const cells: BentoCell[] = [
   alt: 'The Sanctuary - Tranquility Bali campaign video',
   tag: 'ad',
   video: 'https://res.cloudinary.com/wle6dmxs/video/upload/03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga.mp4'
+},
+{
+  id: 19,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  category: ['All'],
+  size: 'wide',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
+  alt: 'The Sanctuary - Tranquility Bali original campaign video',
+  tag: 'ad',
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/Three_Bedroom_Hero_evdphr.mp4'
 },
 {
   id: 1,
@@ -122,8 +133,6 @@ function buildIframeSrc(url: string): string {
   const sep = url.includes('?') ? '&' : '?';
   return `${url}${sep}autoplay=1&muted=0&controls=1&loop=0`;
 }
-
-const PLACEHOLDER_POINTS: [string, string, string] = ['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three'];
 
 interface VideoSlotProps {
   aspect?: string;
@@ -402,12 +411,6 @@ export default function BentoPortfolio() {
       <ServiceSplitIndex />
       {/* ── END WHAT WE MAKE ────────────────────────────────────────────────── */}
 
-      {/* ── SIGNATURE WORK BANNER ───────────────────────────────────────────── */}
-      <TierBanner
-        title="Signature Work"
-        subtext="Premium films, made to set the standard for a brand."
-        image="https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png"
-        alt="Bali Beans film still behind the Signature Work banner" />
       {/* ── 01 SIGNATURE FILMS ──────────────────────────────────────────────── */}
       <ServiceSection
         id="signature-films"
@@ -416,8 +419,7 @@ export default function BentoPortfolio() {
         label="Signature Films"
         heading="The hero film your brand is remembered by."
         description="Our highest tier. Full cinematic production, built shot by shot for launches and flagship campaigns."
-        points={PLACEHOLDER_POINTS}
-        bestFor="launches and flagship brand campaigns"
+        tier={{ title: 'Signature Work', subtext: 'Premium films, made to set the standard for a brand.' }}
         price="$350"
         service="Signature Films">
         <div className="grid grid-cols-2 gap-4">
@@ -474,8 +476,6 @@ export default function BentoPortfolio() {
         label="Realism Storytelling"
         heading="Real stories. Footage that feels lived in."
         description="Documentary-style films that tell the human story behind a brand, built from real people, real history and real places."
-        points={PLACEHOLDER_POINTS}
-        bestFor="heritage brands and founder stories"
         price="$950"
         service="Realism Storytelling">
         <div className="grid grid-cols-2 gap-4">
@@ -507,8 +507,6 @@ export default function BentoPortfolio() {
         label="Luxury Property Films"
         heading="Sell it before it's built."
         description="Cinematic villa and resort films made from your renders and plans. No shoot day, no waiting for construction."
-        points={PLACEHOLDER_POINTS}
-        bestFor="developers and villa or resort owners"
         price="$350"
         service="Luxury Property Films">
         <div className="grid grid-cols-2 gap-4">
@@ -526,20 +524,11 @@ export default function BentoPortfolio() {
         label="Characters & Locations"
         heading="Consistent by design."
         description="A face and a world you own: custom characters and locations that stay consistent across every film."
-        points={PLACEHOLDER_POINTS}
-        bestFor="brands that need a recurring face or setting"
         price="$250"
         service="Characters & Locations">
         <CharactersLocations />
       </ServiceSection>
       {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
-
-      {/* ── GROWTH WORK BANNER ──────────────────────────────────────────────── */}
-      <TierBanner
-        title="Growth Work"
-        subtext="Content built to convert, test and scale."
-        image="https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png"
-        alt="The Sanctuary still behind the Growth Work banner" />
 
       {/* ── 05 TALKING HEAD & VSL ───────────────────────────────────────────── */}
       <ServiceSection
@@ -549,8 +538,7 @@ export default function BentoPortfolio() {
         label="Talking Head & VSL"
         heading="A face that sells, every week."
         description="Presenter-led video sales letters and talking-head content, with no filming. Use your own presenter, or add a custom AI character as a consistent on-screen host."
-        points={PLACEHOLDER_POINTS}
-        bestFor="coaches, founders and offers that need a presenter"
+        tier={{ title: 'Ads & Content', subtext: 'Ads and everyday content, made fast.' }}
         price="$250"
         service="Talking Head & VSL">
         <div className="grid grid-cols-3 gap-4">
@@ -567,8 +555,6 @@ export default function BentoPortfolio() {
         label="Render to Reality"
         heading="From CGI to photograph."
         description="Send us your renders. We turn them into images that look like they were shot on location. Drag the slider to compare."
-        points={PLACEHOLDER_POINTS}
-        bestFor="architects and developers with CGI renders"
         price="$25"
         service="Render to Reality">
         <RenderToReality />
@@ -582,12 +568,10 @@ export default function BentoPortfolio() {
         label="Performance Ads"
         heading="Ads built for volume."
         description="Short vertical ads made fast and in batches, so you can test hooks and keep your feed fresh."
-        points={PLACEHOLDER_POINTS}
-        bestFor="brands testing hooks and feeding social channels"
         price="$150"
         service="Performance Ads">
-        <div className="grid grid-cols-3 gap-3 md:gap-4">
-          {visibleCells.filter((cell) => cell.id !== 18).map((cell) =>
+        <div className="grid grid-cols-4 gap-2 md:gap-3">
+          {visibleCells.map((cell) =>
           <div
             key={cell.id}
             className="iridescent-cell overflow-hidden cursor-pointer"
