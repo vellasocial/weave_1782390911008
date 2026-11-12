@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,8 +13,9 @@
   --text-3: #8A857C;
   --brass: #C9A86A;
   --brass-hover: #D8BC85;
-  --font-heading: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-hero: "SF Pro Display", -apple-system, system-ui, "Helvetica Neue", sans-serif;
 
   /* legacy token names re-mapped to the new system */
   --loom-black: #0B0B0D;
@@ -61,6 +62,9 @@ h1, h2, h3, h4, .font-manrope, .font-heading {
 .font-manrope {
   font-family: var(--font-heading) !important;
 }
+.type-hero .hero-line {
+  font-family: var(--font-hero);
+}
 
 p, li {
   font-style: normal !important;
@@ -98,7 +102,7 @@ p, li {
 
 /* ── TYPE SCALE ── */
 .type-hero {
-  font-family: var(--font-heading);
+  font-family: var(--font-hero) !important;
   font-weight: 700;
   font-size: 96px;
   line-height: 0.95;

@@ -9,7 +9,7 @@ export const BAND_CHARCOAL = '#141417';
 
 export const bodyTextStyle = {
   color: BODY_GREY,
-  fontFamily: 'Inter, sans-serif',
+  fontFamily: 'Manrope, sans-serif',
   fontStyle: 'normal' as const,
   fontSize: '18px',
   lineHeight: 1.6,
@@ -91,7 +91,7 @@ export function SectionNumber({ num }: SectionNumberProps) {
       aria-hidden="true"
       className="select-none flex-shrink-0 leading-none text-[72px] md:text-[120px]"
       style={{
-        fontFamily: 'Syne, sans-serif',
+        fontFamily: 'Manrope, sans-serif',
         fontWeight: 700,
         color: 'transparent',
         WebkitTextStroke: `1.5px ${BRASS}`,
@@ -135,7 +135,7 @@ export function TierBanner({ title, subtext, image, alt }: TierBannerProps) {
         <div className="max-w-7xl mx-auto">
           <h2
             className="uppercase leading-none text-[48px] md:text-[84px]"
-            style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, color: '#F2EFE9', letterSpacing: '-0.02em' }}>
+            style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, color: '#F2EFE9', letterSpacing: '-0.02em' }}>
             {title}
           </h2>
           <p className="mt-4 max-w-2xl" style={{ ...bodyTextStyle, color: '#F2EFE9' }}>
@@ -231,7 +231,7 @@ export function ServiceSubNav() {
               }}
               className="whitespace-nowrap flex-shrink-0 px-3 py-3 transition-colors duration-300"
               style={{
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Manrope, sans-serif',
                 fontWeight: 600,
                 fontSize: '11px',
                 letterSpacing: '0.14em',

@@ -37,7 +37,7 @@ export default function HowItWorksSection() {
               }}>
               <span
                 className="block mb-6"
-                style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
+                style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
                 {step.number}
               </span>
               <h3 className="type-card-title mb-3">{step.title}</h3>

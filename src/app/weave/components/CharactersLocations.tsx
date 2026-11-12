@@ -361,7 +361,7 @@ export default function CharactersLocations() {
               className="p-6 flex flex-col gap-3"
               style={{ border: '1px solid rgba(242,239,233,0.10)', background: '#1C1C20', borderRadius: '4px' }}
             >
-              <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
+              <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
                 {step.n}
               </span>
               <p className="type-card-title">
@@ -461,7 +461,7 @@ export default function CharactersLocations() {
                           border: '1px solid rgba(242,239,233,0.10)',
                           color: '#F2EFE9',
                           borderRadius: '9999px',
-                          fontFamily: 'Inter, sans-serif',
+                          fontFamily: 'Manrope, sans-serif',
                           fontWeight: 600,
                           fontSize: '11px',
                           letterSpacing: '0.14em',
@@ -482,10 +482,10 @@ export default function CharactersLocations() {
               onClick={() => openLightbox(card.id)}
             >
               <div>
-                <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
+                <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
                   {card.name}
                 </p>
-                <p className="mt-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#8A857C' }}>
+                <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', color: '#8A857C' }}>
                   {card.type}
                 </p>
               </div>

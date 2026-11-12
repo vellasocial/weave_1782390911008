@@ -26,7 +26,7 @@ export default function WeaveFooter() {
             key={link}
             href={`#${link?.toLowerCase()}`}
             className="inline-flex items-center transition-colors duration-300"
-            style={{ minHeight: '44px', color: '#8A857C', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', textTransform: 'uppercase' }}
+            style={{ minHeight: '44px', color: '#8A857C', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', textTransform: 'uppercase' }}
             onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F2EFE9'}
             onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = '#8A857C'}>
 
@@ -36,7 +36,7 @@ export default function WeaveFooter() {
         </nav>
 
         {/* Copyright */}
-        <p className="text-xs tracking-wider" style={{ color: '#8A857C', fontFamily: 'Inter, sans-serif', fontWeight: 400 }}>© 2026 VELLASOCIAL
+        <p className="text-xs tracking-wider" style={{ color: '#8A857C', fontFamily: 'Manrope, sans-serif', fontWeight: 400 }}>© 2026 VELLASOCIAL
 
         </p>
       </div>

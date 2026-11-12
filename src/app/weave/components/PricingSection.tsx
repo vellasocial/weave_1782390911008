@@ -80,10 +80,10 @@ export default function PricingSection() {
                     className={i === 0 ? '' : 'pt-5 border-t'}
                     style={{ borderColor: 'rgba(242,239,233,0.10)' }}>
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <p className="text-[20px] leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, color: '#F2EFE9' }}>
+                      <p className="text-[20px] leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, color: '#F2EFE9' }}>
                         {item.name}
                       </p>
-                      <p style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '16px', color: '#C9A86A' }}>
+                      <p style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '16px', color: '#C9A86A' }}>
                         {item.price}
                       </p>
                     </div>
@@ -97,7 +97,7 @@ export default function PricingSection() {
 
         <div className="mt-8 flex flex-col gap-1">
           {smallPrint.map((line) => (
-            <p key={line} style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#8A857C', lineHeight: 1.6 }}>
+            <p key={line} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '13px', color: '#8A857C', lineHeight: 1.6 }}>
               {line}
             </p>
           ))}

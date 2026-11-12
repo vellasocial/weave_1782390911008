@@ -205,7 +205,7 @@ function VideoSlot({ aspect = '16/9', tagText, title, caption, image, alt, video
         {image ? (
           <AppImage src={image} alt={alt} fill className="object-cover w-full h-full" />
         ) : (
-          <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#8A857C' }}>
+          <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#8A857C' }}>
             Coming soon
           </span>
         )}
@@ -218,7 +218,7 @@ function VideoSlot({ aspect = '16/9', tagText, title, caption, image, alt, video
                 border: '1px solid rgba(242,239,233,0.10)',
                 color: '#F2EFE9',
                 borderRadius: '9999px',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Manrope, sans-serif',
                 fontWeight: 600,
                 fontSize: '11px',
                 letterSpacing: '0.14em'
@@ -229,7 +229,7 @@ function VideoSlot({ aspect = '16/9', tagText, title, caption, image, alt, video
         )}
         {soundLabel && (
           <div className="absolute bottom-3 left-3 z-10">
-            <span className="uppercase" style={{ color: '#F2EFE9', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
+            <span className="uppercase" style={{ color: '#F2EFE9', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
               {soundLabel}
             </span>
           </div>
@@ -238,10 +238,10 @@ function VideoSlot({ aspect = '16/9', tagText, title, caption, image, alt, video
       {(title || caption) && (
         <div className="px-4 py-4">
           {title && (
-            <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>{title}</p>
+            <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>{title}</p>
           )}
           {caption && (
-            <p className="mt-2" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', lineHeight: 1.6, color: '#B9B3A8' }}>{caption}</p>
+            <p className="mt-2" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', lineHeight: 1.6, color: '#B9B3A8' }}>{caption}</p>
           )}
         </div>
       )}
@@ -464,7 +464,7 @@ export default function BentoPortfolio() {
                 minHeight: '44px',
               }}>
               <div className="flex items-center justify-between">
-                <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
+                <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
                   {tile.num}
                 </span>
                 <span
@@ -473,7 +473,7 @@ export default function BentoPortfolio() {
                     border: '1px solid rgba(242,239,233,0.10)',
                     color: '#8A857C',
                     borderRadius: '9999px',
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'Manrope, sans-serif',
                     fontWeight: 600,
                     fontSize: '11px',
                     letterSpacing: '0.14em'
@@ -557,7 +557,7 @@ export default function BentoPortfolio() {
                   border: '1px solid rgba(242,239,233,0.10)',
                   color: '#F2EFE9',
                   borderRadius: '9999px',
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'Manrope, sans-serif',
                   fontWeight: 600,
                   fontSize: '11px',
                   letterSpacing: '0.14em'
@@ -569,8 +569,8 @@ export default function BentoPortfolio() {
           </div>
 
           <div className="px-4 py-4" style={{ background: '#141417' }}>
-            <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>{cell.title}</p>
-            <p className="mt-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#8A857C' }}>{cell.subtitle}</p>
+            <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>{cell.title}</p>
+            <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', color: '#8A857C' }}>{cell.subtitle}</p>
           </div>
         </div>
         )}
@@ -741,7 +741,7 @@ export default function BentoPortfolio() {
                     border: '1px solid rgba(242,239,233,0.10)',
                     color: '#F2EFE9',
                     borderRadius: '9999px',
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'Manrope, sans-serif',
                     fontWeight: 600,
                     fontSize: '11px',
                     letterSpacing: '0.14em'
@@ -753,8 +753,8 @@ export default function BentoPortfolio() {
             </div>
 
             <div className="px-4 py-4" style={{ background: '#141417' }}>
-              <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>{cell.title}</p>
-              <p className="mt-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#8A857C' }}>{cell.subtitle}</p>
+              <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>{cell.title}</p>
+              <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', color: '#8A857C' }}>{cell.subtitle}</p>
             </div>
           </div>
         )}

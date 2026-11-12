@@ -93,7 +93,7 @@ export default function CommissionPanel() {
     border: '1px solid rgba(242,239,233,0.10)',
     color: '#F2EFE9',
     borderRadius: '4px',
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Manrope, sans-serif',
     minHeight: '48px',
   };
 

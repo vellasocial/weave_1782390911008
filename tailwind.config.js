@@ -7,10 +7,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        manrope: ['Syne', 'sans-serif'],
-        heading: ['Syne', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        mono: ['Inter', 'sans-serif'],
+        manrope: ['Manrope', 'sans-serif'],
+        heading: ['Manrope', 'sans-serif'],
+        body: ['Manrope', 'sans-serif'],
+        mono: ['Manrope', 'sans-serif'],
       },
       colors: {
         loom: {

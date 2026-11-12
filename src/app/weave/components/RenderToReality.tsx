@@ -130,7 +130,7 @@ export default function RenderToReality() {
               className="object-cover w-full h-full pointer-events-none" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="uppercase" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
+              <span className="uppercase" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
                 Upload client render below
               </span>
             </div>
@@ -149,7 +149,7 @@ export default function RenderToReality() {
                 className="object-cover w-full h-full pointer-events-none" />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="uppercase" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
+                <span className="uppercase" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
                   Upload realistic version below
                 </span>
               </div>
@@ -160,14 +160,14 @@ export default function RenderToReality() {
           <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
             <span
               className="px-3 py-1 uppercase"
-              style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
+              style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
               After · Vella Realism
             </span>
           </div>
           <div className="absolute bottom-3 right-3 z-10 pointer-events-none">
             <span
               className="px-3 py-1 uppercase"
-              style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
+              style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
               Before · Client Render
             </span>
           </div>
@@ -236,13 +236,13 @@ export default function RenderToReality() {
                   {thumb ? (
                     <AppImage src={thumb} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
                   ) : (
-                    <span className="uppercase" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
+                    <span className="uppercase" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
                       Coming soon
                     </span>
                   )}
                 </div>
                 <div className="px-4 py-4">
-                  <p className="leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
+                  <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
                     {pair.name}
                   </p>
                 </div>
@@ -256,7 +256,7 @@ export default function RenderToReality() {
                     style={{
                       border: '1px solid rgba(242,239,233,0.10)',
                       color: pair[side] ? '#F2EFE9' : '#B9B3A8',
-                      fontFamily: 'Inter, sans-serif',
+                      fontFamily: 'Manrope, sans-serif',
                       fontWeight: 600,
                       fontSize: '11px',
                       letterSpacing: '0.14em',

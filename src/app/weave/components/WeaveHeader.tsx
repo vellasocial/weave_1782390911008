@@ -62,7 +62,7 @@ export default function WeaveHeader() {
                 style={{
                   minHeight: '44px',
                   color: '#B9B3A8',
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'Manrope, sans-serif',
                   fontWeight: 600,
                   fontSize: '13px',
                   letterSpacing: '0.18em',
