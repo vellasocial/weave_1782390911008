@@ -105,20 +105,19 @@ interface ServiceSectionProps {
 }
 
 export function ServiceSection({ id, index, num, label, heading, description, price, service, tier, children }: ServiceSectionProps) {
-  const textLeft = index % 2 === 1;
   const tone = index % 2 === 1 ? 'dark' : 'charcoal';
   return (
     <SectionBand tone={tone} id={id} tier={tier}>
       <div
-        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-10 gap-8 md:gap-12 md:items-start"
+        className="max-w-7xl mx-auto flex flex-col gap-8 md:gap-10"
         data-service={service}>
-        <div className={`min-w-0 md:col-span-4 ${textLeft ? 'md:order-1' : 'md:order-2'}`}>
+        <div className="min-w-0 max-w-3xl">
           <span className="type-label mb-4 block">{num} · {label}</span>
           <h3 className="type-h2 mb-4">{heading}</h3>
           <p className="max-w-xl mb-6" style={bodyTextStyle}>{description}</p>
           <PricePill label={`From ${price} · Enquire`} service={service} />
         </div>
-        <div className={`min-w-0 md:col-span-6 ${textLeft ? 'md:order-2' : 'md:order-1'}`}>
+        <div className="min-w-0 w-full">
           {children}
         </div>
       </div>

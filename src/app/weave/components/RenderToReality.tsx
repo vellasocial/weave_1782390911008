@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import AppImage from '@/components/ui/AppImage';
+import { SlideRow } from './SlideRow';
 // Header, points and price are provided by ServiceSection.
 
 interface RenderPair {
@@ -87,12 +88,12 @@ export default function RenderToReality() {
     <div className="w-full">
       {/* Before / after slider */}
       <div
-        className="overflow-hidden"
-        style={{ border: '1px solid rgba(242,239,233,0.10)', background: '#141417', borderRadius: '4px' }}>
+        className="compare-frame overflow-hidden"
+        style={{ border: '1px solid rgba(138,126,109,0.2)', background: '#13131A', borderRadius: '4px' }}>
         <div
           ref={containerRef}
-          className="relative w-full overflow-hidden select-none"
-          style={{ aspectRatio: '16/9', touchAction: 'pan-y', cursor: 'ew-resize', background: '#1C1C20' }}
+          className="relative w-full h-full overflow-hidden select-none"
+          style={{ touchAction: 'pan-y', cursor: 'ew-resize', background: '#1C1C20' }}
           onMouseDown={(e) => {
             e.preventDefault();
             setDragging(true);
@@ -189,79 +190,79 @@ export default function RenderToReality() {
       </div>
 
       {/* Example thumbnails */}
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        {pairs.map((pair) => {
-          const selected = pair.id === activeId;
-          const thumb = pair.after || pair.before;
-          return (
-            <div
-              key={pair.id}
-              className="overflow-hidden flex flex-col transition-all duration-300 media-zoom"
-              style={{
-                border: selected ? `1px solid ${ACCENT}` : '1px solid rgba(242,239,233,0.10)',
-                outline: selected ? `1px solid ${ACCENT}` : 'none',
-                background: '#141417',
-                borderRadius: '4px',
-              }}>
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveId(pair.id);
-                  setPosition(50);
-                }}
-                aria-pressed={selected}
-                className="text-left w-full"
-                style={{ touchAction: 'manipulation' }}>
-                <div
-                  className="relative w-full overflow-hidden flex items-center justify-center"
-                  style={{ aspectRatio: '4/3', background: thumb ? '#1C1C20' : 'transparent', border: thumb ? 'none' : '1px dashed rgba(138,126,109,0.4)' }}>
-                  {thumb ? (
-                    <AppImage src={thumb} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
-                  ) : (
-                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
-                      Example coming soon
-                    </span>
-                  )}
-                </div>
-                <div className="px-4 py-4">
-                  <p className="leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '20px', color: '#F2EFE9' }}>
+      <div className="mt-6">
+        <SlideRow cardWidth={320} ariaLabel="Render to reality examples">
+          {pairs.map((pair) => {
+            const selected = pair.id === activeId;
+            const thumb = pair.after || pair.before;
+            return (
+              <div
+                key={pair.id}
+                className="slide-card slide-card-thumb flex-shrink-0 flex flex-col"
+                style={{ scrollSnapAlign: 'start' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveId(pair.id);
+                    setPosition(50);
+                  }}
+                  aria-pressed={selected}
+                  className="slide-card-lift text-left w-full"
+                  style={{ touchAction: 'manipulation' }}>
+                  <div
+                    className="slide-card-frame relative overflow-hidden flex items-center justify-center"
+                    style={{
+                      borderRadius: '4px',
+                      border: selected ? `1px solid ${ACCENT}` : thumb ? '1px solid rgba(138,126,109,0.2)' : '1px dashed rgba(138,126,109,0.4)',
+                      outline: selected ? `1px solid ${ACCENT}` : 'none',
+                      background: thumb ? '#1C1C20' : 'transparent',
+                    }}>
+                    {thumb ? (
+                      <AppImage src={thumb} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
+                    ) : (
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
+                        Example coming soon
+                      </span>
+                    )}
+                  </div>
+                  <p className="pt-3 leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '16px', color: '#F2EFE9' }}>
                     {pair.name}
                   </p>
-                </div>
-              </button>
+                </button>
 
-              <div className="px-4 pb-4 flex flex-col gap-2">
-                {(['before', 'after'] as const).map((side) => (
-                  <label
-                    key={side}
-                    className="uppercase rounded-full px-3 text-center cursor-pointer transition-opacity duration-300 hover:opacity-70 flex items-center justify-center"
-                    style={{
-                      border: '1px solid rgba(242,239,233,0.10)',
-                      color: pair[side] ? '#F2EFE9' : '#B9B3A8',
-                      fontFamily: 'Manrope, sans-serif',
-                      fontWeight: 600,
-                      fontSize: '11px',
-                      letterSpacing: '0.14em',
-                      minHeight: '44px',
-                      touchAction: 'manipulation',
-                    }}>
-                    {side === 'before'
-                      ? pair.before ? 'Before · Client Render ✓' : 'Upload Before · Client Render'
-                      : pair.after ? 'After · Vella Realism ✓' : 'Upload After · Vella Realism'}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="sr-only"
-                      onChange={(e) => {
-                        handleUpload(pair.id, side, e.target.files?.[0]);
-                        e.target.value = '';
-                      }} />
-                  </label>
-                ))}
+                <div className="pt-3 flex flex-col gap-2">
+                  {(['before', 'after'] as const).map((side) => (
+                    <label
+                      key={side}
+                      className="uppercase rounded-full px-3 text-center cursor-pointer transition-opacity duration-300 hover:opacity-70 flex items-center justify-center"
+                      style={{
+                        border: '1px solid rgba(242,239,233,0.10)',
+                        color: pair[side] ? '#F2EFE9' : '#B9B3A8',
+                        fontFamily: 'Manrope, sans-serif',
+                        fontWeight: 600,
+                        fontSize: '11px',
+                        letterSpacing: '0.14em',
+                        minHeight: '44px',
+                        touchAction: 'manipulation',
+                      }}>
+                      {side === 'before'
+                        ? pair.before ? 'Before · Client Render ✓' : 'Upload Before · Client Render'
+                        : pair.after ? 'After · Vella Realism ✓' : 'Upload After · Vella Realism'}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="sr-only"
+                        onChange={(e) => {
+                          handleUpload(pair.id, side, e.target.files?.[0]);
+                          e.target.value = '';
+                        }} />
+                    </label>
+                  ))}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </SlideRow>
       </div>
     </div>
   );
