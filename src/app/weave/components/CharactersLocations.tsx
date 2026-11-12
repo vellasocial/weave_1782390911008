@@ -160,8 +160,8 @@ export default function CharactersLocations() {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: item.aspectRatio === 'square' ? 'cover' : 'contain',
-                objectPosition: item.aspectRatio === 'square' ? 'center top' : 'center center',
+                objectFit: 'cover',
+                objectPosition: 'center center',
                 background: '#0D0D12',
                 display: 'block',
               }}

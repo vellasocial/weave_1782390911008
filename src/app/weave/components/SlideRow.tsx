@@ -251,11 +251,10 @@ interface SlideCardProps {
   onClick?: () => void;
   ariaLabel?: string;
   showPlay?: boolean;
-  empty?: boolean;
 }
 
-export function SlideCard({ kind, children, tag, title, subtitle, onClick, ariaLabel, showPlay, empty }: SlideCardProps) {
-  const clickable = !!onClick && !empty;
+export function SlideCard({ kind, children, tag, title, subtitle, onClick, ariaLabel, showPlay }: SlideCardProps) {
+  const clickable = !!onClick;
   return (
     <div
       className={`slide-card slide-card-${kind} flex-shrink-0 ${clickable ? 'cursor-pointer' : ''}`}
@@ -272,8 +271,8 @@ export function SlideCard({ kind, children, tag, title, subtitle, onClick, ariaL
           className="slide-card-frame relative overflow-hidden"
           style={{
             borderRadius: '4px',
-            border: empty ? '1px dashed rgba(138,126,109,0.4)' : '1px solid rgba(138,126,109,0.2)',
-            background: empty ? 'transparent' : '#13131A',
+            border: '1px solid rgba(138,126,109,0.2)',
+            background: '#13131A',
           }}>
           {children}
           {showPlay && (
@@ -311,18 +310,6 @@ export function SlideCard({ kind, children, tag, title, subtitle, onClick, ariaL
           {subtitle && <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '14px', color: '#8A857C' }}>{subtitle}</p>}
         </div>
       )}
-    </div>
-  );
-}
-
-export function ComingSoonLabel() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <span
-        className="text-center px-2"
-        style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
-        Example coming soon
-      </span>
     </div>
   );
 }

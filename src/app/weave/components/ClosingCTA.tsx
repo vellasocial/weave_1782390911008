@@ -19,8 +19,10 @@ export default function ClosingCTA() {
         <p className="type-label mb-6">— Your Turn</p>
 
         <h2 className="type-hero mb-8" style={{ color: '#F5F1EA' }}>
-          <span className="closing-line" style={{ display: 'block', color: '#F5F1EA' }}>Be the brand</span>
-          <span className="closing-line text-outline" style={{ display: 'block' }}>others copy.</span>
+          <span className="closing-line" style={{ display: 'block', color: '#F5F1EA' }}>
+            Be the <span className="text-outline">brand</span>
+          </span>
+          <span className="closing-line" style={{ display: 'block', color: '#F5F1EA' }}>others copy.</span>
         </h2>
 
         <p className="type-body mb-10 max-w-md">

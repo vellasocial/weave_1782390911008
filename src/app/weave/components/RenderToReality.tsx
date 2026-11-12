@@ -182,8 +182,8 @@ export default function RenderToReality() {
       {/* Example thumbnails (show the "after" image) */}
       <div className="mt-6">
         <SlideRow cardWidth={320} ariaLabel="Render to reality examples">
-          {PAIRS.map((pair) => {
-            const selected = pair.id === activeId;
+          {PAIRS.filter((pair) => pair.id !== activeId).map((pair) => {
+            const selected = false;
             return (
               <div
                 key={pair.id}

@@ -67,30 +67,6 @@ export function SectionBand({ tone, children, id, tier }: SectionBandProps) {
   );
 }
 
-interface ComingSoonFrameProps {
-  aspect?: string;
-  className?: string;
-}
-
-export function ComingSoonFrame({ aspect = '16/9', className = '' }: ComingSoonFrameProps) {
-  return (
-    <div
-      className={`w-full flex items-center justify-center ${className}`}
-      style={{
-        aspectRatio: aspect,
-        border: '1px dashed rgba(138,126,109,0.4)',
-        borderRadius: '4px',
-        background: 'transparent',
-      }}>
-      <span
-        className="text-center px-2"
-        style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
-        Example coming soon
-      </span>
-    </div>
-  );
-}
-
 interface ServiceSectionProps {
   id: string;
   index: number;

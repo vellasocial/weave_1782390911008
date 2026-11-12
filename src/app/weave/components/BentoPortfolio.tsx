@@ -5,7 +5,7 @@ import CharactersLocations from './CharactersLocations';
 import ServiceSplitIndex from './ServiceSplitIndex';
 import RenderToReality from '@/app/weave/components/RenderToReality';
 import { ServiceSection } from './SectionParts';
-import { SlideRow, SlideCard, MediaLightbox, MediaItem, ComingSoonLabel, CardKind } from './SlideRow';
+import { SlideRow, SlideCard, MediaLightbox, MediaItem, CardKind } from './SlideRow';
 
 interface BentoCell {
   id: number;
@@ -158,12 +158,11 @@ const talkingHeadData: BentoCell[] = [
 interface MediaSliderProps {
   items: BentoCell[];
   kind: CardKind;
-  comingSoon?: number;
   label: string;
 }
 
 // Slider of media cards (videos open in the lightbox with sound, images open full size)
-function MediaSlider({ items, kind, comingSoon = 0, label }: MediaSliderProps) {
+function MediaSlider({ items, kind, label }: MediaSliderProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const playable = items.filter((c) => c.video || c.image);
   const lightboxItems: MediaItem[] = playable.map((c) => ({
@@ -198,13 +197,6 @@ function MediaSlider({ items, kind, comingSoon = 0, label }: MediaSliderProps) {
               className="w-full h-full"
               objectFit={cell.contain ? 'contain' : 'cover'}
               objectPosition={cell.position ?? 'center center'} />
-          </SlideCard>
-        ))}
-        {Array.from({ length: comingSoon }).map((_, n) => (
-          <SlideCard key={`soon-${n}`} kind={kind} empty>
-            <div className="w-full h-full" style={{ position: 'absolute', inset: 0 }}>
-              <ComingSoonLabel />
-            </div>
           </SlideCard>
         ))}
       </SlideRow>
@@ -261,7 +253,7 @@ export default function BentoPortfolio() {
         description="Cinematic villa and resort films made from your renders and plans. No shoot day, no waiting for construction."
         price="$350"
         service="Luxury Property Films">
-        <MediaSlider items={luxuryData} kind="wide" comingSoon={1} label="Luxury Property Films" />
+        <MediaSlider items={luxuryData} kind="wide" label="Luxury Property Films" />
       </ServiceSection>
 
       {/* ── 04 CHARACTERS & LOCATIONS ───────────────────────────────────────── */}
