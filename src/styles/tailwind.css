@@ -1,36 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: #0B0B0D;
-  --surface: #141417;
-  --surface-2: #1C1C20;
-  --hairline: rgba(242, 239, 233, 0.10);
-  --text: #F2EFE9;
-  --text-2: #B9B3A8;
-  --text-3: #8A857C;
-  --brass: #C9A86A;
-  --brass-hover: #D8BC85;
+  --bg: #0D0D12;
+  --surface: #13131A;
+  --surface-2: #1A1A24;
+  --hairline: rgba(138, 126, 109, 0.25);
+  --text: #F5F1EA;
+  --text-2: #B8B0A4;
+  --text-3: rgba(245, 241, 234, 0.45);
+  --brass: #8A7E6D;
+  --brass-hover: #8A7E6D;
+  --btn-fill: #2A2622;
+  --btn-border: rgba(255, 255, 255, 0.35);
   --font-heading: 'Manrope', sans-serif;
   --font-body: 'Manrope', sans-serif;
-  --font-hero: "SF Pro Display", -apple-system, system-ui, "Helvetica Neue", sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-hero: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
 
-  /* legacy token names re-mapped to the new system */
-  --loom-black: #0B0B0D;
-  --loom-black-2: #141417;
-  --loom-black-3: #1C1C20;
-  --lavender: #C9A86A;
-  --lavender-dim: rgba(242, 239, 233, 0.06);
-  --lavender-border: rgba(242, 239, 233, 0.10);
-  --pearl: #F2EFE9;
-  --pearl-dim: #B9B3A8;
-  --magenta: #C9A86A;
-  --taupe: #8A857C;
-  --warm-grey: #B9B3A8;
-  --off-white: #F2EFE9;
-  --near-black: #0B0B0D;
+  /* legacy token names re-mapped to the original system */
+  --loom-black: #0D0D12;
+  --loom-black-2: #13131A;
+  --loom-black-3: #1A1A24;
+  --lavender: #8A7E6D;
+  --lavender-dim: rgba(138, 126, 109, 0.10);
+  --lavender-border: rgba(138, 126, 109, 0.25);
+  --pearl: #F5F1EA;
+  --pearl-dim: #B8B0A4;
+  --magenta: #8A7E6D;
+  --taupe: #8A7E6D;
+  --warm-grey: #B8B0A4;
+  --off-white: #F5F1EA;
+  --near-black: #0D0D12;
 }
 
 * {
@@ -45,19 +48,22 @@ body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, .font-manrope, .font-heading {
   font-family: var(--font-heading) !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
 }
 
-/* One body font everywhere (including legacy mono/label classes) */
-.font-mono, .font-mono-label, button, input, select, textarea, p, span, a, li, label {
+/* Body font everywhere */
+button, input, select, textarea, p, span, a, li, label {
   font-family: var(--font-body);
+}
+.font-mono, .font-mono-label {
+  font-family: var(--font-mono) !important;
 }
 .font-manrope {
   font-family: var(--font-heading) !important;
@@ -72,7 +78,7 @@ p, li {
 
 ::selection {
   background: var(--brass);
-  color: var(--bg);
+  color: var(--text);
 }
 
 ::-webkit-scrollbar {
@@ -86,7 +92,7 @@ p, li {
   border-radius: 2px;
 }
 
-/* Focus rings: brass only */
+/* Focus rings: taupe */
 :focus-visible {
   outline: 2px solid var(--brass);
   outline-offset: 3px;
@@ -103,58 +109,70 @@ p, li {
 /* ── TYPE SCALE ── */
 .type-hero {
   font-family: var(--font-hero) !important;
-  font-weight: 700;
-  font-size: 96px;
-  line-height: 0.95;
+  font-weight: 600 !important;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--text);
 }
+.type-closing {
+  font-family: var(--font-hero) !important;
+  font-weight: 600 !important;
+  font-size: clamp(2.2rem, 5.5vw, 5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.text-outline {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(245, 241, 234, 0.4);
+}
 .type-h2 {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 56px;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
   color: var(--text);
 }
 .type-card-title {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 26px;
-  line-height: 1.15;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
   color: var(--text);
 }
 .type-body {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--text-2);
   font-style: normal;
 }
 .type-label {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--brass);
 }
-@media (max-width: 1023px) {
-  .type-hero { font-size: clamp(48px, 13vw, 72px); }
-  .type-h2 { font-size: clamp(34px, 8vw, 44px); }
-}
-@media (max-width: 767px) {
-  .type-hero { font-size: clamp(44px, 14vw, 60px); }
-  .type-h2 { font-size: 36px; }
-  .type-card-title { font-size: 22px; }
+.type-hero-label {
+  font-family: var(--font-hero);
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--brass);
 }
 
-/* Section headings in the page: unify to 56px scale regardless of inline sizes */
+/* Section headings: unify tracking */
 section h2, section h3.section-h {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.8px;
 }
 
-/* ── BUTTONS ── */
+/* ── BUTTONS: dark brown pill, off-white text, 1px light border ── */
 .btn-primary,
 .btn-secondary {
   display: inline-flex;
@@ -167,31 +185,21 @@ section h2, section h3.section-h {
   border-radius: 9999px;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-}
-.btn-primary {
-  background: var(--brass);
-  color: var(--bg);
-  border: 1px solid var(--brass);
-}
-.btn-primary:hover {
-  background: var(--brass-hover);
-  border-color: var(--brass-hover);
-  transform: translateY(-2px);
-}
-.btn-secondary {
-  background: transparent;
+  background: var(--btn-fill);
   color: var(--text);
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--btn-border);
 }
+.btn-primary:hover,
 .btn-secondary:hover {
-  border-color: rgba(242, 239, 233, 0.35);
+  background: #342F2A;
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
 }
 .btn-primary:active,
@@ -236,7 +244,7 @@ section h2, section h3.section-h {
 .cell-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11,11,13,0.85) 0%, rgba(11,11,13,0) 50%);
+  background: linear-gradient(to top, rgba(13,13,18,0.85) 0%, rgba(13,13,18,0) 50%);
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 3;
@@ -251,7 +259,7 @@ section h2, section h3.section-h {
   padding-bottom: 0;
 }
 
-/* ── REMOVED SCROLL ANIMATIONS: content is visible immediately ── */
+/* ── SCROLL ANIMATIONS REMOVED: content is visible immediately ── */
 .reveal-up,
 .reveal-up.visible {
   opacity: 1 !important;
@@ -259,19 +267,19 @@ section h2, section h3.section-h {
   transition: none !important;
 }
 
-/* ── HERO LOAD-ONCE ANIMATION ── */
-@keyframes heroLineIn {
-  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+/* ── HERO WORD-BY-WORD FADE-IN (1.2s apart) ── */
+@keyframes heroWordIn {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
   to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 .hero-line {
   display: block;
   opacity: 0;
-  animation: heroLineIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroWordIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .hero-fade {
   opacity: 0;
-  animation: heroLineIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroWordIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-line, .hero-fade {
@@ -373,6 +381,22 @@ section h2, section h3.section-h {
 .step-dot.done {
   background: var(--text-3);
 }
+
+/* ── LEGACY INLINE COLOUR NORMALISATION (maps older inline values to the original palette) ── */
+[style*="rgba(242,239,233,0.10)"],
+[style*="rgba(242, 239, 233, 0.10)"] {
+  border-color: rgba(138, 126, 109, 0.25) !important;
+}
+[style*="border: 1px solid rgba(242,239,233,0.10)"],
+[style*="border: 1px solid rgba(242, 239, 233, 0.1)"] {
+  border-color: rgba(138, 126, 109, 0.25) !important;
+}
+[style*="background: rgb(20, 20, 23)"] { background: #13131A !important; }
+[style*="background: rgb(28, 28, 32)"] { background: #1A1A24 !important; }
+[style*="color: rgb(242, 239, 233)"] { color: #F5F1EA !important; }
+[style*="color: rgb(185, 179, 168)"] { color: #B8B0A4 !important; }
+[style*="color: rgb(138, 133, 124)"] { color: rgba(245, 241, 234, 0.45) !important; }
+[style*="color: rgb(201, 168, 106)"] { color: #8A7E6D !important; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {

@@ -25,10 +25,10 @@ export default function WeaveHeader() {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
         padding: isScrolled ? '12px 0' : '24px 0',
-        background: isScrolled ? 'rgba(11,11,13,0.92)' : 'transparent',
+        background: isScrolled ? 'rgba(13,13,18,0.92)' : 'transparent',
         backdropFilter: isScrolled ? 'blur(12px)' : 'none',
         WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(242,239,233,0.10)' : '1px solid transparent'
+        borderBottom: isScrolled ? '1px solid rgba(138,126,109,0.25)' : '1px solid transparent'
       }}
     >
       <div suppressHydrationWarning className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-center md:justify-between">
@@ -61,15 +61,15 @@ export default function WeaveHeader() {
                 className="inline-flex items-center transition-colors duration-300"
                 style={{
                   minHeight: '44px',
-                  color: '#B9B3A8',
+                  color: 'rgba(245,241,234,0.6)',
                   fontFamily: 'Manrope, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '13px',
-                  letterSpacing: '0.18em',
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  letterSpacing: '0.6px',
                   textTransform: 'uppercase'
                 }}
-                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F2EFE9'}
-                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = '#B9B3A8'}
+                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F5F1EA'}
+                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.6)'}
               >
                 {item.label}
               </a>
@@ -88,7 +88,7 @@ export default function WeaveHeader() {
               }
             }}
             className="btn-primary"
-            style={{ height: '44px', minHeight: '44px', padding: '0 24px', fontSize: '13px' }}
+            style={{ height: '44px', minHeight: '44px', padding: '0 24px', fontSize: '12px' }}
           >
             ENQUIRE
           </button>

@@ -2,24 +2,25 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
-export const BODY_GREY = '#B9B3A8';
-export const BRASS = '#C9A86A';
-export const BAND_DARK = '#0B0B0D';
-export const BAND_CHARCOAL = '#141417';
+export const BODY_GREY = '#B8B0A4';
+export const BRASS = '#8A7E6D';
+export const BAND_DARK = '#0D0D12';
+export const BAND_CHARCOAL = '#13131A';
 
 export const bodyTextStyle = {
   color: BODY_GREY,
   fontFamily: 'Manrope, sans-serif',
   fontStyle: 'normal' as const,
-  fontSize: '18px',
+  fontSize: '16px',
   lineHeight: 1.6,
 };
 
 export const labelStyle = {
   color: BRASS,
-  fontSize: '13px',
-  fontWeight: 600,
-  letterSpacing: '0.18em',
+  fontFamily: "'JetBrains Mono', monospace",
+  fontSize: '12px',
+  fontWeight: 400,
+  letterSpacing: '1.2px',
 };
 
 export function openEnquiryFor(service: string) {
@@ -59,7 +60,7 @@ export function WhatYouGet({ points }: WhatYouGetProps) {
       </span>
       <ul className="flex flex-col gap-3">
         {points.map((point, i) => (
-          <li key={i} className="flex items-start gap-3" style={{ ...bodyTextStyle, fontSize: '18px' }}>
+          <li key={i} className="flex items-start gap-3" style={{ ...bodyTextStyle, fontSize: '16px' }}>
             <svg
               aria-hidden="true"
               width="16"
@@ -94,7 +95,7 @@ export function SectionNumber({ num }: SectionNumberProps) {
         fontFamily: 'Manrope, sans-serif',
         fontWeight: 700,
         color: 'transparent',
-        WebkitTextStroke: `1.5px ${BRASS}`,
+        WebkitTextStroke: `1px ${BRASS}`,
         letterSpacing: '-0.02em',
       }}>
       {num}
@@ -128,17 +129,17 @@ export function TierBanner({ title, subtext, image, alt }: TierBannerProps) {
   return (
     <div
       className="relative -mx-6 md:-mx-12 overflow-hidden flex items-center"
-      style={{ height: '320px', borderTop: '1px solid rgba(242,239,233,0.10)', borderBottom: '1px solid rgba(242,239,233,0.10)' }}>
+      style={{ height: '320px', borderTop: '1px solid rgba(138,126,109,0.25)', borderBottom: '1px solid rgba(138,126,109,0.25)' }}>
       <AppImage src={image} alt={alt} fill className="object-cover w-full h-full" />
-      <div className="absolute inset-0" style={{ background: 'rgba(11,11,13,0.78)' }} />
+      <div className="absolute inset-0" style={{ background: 'rgba(13,13,18,0.78)' }} />
       <div className="relative z-10 w-full px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <h2
             className="uppercase leading-none text-[48px] md:text-[84px]"
-            style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, color: '#F2EFE9', letterSpacing: '-0.02em' }}>
+            style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, color: '#F5F1EA', letterSpacing: '-0.02em' }}>
             {title}
           </h2>
-          <p className="mt-4 max-w-2xl" style={{ ...bodyTextStyle, color: '#F2EFE9' }}>
+          <p className="mt-4 max-w-2xl" style={{ ...bodyTextStyle, color: '#F5F1EA' }}>
             {subtext}
           </p>
         </div>
@@ -206,10 +207,10 @@ export function ServiceSubNav() {
       className="fixed left-0 right-0 z-40 transition-all duration-300"
       style={{
         top: '64px',
-        background: 'rgba(11,11,13,0.94)',
+        background: 'rgba(13,13,18,0.94)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
-        borderBottom: '1px solid rgba(242,239,233,0.10)',
+        borderBottom: '1px solid rgba(138,126,109,0.25)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
         pointerEvents: visible ? 'auto' : 'none',
@@ -232,11 +233,11 @@ export function ServiceSubNav() {
               className="whitespace-nowrap flex-shrink-0 px-3 py-3 transition-colors duration-300"
               style={{
                 fontFamily: 'Manrope, sans-serif',
-                fontWeight: 600,
-                fontSize: '11px',
-                letterSpacing: '0.14em',
+                fontWeight: 500,
+                fontSize: '12px',
+                letterSpacing: '0.6px',
                 textTransform: 'uppercase',
-                color: active ? BRASS : '#8A857C',
+                color: active ? BRASS : 'rgba(245,241,234,0.6)',
                 borderBottom: `2px solid ${active ? BRASS : 'transparent'}`,
                 touchAction: 'manipulation',
                 minHeight: '44px',

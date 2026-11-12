@@ -58,32 +58,33 @@ export default function HeroSection() {
         style={{
           zIndex: 2,
           background:
-            'linear-gradient(to bottom, rgba(11,11,13,0.72) 0%, rgba(11,11,13,0.62) 45%, rgba(11,11,13,0.92) 100%)'
+            'linear-gradient(to bottom, rgba(13,13,18,0.72) 0%, rgba(13,13,18,0.62) 45%, rgba(13,13,18,0.92) 100%)'
         }} />
 
       {/* Hero content */}
       <div className="absolute inset-0 flex flex-col justify-end" style={{ zIndex: 10 }}>
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 md:pb-24">
           <p
-            className="type-label hero-fade mb-6"
+            className="type-hero-label hero-fade mb-6"
             style={{ animationDelay: '0ms' }}>
             PREMIUM AI CREATIVE STUDIO
           </p>
 
-          <h1 className="type-hero mb-8 max-w-[1100px]" style={{ color: '#F2EFE9' }}>
-            <span className="hero-line" style={{ animationDelay: '150ms' }}>Every brand</span>
-            <span className="hero-line" style={{ animationDelay: '300ms' }}>deserves desire.</span>
+          <h1 className="type-hero mb-8 max-w-[1100px]" style={{ color: '#F5F1EA' }}>
+            <span className="hero-line" style={{ animationDelay: '1200ms', color: '#F5F1EA' }}>Every brand</span>
+            <span className="hero-line" style={{ animationDelay: '2400ms', color: '#F5F1EA' }}>deserves</span>
+            <span className="hero-line text-outline" style={{ animationDelay: '3600ms' }}>desire.</span>
           </h1>
 
           <p
             className="type-body hero-fade max-w-[560px] mb-10"
-            style={{ animationDelay: '600ms' }}>
+            style={{ animationDelay: '4800ms' }}>
             Most brands in your field look the same. Yours shouldn&apos;t. Cinematic AI films, characters and ads, with no shoot day.
           </p>
 
           <div
             className="hero-fade flex flex-col md:flex-row md:items-center gap-4"
-            style={{ animationDelay: '800ms' }}>
+            style={{ animationDelay: '5400ms' }}>
             <button
               type="button"
               onClick={() => {

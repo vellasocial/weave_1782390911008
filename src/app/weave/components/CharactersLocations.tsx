@@ -361,7 +361,7 @@ export default function CharactersLocations() {
               className="p-6 flex flex-col gap-3"
               style={{ border: '1px solid rgba(242,239,233,0.10)', background: '#1C1C20', borderRadius: '4px' }}
             >
-              <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
                 {step.n}
               </span>
               <p className="type-card-title">

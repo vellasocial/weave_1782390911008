@@ -52,7 +52,7 @@ export default function PricingSection() {
     <section
       id="pricing"
       className="relative px-6 md:px-12 overflow-hidden"
-      style={{ background: '#141417', paddingTop: '120px', paddingBottom: '120px' }}>
+      style={{ background: '#13131A', paddingTop: '120px', paddingBottom: '120px' }}>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-12">
           <p className="type-label mb-4">— Founding Client Rates</p>
@@ -68,8 +68,8 @@ export default function PricingSection() {
               key={card.title}
               className="overflow-hidden flex flex-col p-6 md:p-8"
               style={{
-                border: '1px solid rgba(242,239,233,0.10)',
-                background: '#1C1C20',
+                border: '1px solid rgba(138,126,109,0.25)',
+                background: '#1A1A24',
                 borderRadius: '4px',
               }}>
               <p className="type-label mb-6">{card.title}</p>
@@ -78,12 +78,12 @@ export default function PricingSection() {
                   <div
                     key={item.name}
                     className={i === 0 ? '' : 'pt-5 border-t'}
-                    style={{ borderColor: 'rgba(242,239,233,0.10)' }}>
+                    style={{ borderColor: 'rgba(138,126,109,0.25)' }}>
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <p className="text-[20px] leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, color: '#F2EFE9' }}>
+                      <p className="text-[20px] leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, color: '#F5F1EA' }}>
                         {item.name}
                       </p>
-                      <p style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '16px', color: '#C9A86A' }}>
+                      <p style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '16px', color: '#8A7E6D' }}>
                         {item.price}
                       </p>
                     </div>
@@ -97,7 +97,7 @@ export default function PricingSection() {
 
         <div className="mt-8 flex flex-col gap-1">
           {smallPrint.map((line) => (
-            <p key={line} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '13px', color: '#8A857C', lineHeight: 1.6 }}>
+            <p key={line} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '13px', color: 'rgba(245,241,234,0.45)', lineHeight: 1.6 }}>
               {line}
             </p>
           ))}

@@ -10,43 +10,43 @@ module.exports = {
         manrope: ['Manrope', 'sans-serif'],
         heading: ['Manrope', 'sans-serif'],
         body: ['Manrope', 'sans-serif'],
-        mono: ['Manrope', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         loom: {
-          black: '#0B0B0D',
-          black2: '#141417',
-          black3: '#1C1C20',
+          black: '#0D0D12',
+          black2: '#13131A',
+          black3: '#1A1A24',
         },
         lavender: {
-          DEFAULT: '#C9A86A',
-          dim: 'rgba(242, 239, 233, 0.06)',
-          border: 'rgba(242, 239, 233, 0.10)',
+          DEFAULT: '#8A7E6D',
+          dim: 'rgba(138, 126, 109, 0.10)',
+          border: 'rgba(138, 126, 109, 0.25)',
         },
         pearl: {
-          DEFAULT: '#F2EFE9',
-          dim: '#B9B3A8',
+          DEFAULT: '#F5F1EA',
+          dim: '#B8B0A4',
         },
         magenta: {
-          DEFAULT: '#C9A86A',
-          dim: 'rgba(201, 168, 106, 0.15)',
-          glow: 'rgba(201, 168, 106, 0.4)',
+          DEFAULT: '#8A7E6D',
+          dim: 'rgba(138, 126, 109, 0.15)',
+          glow: 'rgba(138, 126, 109, 0.4)',
         },
         taupe: {
-          DEFAULT: '#8A857C',
+          DEFAULT: '#8A7E6D',
         },
         'warm-grey': {
-          DEFAULT: '#B9B3A8',
+          DEFAULT: '#B8B0A4',
         },
         'off-white': {
-          DEFAULT: '#F2EFE9',
+          DEFAULT: '#F5F1EA',
         },
         'near-black': {
-          DEFAULT: '#0B0B0D',
+          DEFAULT: '#0D0D12',
         },
         brass: {
-          DEFAULT: '#C9A86A',
-          hover: '#D8BC85',
+          DEFAULT: '#8A7E6D',
+          hover: '#8A7E6D',
         },
       },
       animation: {

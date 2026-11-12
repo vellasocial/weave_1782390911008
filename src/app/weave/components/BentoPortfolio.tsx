@@ -464,7 +464,7 @@ export default function BentoPortfolio() {
                 minHeight: '44px',
               }}>
               <div className="flex items-center justify-between">
-                <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
                   {tile.num}
                 </span>
                 <span

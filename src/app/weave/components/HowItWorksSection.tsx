@@ -18,7 +18,7 @@ export default function HowItWorksSection() {
     <section
       id="process"
       className="relative px-6 md:px-12 overflow-hidden"
-      style={{ background: '#0B0B0D', paddingTop: '120px', paddingBottom: '120px' }}>
+      style={{ background: '#0D0D12', paddingTop: '120px', paddingBottom: '120px' }}>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-12">
           <p className="type-label mb-4">— How it works</p>
@@ -31,13 +31,13 @@ export default function HowItWorksSection() {
               key={step.number}
               className="flex flex-col p-6 md:p-8"
               style={{
-                border: '1px solid rgba(242,239,233,0.10)',
-                background: '#141417',
+                border: '1px solid rgba(138,126,109,0.25)',
+                background: '#13131A',
                 borderRadius: '4px',
               }}>
               <span
                 className="block mb-6"
-                style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '13px', letterSpacing: '0.18em', color: '#C9A86A' }}>
+                style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
                 {step.number}
               </span>
               <h3 className="type-card-title mb-3">{step.title}</h3>

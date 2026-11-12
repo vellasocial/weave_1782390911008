@@ -89,9 +89,9 @@ export default function CommissionPanel() {
   const inputClass =
   'w-full px-5 py-3 text-base outline-none transition-all duration-300';
   const inputStyle = {
-    background: '#1C1C20',
-    border: '1px solid rgba(242,239,233,0.10)',
-    color: '#F2EFE9',
+    background: '#1A1A24',
+    border: '1px solid rgba(138,126,109,0.25)',
+    color: '#F5F1EA',
     borderRadius: '4px',
     fontFamily: 'Manrope, sans-serif',
     minHeight: '48px',
@@ -99,11 +99,11 @@ export default function CommissionPanel() {
 
   const focusHandlers = {
     onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      (e.currentTarget as HTMLElement).style.borderColor = '#C9A86A';
-      (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px #C9A86A';
+      (e.currentTarget as HTMLElement).style.borderColor = '#8A7E6D';
+      (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px #8A7E6D';
     },
     onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(242,239,233,0.10)';
+      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(138,126,109,0.25)';
       (e.currentTarget as HTMLElement).style.boxShadow = 'none';
     },
   };
@@ -134,8 +134,8 @@ export default function CommissionPanel() {
         id="commission-panel"
         className="commission-panel fixed top-0 right-0 h-full w-full md:w-[520px] z-[60] flex flex-col overflow-y-auto"
         style={{
-          background: '#141417',
-          borderLeft: '1px solid rgba(242,239,233,0.10)',
+          background: '#13131A',
+          borderLeft: '1px solid rgba(138,126,109,0.25)',
           boxShadow: '-24px 0 80px rgba(0,0,0,0.6)'
         }}>
 
@@ -143,13 +143,13 @@ export default function CommissionPanel() {
         <div
           className="flex items-center justify-between px-8 py-6 sticky top-0 z-10"
           style={{
-            background: '#141417',
-            borderBottom: '1px solid rgba(242,239,233,0.10)'
+            background: '#13131A',
+            borderBottom: '1px solid rgba(138,126,109,0.25)'
           }}>
 
           <div>
-            <h2 className="text-[26px] leading-tight" style={{ color: '#F2EFE9' }}>Enquire below</h2>
-            <p className="text-sm mt-1" style={{ color: '#B9B3A8' }}>
+            <h2 className="text-[26px] leading-tight" style={{ color: '#F5F1EA' }}>Enquire below</h2>
+            <p className="text-sm mt-1" style={{ color: '#B8B0A4' }}>
               Tell us about your project
             </p>
           </div>
@@ -157,9 +157,9 @@ export default function CommissionPanel() {
             onClick={closePanel}
             aria-label="Close enquiry form"
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300"
-            style={{ border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9' }}
-            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(242,239,233,0.35)'}
-            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(242,239,233,0.10)'}>
+            style={{ border: '1px solid rgba(138,126,109,0.25)', color: '#F5F1EA' }}
+            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(245,241,234,0.35)'}
+            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(138,126,109,0.25)'}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
@@ -172,14 +172,14 @@ export default function CommissionPanel() {
           <div className="flex flex-col items-center justify-center h-full text-center gap-6 py-16">
               <div
               className="w-16 h-16 rounded-full flex items-center justify-center"
-              style={{ background: 'rgba(201,168,106,0.12)', border: '1px solid #C9A86A' }}>
+              style={{ background: 'rgba(138,126,109,0.12)', border: '1px solid #8A7E6D' }}>
 
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A86A" strokeWidth="2">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8A7E6D" strokeWidth="2">
                   <path d="M20 6L9 17l-5-5" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-[26px] mb-2" style={{ color: '#F2EFE9' }}>
+                <h3 className="text-[26px] mb-2" style={{ color: '#F5F1EA' }}>
                   Enquiry Received
                 </h3>
                 <p className="type-body max-w-xs">
@@ -198,8 +198,8 @@ export default function CommissionPanel() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {/* Name */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B9B3A8' }}>
-                  Name <span style={{ color: '#C9A86A' }}>*</span>
+                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                  Name <span style={{ color: '#8A7E6D' }}>*</span>
                 </label>
                 <input
                 type="text"
@@ -215,8 +215,8 @@ export default function CommissionPanel() {
 
               {/* Email */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B9B3A8' }}>
-                  Email <span style={{ color: '#C9A86A' }}>*</span>
+                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                  Email <span style={{ color: '#8A7E6D' }}>*</span>
                 </label>
                 <input
                 type="email"
@@ -232,7 +232,7 @@ export default function CommissionPanel() {
 
               {/* WhatsApp / Phone */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B9B3A8' }}>
+                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   WhatsApp / Phone
                 </label>
                 <input
@@ -248,7 +248,7 @@ export default function CommissionPanel() {
 
               {/* Company */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B9B3A8' }}>
+                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Company
                 </label>
                 <input
@@ -264,7 +264,7 @@ export default function CommissionPanel() {
 
               {/* Service */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B9B3A8' }}>
+                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Service
                 </label>
                 <div className="relative">
@@ -274,23 +274,23 @@ export default function CommissionPanel() {
                   className={`${inputClass} appearance-none pr-12 cursor-pointer`}
                   style={inputStyle}
                   onFocus={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = '#C9A86A';
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px #C9A86A';
+                    (e.currentTarget as HTMLElement).style.borderColor = '#8A7E6D';
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px #8A7E6D';
                   }}
                   onBlur={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(242,239,233,0.10)';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(138,126,109,0.25)';
                     (e.currentTarget as HTMLElement).style.boxShadow = 'none';
                   }}>
-                    <option value="" style={{ background: '#141417', color: '#B9B3A8' }}>Select a service</option>
+                    <option value="" style={{ background: '#13131A', color: '#B8B0A4' }}>Select a service</option>
                     {SERVICE_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt} style={{ background: '#141417', color: '#F2EFE9' }}>
+                      <option key={opt} value={opt} style={{ background: '#13131A', color: '#F5F1EA' }}>
                         {opt}
                       </option>
                     ))}
                   </select>
                   <svg
                   className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none"
-                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B9B3A8" strokeWidth="2">
+                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8B0A4" strokeWidth="2">
                     <path d="M6 9l6 6 6-6" />
                   </svg>
                 </div>
@@ -298,7 +298,7 @@ export default function CommissionPanel() {
 
               {/* Tell us about your project */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B9B3A8' }}>
+                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Tell us about your project
                 </label>
                 <textarea
@@ -309,11 +309,11 @@ export default function CommissionPanel() {
                 className="w-full px-5 py-4 text-base outline-none transition-all duration-300 resize-none leading-relaxed"
                 style={inputStyle}
                 onFocus={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = '#C9A86A';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px #C9A86A';
+                  (e.currentTarget as HTMLElement).style.borderColor = '#8A7E6D';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px #8A7E6D';
                 }}
                 onBlur={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(242,239,233,0.10)';
+                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(138,126,109,0.25)';
                   (e.currentTarget as HTMLElement).style.boxShadow = 'none';
                 }} />
 
