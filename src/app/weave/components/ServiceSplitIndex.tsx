@@ -10,19 +10,18 @@ interface SplitService {
   price: string;
   thumb: string;
   thumbAlt: string;
-  group: 'PREMIUM' | 'ADS & CONTENT';
   wide?: boolean;
   position?: string;
 }
 
 const services: SplitService[] = [
-  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum signature film still', group: 'PREMIUM', position: 'center top' },
-  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'On enquiry', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501098/BB_Thumbnail_rzk8fy.png', thumbAlt: 'Sudana family documentary-style film still', group: 'PREMIUM', position: 'center top' },
-  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_14,w_1600/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.jpg', thumbAlt: 'The Sanctuary luxury property film still', group: 'PREMIUM', wide: true },
-  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'On enquiry', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181108/Daughter_Headshot_e3zz2z.png', thumbAlt: 'The Daughter character headshot portrait', group: 'PREMIUM', position: 'center top' },
-  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461792/Peter_Ubud_or_Uluwatu_.00_00_47_08.Still001_m4adz5.png', thumbAlt: 'Presenter-led Ubud or Uluwatu video still', group: 'ADS & CONTENT', position: 'center top' },
-  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: '$25 · min. 10', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501483/01_-_Arrival_at_the_pool_realism_siw0id.png', thumbAlt: 'Pool arrival render made photoreal', group: 'ADS & CONTENT', wide: true },
-  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas vertical performance ad still', group: 'ADS & CONTENT', position: 'center top' },
+  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum signature film still', position: 'center top' },
+  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'On enquiry', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501098/BB_Thumbnail_rzk8fy.png', thumbAlt: 'Sudana family documentary-style film still', position: 'center top' },
+  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_14,w_1600/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.jpg', thumbAlt: 'The Sanctuary luxury property film still', wide: true },
+  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'On enquiry', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181108/Daughter_Headshot_e3zz2z.png', thumbAlt: 'The Daughter character headshot portrait', position: 'center top' },
+  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461792/Peter_Ubud_or_Uluwatu_.00_00_47_08.Still001_m4adz5.png', thumbAlt: 'Presenter-led Ubud or Uluwatu video still', position: 'center top' },
+  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: '$25 · min. 10', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501483/01_-_Arrival_at_the_pool_realism_siw0id.png', thumbAlt: 'Pool arrival render made photoreal', wide: true },
+  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas vertical performance ad still', position: 'center top' },
 ];
 
 interface PreviewImageProps {
@@ -67,16 +66,6 @@ function scrollToSection(id: string) {
   }
 }
 
-function groupLabel(text: string) {
-  return (
-    <div
-      key={`label-${text}`}
-      style={{ fontFamily: MONO, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.2px', color: TAUPE, marginTop: '24px', paddingBottom: '8px' }}>
-      {text}
-    </div>
-  );
-}
-
 export default function ServiceSplitIndex() {
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
@@ -103,7 +92,7 @@ export default function ServiceSplitIndex() {
           Seven ways to be unforgettable.
         </h2>
         <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: '16px', color: '#B8B0A4' }}>
-          Four premium film services and three built for ads and content. Hover to preview, click to see the work.
+          Hover to preview, click to see the work.
         </p>
       </div>
 
@@ -136,8 +125,6 @@ export default function ServiceSplitIndex() {
         <div className="flex-1 min-w-0" onMouseLeave={() => setHoverIdx(null)}>
           {services.map((s, i) => (
             <div key={s.num}>
-              {i === 0 && groupLabel('PREMIUM')}
-              {i === 4 && groupLabel('ADS & CONTENT')}
               <a
                 href={`#${s.target}`}
                 className="ssi-row flex items-center gap-4 md:gap-5 py-3 md:py-0"

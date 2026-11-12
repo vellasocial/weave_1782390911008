@@ -223,8 +223,7 @@ export default function BentoPortfolio() {
         num="01"
         label="Signature Films"
         heading="The hero film your brand is remembered by."
-        description="Our highest tier. Full cinematic production, built shot by shot for launches and flagship campaigns."
-        tier={{ title: 'Premium', subtext: 'Premium films, made to set the standard for a brand.' }}
+        description="Full cinematic production, built shot by shot for launches and flagship campaigns."
         price="$350"
         service="Signature Films">
         <MediaSlider items={aiFilmsData} kind="vertical" label="Signature Films" />
@@ -280,7 +279,6 @@ export default function BentoPortfolio() {
         label="Talking Head & VSL"
         heading="A face that sells, every week."
         description="Presenter-led video sales letters and talking-head content, with no filming. Use your own presenter, or add a custom AI character as a consistent on-screen host."
-        tier={{ title: 'Ads & Content', subtext: 'Ads and everyday content, made fast.' }}
         price="$250"
         service="Talking Head & VSL">
         <MediaSlider items={talkingHeadData} kind="vertical" label="Talking Head and VSL" />
@@ -312,7 +310,7 @@ export default function BentoPortfolio() {
         service="Performance Ads">
         <MediaSlider items={adsData} kind="vertical" label="Performance Ads" />
       </ServiceSection>
-      {/* ── END ADS & CONTENT AREA ──────────────────────────────────────────── */}
+      {/* ── END SERVICES ────────────────────────────────────────────────────── */}
 
       {/* Stats row */}
       <div className="max-w-7xl mx-auto mt-16 pt-12 border-t"

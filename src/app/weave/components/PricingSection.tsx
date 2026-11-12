@@ -8,34 +8,14 @@ interface PricingItem {
   note: string;
 }
 
-interface PricingGroup {
-  title: string;
-  items: PricingItem[];
-}
-
-const pricingGroups: PricingGroup[] = [
-  {
-    title: 'PREMIUM',
-    items: [
-      { name: 'Signature Films', price: '$350 per film', note: 'Hero films, social and website' },
-      { name: 'Luxury Property Films', price: '$350 per film', note: 'Villas and resorts from renders' },
-      { name: 'Realism Storytelling', price: 'On enquiry', note: 'Bring your story to life' },
-    ],
-  },
-  {
-    title: 'CHARACTERS & LOCATIONS',
-    items: [
-      { name: 'Characters & Locations', price: 'On enquiry', note: 'Priced by scope. Depends on the character or location.' },
-    ],
-  },
-  {
-    title: 'ADS & CONTENT',
-    items: [
-      { name: 'Performance Ads', price: '$150 each', note: 'Short ads built to convert' },
-      { name: 'Talking Head & VSL', price: '$250 per video', note: 'Your presenter, up to 30 sec' },
-      { name: 'Render to Reality', price: '$25 per render', note: 'Minimum 10 renders' },
-    ],
-  },
+const pricingItems: PricingItem[] = [
+  { name: 'Signature Films', price: '$350 per film', note: 'Hero films, social and website' },
+  { name: 'Realism Storytelling', price: 'On enquiry', note: 'Bring your story to life' },
+  { name: 'Luxury Property Films', price: '$350 per film', note: 'Villas and resorts from renders' },
+  { name: 'Characters & Locations', price: 'On enquiry', note: 'Priced by scope. Depends on the character or location.' },
+  { name: 'Talking Head & VSL', price: '$250 per video', note: 'Your presenter, up to 30 sec' },
+  { name: 'Render to Reality', price: '$25 per render', note: 'Minimum 10 renders' },
+  { name: 'Performance Ads', price: '$150 each', note: 'Short ads built to convert' },
 ];
 
 const smallPrint: string[] = [
@@ -61,32 +41,25 @@ export default function PricingSection() {
         </div>
 
         <div className="mx-auto" style={{ maxWidth: '880px' }}>
-          {pricingGroups.map((group) => (
-            <div key={group.title}>
-              <p className="uppercase" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D', marginTop: '40px' }}>
-                {group.title}
-              </p>
-              <div className="mt-4">
-                {group.items.map((item) => (
-                  <div
-                    key={item.name}
-                    style={{ padding: '20px 0', borderBottom: '1px solid rgba(138,126,109,0.15)' }}>
-                    <div className="flex items-baseline justify-between gap-x-4">
-                      <p style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 500, fontSize: '18px', lineHeight: 1.3, color: '#F5F1EA' }}>
-                        {item.name}
-                      </p>
-                      <p className="text-right whitespace-nowrap" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', color: '#8A7E6D' }}>
-                        {item.price}
-                      </p>
-                    </div>
-                    <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '14px', lineHeight: 1.5, color: '#B8B0A4' }}>
-                      {item.note}
-                    </p>
-                  </div>
-                ))}
+          <div className="mt-10">
+            {pricingItems.map((item) => (
+              <div
+                key={item.name}
+                style={{ padding: '20px 0', borderBottom: '1px solid rgba(138,126,109,0.15)' }}>
+                <div className="flex items-baseline justify-between gap-x-4">
+                  <p style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 500, fontSize: '18px', lineHeight: 1.3, color: '#F5F1EA' }}>
+                    {item.name}
+                  </p>
+                  <p className="text-right whitespace-nowrap" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', color: '#8A7E6D' }}>
+                    {item.price}
+                  </p>
+                </div>
+                <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '14px', lineHeight: 1.5, color: '#B8B0A4' }}>
+                  {item.note}
+                </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
           <div className="mt-10 flex flex-col gap-1 text-center">
             {smallPrint.map((line) => (

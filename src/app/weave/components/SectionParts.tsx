@@ -52,16 +52,14 @@ interface SectionBandProps {
   tone: 'dark' | 'charcoal';
   children: ReactNode;
   id?: string;
-  tier?: { title: string; subtext: string };
 }
 
-export function SectionBand({ tone, children, id, tier }: SectionBandProps) {
+export function SectionBand({ tone, children, id }: SectionBandProps) {
   return (
     <section
       id={id}
-      className={`-mx-6 md:-mx-12 px-6 md:px-12 pb-12 md:pb-16 scroll-mt-24 ${tier ? 'pt-0' : 'pt-12 md:pt-16'}`}
+      className="-mx-6 md:-mx-12 px-6 md:px-12 pb-12 md:pb-16 scroll-mt-24 pt-12 md:pt-16"
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
-      {tier && <TierHeader title={tier.title} subtext={tier.subtext} />}
       {children}
     </section>
   );
@@ -77,14 +75,13 @@ interface ServiceSectionProps {
   price: string;
   buttonLabel?: string;
   service: string;
-  tier?: { title: string; subtext: string };
   children: ReactNode;
 }
 
-export function ServiceSection({ id, index, num, label, heading, description, price, buttonLabel, service, tier, children }: ServiceSectionProps) {
+export function ServiceSection({ id, index, num, label, heading, description, price, buttonLabel, service, children }: ServiceSectionProps) {
   const tone = index % 2 === 1 ? 'dark' : 'charcoal';
   return (
-    <SectionBand tone={tone} id={id} tier={tier}>
+    <SectionBand tone={tone} id={id}>
       <div
         className="max-w-7xl mx-auto flex flex-col gap-8 md:gap-10"
         data-service={service}>
@@ -99,40 +96,6 @@ export function ServiceSection({ id, index, num, label, heading, description, pr
         </div>
       </div>
     </SectionBand>
-  );
-}
-
-interface TierHeaderProps {
-  title: string;
-  subtext: string;
-}
-
-export function TierHeader({ title, subtext }: TierHeaderProps) {
-  return (
-    <div className="max-w-7xl mx-auto" style={{ paddingTop: '64px', paddingBottom: '48px' }}>
-      <div style={{ borderTop: '1px solid rgba(138,126,109,0.25)' }} />
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-8" style={{ paddingTop: '20px' }}>
-        <div className="flex items-center" style={{ gap: '12px' }}>
-          <span
-            aria-hidden="true"
-            className="flex-shrink-0"
-            style={{ width: '8px', height: '8px', borderRadius: '9999px', background: BRASS, display: 'inline-block' }} />
-          <span
-            style={{
-              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
-              fontWeight: 600,
-              fontSize: '32px',
-              lineHeight: 1.1,
-              letterSpacing: '-0.5px',
-              textTransform: 'none',
-              color: '#F5F1EA',
-            }}>
-            {title}
-          </span>
-        </div>
-        <span className="md:text-right" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '15px', color: '#B8B0A4' }}>{subtext}</span>
-      </div>
-    </div>
   );
 }
 
