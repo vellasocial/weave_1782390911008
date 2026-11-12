@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback, useRef, TouchEvent } from 'react';
-import { SectionNumber, bodyTextStyle, PricePill, WhatYouGet } from './SectionParts';
+// Layout (heading, points, price) is provided by ServiceSection in SectionParts.
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 // Add more cards by duplicating an entry in this array.
@@ -330,65 +330,15 @@ export default function CharactersLocations() {
         />
       )}
 
-      {/* ── CHARACTERS & LOCATIONS SUBSECTION ─────────────────────────────── */}
-      <div className="max-w-7xl mx-auto mb-12">
-        <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-10 mb-10">
-          <SectionNumber num="04" />
-          <div>
-            <span className="type-label mb-4 block">
-              — Characters &amp; Locations
-            </span>
-            <h2 className="type-h2">
-              Consistent by design.
-            </h2>
-            <p className="mt-5" style={bodyTextStyle}>
-              A face and a world you own: custom characters and locations that stay consistent across every film.
-            </p>
-            <WhatYouGet points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']} />
-            <PricePill label="From $250 · Enquire" service="Characters & Locations" />
-          </div>
-        </div>
-
-        {/* Three steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            { n: '01', t: 'Character reference sheet' },
-            { n: '02', t: 'Location design' },
-            { n: '03', t: 'Both together in the film (video)' },
-          ].map((step) => (
-            <div
-              key={step.n}
-              className="p-6 flex flex-col gap-3"
-              style={{ border: '1px solid rgba(242,239,233,0.10)', background: '#1C1C20', borderRadius: '4px' }}
-            >
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '12px', letterSpacing: '1.2px', color: '#8A7E6D' }}>
-                {step.n}
-              </span>
-              <p className="type-card-title">
-                {step.t}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Masonry grid */}
-      <div
-        className="max-w-7xl mx-auto"
-        style={{
-          columns: '3 240px',
-          columnGap: '16px',
-        }}
-      >
+      {/* Tidy equal-gap grid, every image fully visible */}
+      <div className="grid grid-cols-2 gap-4 items-start">
         {charactersData.map((card) => (
           <div
             key={card.id}
             className="iridescent-cell overflow-hidden cursor-pointer"
             style={{
-              breakInside: 'avoid',
-              marginBottom: '16px',
-              display: 'inline-block',
               width: '100%',
+              gridColumn: card.images.length > 1 || card.images[0]?.aspectRatio === 'wide' ? 'span 2' : 'span 1',
             }}
             onMouseEnter={() => setHoveredCard(card.id)}
             onMouseLeave={() => setHoveredCard(null)}

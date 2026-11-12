@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import AppImage from '@/components/ui/AppImage';
-import { SectionNumber, bodyTextStyle, PricePill, WhatYouGet } from './SectionParts';
+// Header, points and price are provided by ServiceSection.
 
 interface RenderPair {
   id: string;
@@ -84,25 +84,7 @@ export default function RenderToReality() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      {/* Section header */}
-      <div className="mb-12 flex flex-col md:flex-row md:items-start gap-4 md:gap-10" data-service="Render to Reality">
-        <SectionNumber num="06" />
-        <div className="min-w-0">
-          <span className="type-label mb-4 block">
-            Render to Reality
-          </span>
-          <h3 className="type-h2 mb-6">
-            From CGI to photograph.
-          </h3>
-          <p className="mb-3 max-w-3xl" style={bodyTextStyle}>
-            Send us your renders. We turn them into images that look like they were shot on location. Drag the slider to compare.
-          </p>
-          <WhatYouGet points={['Placeholder: key deliverable one', 'Placeholder: key deliverable two', 'Placeholder: key deliverable three']} />
-          <PricePill label="From $25 · Enquire" service="Render to Reality" />
-        </div>
-      </div>
-
+    <div className="w-full">
       {/* Before / after slider */}
       <div
         className="overflow-hidden"
@@ -207,7 +189,7 @@ export default function RenderToReality() {
       </div>
 
       {/* Example thumbnails */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {pairs.map((pair) => {
           const selected = pair.id === activeId;
           const thumb = pair.after || pair.before;
@@ -232,12 +214,12 @@ export default function RenderToReality() {
                 style={{ touchAction: 'manipulation' }}>
                 <div
                   className="relative w-full overflow-hidden flex items-center justify-center"
-                  style={{ aspectRatio: '4/3', background: '#1C1C20' }}>
+                  style={{ aspectRatio: '4/3', background: thumb ? '#1C1C20' : 'transparent', border: thumb ? 'none' : '1px dashed rgba(138,126,109,0.4)' }}>
                   {thumb ? (
                     <AppImage src={thumb} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
                   ) : (
-                    <span className="uppercase" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
-                      Coming soon
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
+                      Example coming soon
                     </span>
                   )}
                 </div>

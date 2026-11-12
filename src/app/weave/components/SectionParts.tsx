@@ -90,13 +90,15 @@ export function SectionNumber({ num }: SectionNumberProps) {
   return (
     <span
       aria-hidden="true"
-      className="select-none flex-shrink-0 leading-none text-[72px] md:text-[120px]"
+      className="select-none block leading-none text-[96px] md:text-[140px]"
       style={{
-        fontFamily: 'Manrope, sans-serif',
-        fontWeight: 700,
+        fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+        fontWeight: 600,
         color: 'transparent',
+        WebkitTextFillColor: 'transparent',
         WebkitTextStroke: `1px ${BRASS}`,
-        letterSpacing: '-0.02em',
+        letterSpacing: '-0.03em',
+        lineHeight: 0.9,
       }}>
       {num}
     </span>
@@ -113,10 +115,75 @@ export function SectionBand({ tone, children, id }: SectionBandProps) {
   return (
     <section
       id={id}
-      className="-mx-6 md:-mx-12 px-6 md:px-12 pt-[120px] pb-[60px] scroll-mt-24"
+      className="-mx-6 md:-mx-12 px-6 md:px-12 py-16 md:py-24 scroll-mt-24"
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
       {children}
     </section>
+  );
+}
+
+interface ComingSoonFrameProps {
+  aspect?: string;
+  className?: string;
+}
+
+export function ComingSoonFrame({ aspect = '16/9', className = '' }: ComingSoonFrameProps) {
+  return (
+    <div
+      className={`w-full flex items-center justify-center ${className}`}
+      style={{
+        aspectRatio: aspect,
+        border: '1px dashed rgba(138,126,109,0.4)',
+        borderRadius: '4px',
+        background: 'transparent',
+      }}>
+      <span
+        className="text-center px-2"
+        style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
+        Example coming soon
+      </span>
+    </div>
+  );
+}
+
+interface ServiceSectionProps {
+  id: string;
+  index: number;
+  num: string;
+  label: string;
+  heading: string;
+  description: string;
+  points: [string, string, string];
+  bestFor: string;
+  price: string;
+  service: string;
+  children: ReactNode;
+}
+
+export function ServiceSection({ id, index, num, label, heading, description, points, bestFor, price, service, children }: ServiceSectionProps) {
+  const textLeft = index % 2 === 1;
+  const tone = index % 2 === 1 ? 'dark' : 'charcoal';
+  return (
+    <SectionBand tone={tone} id={id}>
+      <div
+        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-10 gap-10 md:gap-12 md:items-start"
+        data-service={service}>
+        <div className={`min-w-0 md:col-span-4 ${textLeft ? 'md:order-1' : 'md:order-2'}`}>
+          <SectionNumber num={num} />
+          <span className="type-label mt-6 mb-4 block">— {label}</span>
+          <h3 className="type-h2 mb-5">{heading}</h3>
+          <p className="max-w-xl" style={bodyTextStyle}>{description}</p>
+          <WhatYouGet points={points} />
+          <p className="mb-8" style={{ ...bodyTextStyle, fontSize: '14px', color: 'rgba(245,241,234,0.45)' }}>
+            Best for: {bestFor}
+          </p>
+          <PricePill label={`From ${price} · Enquire`} service={service} />
+        </div>
+        <div className={`min-w-0 md:col-span-6 ${textLeft ? 'md:order-2' : 'md:order-1'}`}>
+          {children}
+        </div>
+      </div>
+    </SectionBand>
   );
 }
 
