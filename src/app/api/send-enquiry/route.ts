@@ -26,8 +26,15 @@ export async function POST(req: NextRequest) {
     }
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
-    if (!RESEND_API_KEY) {
-      return NextResponse.json({ error: 'RESEND_API_KEY is not configured' }, { status: 500 });
+    if (
+      !RESEND_API_KEY ||
+      RESEND_API_KEY.startsWith('your-') ||
+      RESEND_API_KEY === 'your-resend-api-key-here'
+    ) {
+      const msg =
+        'RESEND_API_KEY is missing or still a placeholder. Add your real Resend key (starts with "re_") to the RESEND_API_KEY environment variable.';
+      console.error('[send-enquiry] ' + msg);
+      return NextResponse.json({ error: msg, friendly: true }, { status: 500 });
     }
 
     const row = (label: string, value: string, last = false) => `
@@ -50,33 +57,62 @@ export async function POST(req: NextRequest) {
       </div>
     `;
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: 'onboarding@resend.dev',
-        to: ['luke@vellasocial.com'],
-        reply_to: email,
-        subject: `New enquiry: ${serviceRaw || 'General'} from ${name}`,
-        html: htmlBody,
-      }),
-    });
+    const VERIFIED_SENDER = 'Vella Social <enquiries@vellasocial.com>';
+    const FALLBACK_SENDER = 'Vella Social <onboarding@resend.dev>';
+
+    const sendWith = (from: string) =>
+      fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from,
+          to: ['luke@vellasocial.com'],
+          reply_to: email,
+          subject: `New enquiry: ${serviceRaw || 'General'} from ${name}`,
+          html: htmlBody,
+        }),
+      });
+
+    let usedSender = VERIFIED_SENDER;
+    let res = await sendWith(VERIFIED_SENDER);
+
+    if (!res.ok) {
+      const firstError = await res.clone().json().catch(() => ({}));
+      const firstMsg = String(firstError?.message || '');
+      const domainProblem =
+        res.status === 403 ||
+        res.status === 422 ||
+        /domain|verif|from/i.test(firstMsg);
+      console.error(
+        `[send-enquiry] Send with ${VERIFIED_SENDER} failed (${res.status}): ${firstMsg || JSON.stringify(firstError)}`
+      );
+      if (domainProblem) {
+        usedSender = FALLBACK_SENDER;
+        res = await sendWith(FALLBACK_SENDER);
+      }
+    }
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
+      const realError =
+        errorData?.message || errorData?.error || `Resend responded with status ${res.status}`;
+      console.error(
+        `[send-enquiry] Resend error (${res.status}) using ${usedSender}: ${JSON.stringify(errorData)}`
+      );
       return NextResponse.json(
-        { error: errorData?.message || 'Failed to send email' },
+        { error: realError, status: res.status, sender: usedSender },
         { status: res.status }
       );
     }
 
     const data = await res.json();
-    return NextResponse.json({ success: true, id: data.id });
+    return NextResponse.json({ success: true, id: data.id, sender: usedSender });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal server error';
+    console.error('[send-enquiry] Unexpected error:', error);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
