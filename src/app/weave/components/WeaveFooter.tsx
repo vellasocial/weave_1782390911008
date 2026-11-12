@@ -1,10 +1,11 @@
+'use client';
 import Image from 'next/image';
 
 export default function WeaveFooter() {
   return (
     <footer
       className="py-10 px-6 md:px-12 border-t"
-      style={{ borderColor: 'rgba(196,181,247,0.1)', background: 'var(--loom-black)' }}>
+      style={{ borderColor: 'rgba(138,126,109,0.25)', background: '#0D0D12' }}>
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo mark */}
@@ -20,19 +21,21 @@ export default function WeaveFooter() {
 
         {/* Links */}
         <nav className="flex items-center gap-6">
-          {['Portfolio', 'Process', 'About']?.map((link) =>
+          {['Portfolio']?.map((link) =>
           <a
             key={link}
             href={`#${link?.toLowerCase()}`}
-            className="font-mono text-xs text-pearl/30 hover:text-pearl/70 transition-colors duration-300 tracking-wider">
-
+            className="inline-flex items-center transition-colors duration-300"
+            style={{ minHeight: '44px', color: 'rgba(245,241,234,0.6)', fontFamily: 'Manrope, sans-serif', fontWeight: 500, fontSize: '12px', letterSpacing: '0.6px', textTransform: 'uppercase' }}
+            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F5F1EA'}
+            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.6)'}>
               {link}
             </a>
           )}
         </nav>
 
         {/* Copyright */}
-        <p className="font-mono text-xs text-pearl/25 tracking-wider">© 2026 VELLASOCIAL
+        <p className="text-xs tracking-wider" style={{ color: 'rgba(245,241,234,0.45)', fontFamily: 'Manrope, sans-serif', fontWeight: 400 }}>© 2026 VELLASOCIAL
 
         </p>
       </div>

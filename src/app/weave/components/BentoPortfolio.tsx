@@ -1,316 +1,326 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
-
-type FilterType = 'All' | 'Ads' | 'Reels' | 'Carousels';
+import CharactersLocations from './CharactersLocations';
+import ServiceSplitIndex from './ServiceSplitIndex';
+import RenderToReality from '@/app/weave/components/RenderToReality';
+import { ServiceSection } from './SectionParts';
+import { SlideRow, SlideCard, MediaLightbox, MediaItem, CardKind } from './SlideRow';
 
 interface BentoCell {
   id: number;
   title: string;
   subtitle: string;
-  category: FilterType[];
-  size: 'small' | 'medium' | 'wide' | 'tall' | 'large';
   image: string;
   alt: string;
   tag?: string;
-  accent?: boolean;
   video?: string;
+  position?: string;
+  contain?: boolean;
 }
 
-const cells: BentoCell[] = [
+const adsData: BentoCell[] = [
+{
+  id: 18,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png",
+  alt: 'The Sanctuary - Tranquility Bali campaign video',
+  tag: 'ad',
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/03._The_Investor_Numbers_Ad_-_The_Three-Bedroom_By_the_Figures_ylttga.mp4'
+},
+{
+  id: 19,
+  title: 'The Sanctuary',
+  subtitle: 'Tranquility Bali',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847592/1_dipir9.png",
+  alt: 'The Sanctuary - Tranquility Bali original campaign video',
+  tag: 'ad',
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/Three_Bedroom_Hero_evdphr.mp4'
+},
 {
   id: 1,
   title: 'Nara Villas',
   subtitle: 'Balitecture',
-  category: ['Ads'],
-  size: 'wide',
-  image: "https://cdn-cf-east.streamable.com/image/ugrvg7.jpg",
-  alt: 'Close-up of midnight blue jacquard weave with gold thread repeats',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg",
+  alt: 'Nara Villas - Balitecture campaign video',
   tag: 'ad',
-  video: 'https://streamable.com/e/v9rquu'
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6.mp4'
 },
 {
   id: 15,
   title: 'The Nest',
   subtitle: 'Roam International',
-  category: ['Ads'],
-  size: 'small',
-  image: "https://cdn-cf-east.streamable.com/image/hxxe4z.jpg",
-  alt: 'Digital campaign video reel',
+  image: "https://res.cloudinary.com/wle6dmxs/image/upload/v1785847664/hf_20260516_101101_9ba0c234-0cb5-4a27-ad08-8a601ac33e47_xyohvg.png",
+  alt: 'The Nest - Roam International campaign video',
   tag: 'ad',
-  video: 'https://streamable.com/e/c5vxww'
-},
-{
-  id: 17,
-  title: 'Residence',
-  subtitle: 'Element Bali',
-  category: ['Ads'],
-  size: 'small',
-  image: "https://cdn-cf-east.streamable.com/image/bzwwvl.jpg",
-  alt: 'Campaign video reel',
-  tag: 'ad',
-  video: 'https://streamable.com/e/vxf8ih'
+  video: 'https://res.cloudinary.com/wle6dmxs/video/upload/The_Nest_5_xyo8ln.mp4'
 }];
 
+const aiFilmsData: BentoCell[] = [
+  {
+    id: 1003,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172768/Sanaya_Reel_dohd3g.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png',
+    title: 'Sanaya',
+    subtitle: 'Client Feature',
+    alt: 'Sanaya Reel',
+    tag: 'ai film',
+    position: 'center top',
+  },
+  {
+    id: 1002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172768/The_Hum_Reel_tu7u7m.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png',
+    title: 'The Hum',
+    subtitle: 'Client Feature',
+    alt: 'The Hum Reel',
+    tag: 'ai film',
+    position: 'center top',
+  },
+  {
+    id: 1001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794500872/Bali_Beans_Reel_pgvb3x.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794500957/BB_Thumbnail_pact37.png',
+    title: 'Bali Beans',
+    subtitle: 'Client Feature',
+    alt: 'Bali Beans Reel',
+    tag: 'ai film',
+    position: 'center top',
+  },
+];
 
-const FILTERS: FilterType[] = ['All', 'Ads', 'Reels', 'Carousels'];
+const realismData: BentoCell[] = [
+  {
+    id: 2001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794501093/Bali_Beans_-_Ayu_s_story_e6trug.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501098/BB_Thumbnail_rzk8fy.png',
+    title: 'The Sudana Family Story',
+    subtitle: 'Bali Beans',
+    alt: 'The Sudana Family Story - Bali Beans documentary-style film',
+    tag: 'Bali Beans',
+  },
+  {
+    id: 2002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794502590/Bali_Beans_x_Vella_Social_tdyyuz.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794502785/hf_20261002_103844_3b3a1e1a-8e15-4113-bd11-7e6d61fd7757.00_00_55_03.Still003_ld8dj4.png',
+    title: 'Bali Beans Spec Film',
+    subtitle: 'Bali Beans',
+    alt: 'Bali Beans Spec Film - documentary-style film',
+    tag: 'Bali Beans',
+    position: 'center top',
+  },
+];
 
-const sizeClasses: Record<BentoCell['size'], string> = {
-  small: 'col-span-2 row-span-1',
-  medium: 'col-span-3 row-span-2',
-  wide: 'col-span-5 row-span-2',
-  tall: 'col-span-2 row-span-3',
-  large: 'col-span-4 row-span-2'
-};
+const luxuryData: BentoCell[] = [
+  {
+    id: 3001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_14,w_1600/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.jpg',
+    title: 'The Sanctuary',
+    subtitle: 'Tranquility Bali',
+    alt: 'The Sanctuary - Tranquility Bali cinematic property film',
+    tag: 'property',
+  },
+  {
+    id: 3002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794384189/The_Sanctuary_-_Villa_9_acr94l.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_1,w_1600/v1794384189/The_Sanctuary_-_Villa_9_acr94l.jpg',
+    title: 'The Sanctuary, Villa 9',
+    subtitle: 'Tranquility Bali',
+    alt: 'The Sanctuary, Villa 9 - Tranquility Bali property film',
+    tag: 'property',
+  },
+];
 
-const heightClasses: Record<BentoCell['size'], string> = {
-  small: 'h-44',
-  medium: 'h-64',
-  wide: 'h-64',
-  tall: 'h-96',
-  large: 'h-64'
-};
+const talkingHeadData: BentoCell[] = [
+  {
+    id: 5001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794461472/Peter_-_Ubud_or_Uluwatu_1_ewdqt4.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461792/Peter_Ubud_or_Uluwatu_.00_00_47_08.Still001_m4adz5.png',
+    title: 'Ubud or Uluwatu?',
+    subtitle: 'Tranquility Bali',
+    alt: 'Ubud or Uluwatu? - Tranquility Bali talking head video',
+    tag: 'vsl',
+    position: 'center top',
+  },
+  {
+    id: 5002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794461515/Peter_-_ROI_calculator_dajrt0.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461789/Peter_ROI_daziyp.png',
+    title: 'The ROI Calculator',
+    subtitle: 'Tranquility Bali',
+    alt: 'The ROI Calculator - Tranquility Bali talking head video',
+    tag: 'vsl',
+  },
+];
 
-export default function BentoPortfolio() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('All');
-  const [visibleCells, setVisibleCells] = useState<BentoCell[]>(cells);
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+interface MediaSliderProps {
+  items: BentoCell[];
+  kind: CardKind;
+  label: string;
+}
 
-  useEffect(() => {
-    if (activeFilter === 'All') {
-      setVisibleCells(cells);
-    } else {
-      setVisibleCells(cells.filter((c) => c.category.includes(activeFilter)));
-    }
-  }, [activeFilter]);
-
-  useEffect(() => {
-    // Force all reveal-up elements visible after filter change
-    const items = sectionRef.current?.querySelectorAll('.reveal-up');
-    items?.forEach((el) => el.classList.add('visible'));
-  }, [visibleCells]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    const items = sectionRef.current?.querySelectorAll('.reveal-up');
-    items?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [visibleCells]);
+// Slider of media cards (videos open in the lightbox with sound, images open full size)
+function MediaSlider({ items, kind, label }: MediaSliderProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const playable = items.filter((c) => c.video || c.image);
+  const lightboxItems: MediaItem[] = playable.map((c) => ({
+    type: c.video ? 'video' : 'image',
+    src: c.video || c.image,
+    poster: c.image,
+    alt: c.alt,
+    title: c.title,
+    caption: c.subtitle,
+  }));
 
   return (
-    <section
-      id="portfolio"
-      ref={sectionRef}
-      className="relative py-24 px-6 md:px-12"
-      style={{ background: 'var(--loom-black)' }}>
-      
-      {/* Video Lightbox Modal */}
-      {playingVideo &&
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center"
-        style={{ background: 'rgba(0,0,0,0.85)' }}
-        onClick={() => setPlayingVideo(null)}>
-          <div
-          className="relative w-full max-w-2xl mx-4"
-          style={{ aspectRatio: '9/16', maxHeight: '85vh' }}
-          onClick={(e) => e.stopPropagation()}>
-            <iframe
-            src={`${playingVideo}?autoplay=1&loop=1`}
-            title="Video"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full rounded-2xl border-0" />
-            <button
-            onClick={() => setPlayingVideo(null)}
-            className="absolute -top-10 right-0 text-white/70 hover:text-white font-mono text-sm tracking-wider uppercase transition-colors">
-              ✕ Close
-            </button>
-          </div>
-        </div>
-      }
-
-      {/* Section header */}
-      <div className="max-w-7xl mx-auto mb-12 reveal-up">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div>
-            <span className="font-mono text-xs text-lavender/60 tracking-[0.2em] uppercase block mb-3">
-              — Portfolio
-            </span>
-            <h2
-              className="font-manrope font-semibold text-pearl leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Campaign Library
-
-
-            </h2>
-          </div>
-          <p className="font-mono text-sm text-pearl/40 max-w-xs leading-relaxed">Examples of the work we create for projects like yours.
-
-          </p>
-        </div>
-
-        {/* Filter pills */}
-        <div className="flex flex-wrap gap-3">
-          {FILTERS.map((filter) =>
-          <button
-            key={filter}
-            onClick={() => setActiveFilter(filter)}
-            className={`filter-pill px-5 py-2 rounded-full font-mono text-xs tracking-wider uppercase ${
-            activeFilter === filter ? 'active' : ''}`
-            }>
-            
-              {filter}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Ads section heading */}
-      <div className="max-w-7xl mx-auto mb-6 reveal-up">
-        <h3
-          className="font-manrope font-semibold text-pearl/80 tracking-widest uppercase"
-          style={{ fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', letterSpacing: '0.25em' }}>
-          Ads
-        </h3>
-      </div>
-
-      {/* Bento Grid */}
-      <div className="max-w-7xl mx-auto flex flex-row gap-4 overflow-x-auto overflow-y-hidden pb-4" style={{ scrollSnapType: 'x mandatory' }}>
-        {visibleCells.map((cell, idx) =>
-        <div
-          key={cell.id}
-          className={`iridescent-cell rounded-2xl overflow-hidden cursor-pointer reveal-up flex-shrink-0`}
-          style={{
-            transitionDelay: `${idx * 60}ms`,
-            border: '1px solid rgba(196,181,247,0.1)',
-            background: 'var(--loom-black-2)',
-            width: '240px',
-            scrollSnapAlign: 'start',
-            transform: hoveredId === cell.id ? 'scale(1.04)' : 'scale(1)',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            boxShadow: hoveredId === cell.id ? '0 8px 32px rgba(196,181,247,0.18)' : 'none'
-          }}
-          onMouseEnter={() => setHoveredId(cell.id)}
-          onMouseLeave={() => setHoveredId(null)}
-          onClick={() => cell.video && setPlayingVideo(cell.video)}>
-          
-            {/* Image */}
-            <div className={`relative w-full overflow-hidden`} style={{ aspectRatio: '9/16' }}>
-              {cell.video ?
-            <>
-                  <AppImage
-                src={cell.image}
-                alt={cell.alt}
-                fill
-                className="cell-img object-cover w-full h-full" />
-
-                  {/* Play button overlay */}
-                  <div
-                className="absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300"
-                style={{ background: 'rgba(0,0,0,0.35)', opacity: hoveredId === cell.id ? 1 : 0.7 }}>
-                    <div
-                  className="flex items-center justify-center rounded-full transition-transform duration-300"
-                  style={{
-                    width: '52px',
-                    height: '52px',
-                    background: 'rgba(196,181,247,0.2)',
-                    border: '2px solid rgba(196,181,247,0.7)',
-                    backdropFilter: 'blur(6px)',
-                    transform: hoveredId === cell.id ? 'scale(1.12)' : 'scale(1)'
-                  }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-pearl ml-1">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-
-                </> :
-
+    <>
+      {openIndex !== null && (
+        <MediaLightbox items={lightboxItems} startIndex={openIndex} onClose={() => setOpenIndex(null)} />
+      )}
+      <SlideRow cardWidth={kind === 'wide' ? 821 : 260} ariaLabel={label}>
+        {playable.map((cell, i) => (
+          <SlideCard
+            key={cell.id}
+            kind={kind}
+            tag={cell.tag}
+            title={cell.title}
+            subtitle={cell.subtitle}
+            showPlay={!!cell.video}
+            ariaLabel={`Open ${cell.title}`}
+            onClick={() => setOpenIndex(i)}>
             <AppImage
               src={cell.image}
               alt={cell.alt}
               fill
-              className="cell-img object-cover w-full h-full" />
-            }
-            
+              className="w-full h-full"
+              objectFit={cell.contain ? 'contain' : 'cover'}
+              objectPosition={cell.position ?? 'center center'} />
+          </SlideCard>
+        ))}
+      </SlideRow>
+    </>
+  );
+}
 
-              {/* Iridescent overlay on hover */}
-              <div className="cell-overlay" />
+export default function BentoPortfolio() {
+  return (
+    <div
+      id="portfolio"
+      className="relative pb-24 px-6 md:px-12 overflow-x-hidden"
+      style={{ background: '#0D0D12' }}>
+      <span id="services" aria-hidden="true" className="absolute top-0 left-0 w-0 h-0" />
 
-              {/* Tag badge */}
-              {cell.tag &&
-            <div className="absolute top-3 left-3 z-10">
-                  <span
-                className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
-                style={{
-                  background: cell.accent ?
-                  'rgba(217,70,168,0.3)' :
-                  'rgba(196,181,247,0.15)',
-                  border: `1px solid ${cell.accent ? 'rgba(217,70,168,0.5)' : 'rgba(196,181,247,0.3)'}`,
-                  color: cell.accent ? '#D946A8' : '#C4B5F7'
-                }}>
-                
-                    {cell.tag}
-                  </span>
-                </div>
-            }
+      {/* ── WHAT WE MAKE OVERVIEW ───────────────────────────────────────────── */}
+      <ServiceSplitIndex />
+      {/* ── END WHAT WE MAKE ────────────────────────────────────────────────── */}
 
-              {/* Bottom info (appears on hover) */}
-              <div className="absolute bottom-0 left-0 right-0 z-10 p-4 translate-y-2 opacity-0 group-hover:opacity-100 transition-all duration-400"
-            style={{ background: 'linear-gradient(to top, rgba(13,13,18,0.95) 0%, transparent 100%)' }}>
-                <p className="font-manrope font-semibold text-pearl text-sm leading-tight">{cell.title}</p>
-                <p className="font-mono text-[10px] text-lavender/70 mt-0.5">{cell.subtitle}</p>
-              </div>
-            </div>
+      {/* ── 01 SIGNATURE FILMS ──────────────────────────────────────────────── */}
+      <ServiceSection
+        id="signature-films"
+        index={1}
+        num="01"
+        label="Signature Films"
+        heading="The hero film your brand is remembered by."
+        description="Full cinematic production, built shot by shot for launches and flagship campaigns."
+        price="$350"
+        service="Signature Films">
+        <MediaSlider items={aiFilmsData} kind="vertical" label="Signature Films" />
+      </ServiceSection>
 
-            {/* Card footer (always visible) */}
-            <div className="px-4 py-3 flex items-center justify-between" style={{ background: 'var(--loom-black-2)' }}>
-              <div>
-                <p className="font-manrope text-sm font-medium text-pearl/90 leading-tight">{cell.title}</p>
-                <p className="font-mono text-[10px] text-pearl/40 mt-0.5">{cell.subtitle}</p>
-              </div>
-              <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="text-lavender/40 flex-shrink-0">
-              
-                <path d="M7 17L17 7M7 7h10v10" />
-              </svg>
-            </div>
-          </div>
-        )}
-      </div>
+      {/* ── 02 REALISM STORYTELLING ─────────────────────────────────────────── */}
+      <ServiceSection
+        id="realism-storytelling"
+        index={2}
+        num="02"
+        label="Realism Storytelling"
+        heading="Real stories. Footage that feels lived in."
+        description="Documentary-style films that tell the human story behind a brand, built from real people, real history and real places."
+        price="$950"
+        buttonLabel="Enquire for pricing"
+        service="Realism Storytelling">
+        <MediaSlider items={realismData} kind="vertical" label="Realism Storytelling" />
+      </ServiceSection>
+
+      {/* ── 03 LUXURY PROPERTY FILMS ────────────────────────────────────────── */}
+      <ServiceSection
+        id="luxury-property-films"
+        index={3}
+        num="03"
+        label="Luxury Property Films"
+        heading="Sell it before it's built."
+        description="Cinematic villa and resort films made from your renders and plans. No shoot day, no waiting for construction."
+        price="$350"
+        service="Luxury Property Films">
+        <MediaSlider items={luxuryData} kind="wide" label="Luxury Property Films" />
+      </ServiceSection>
+
+      {/* ── 04 CHARACTERS & LOCATIONS ───────────────────────────────────────── */}
+      <ServiceSection
+        id="characters-locations"
+        index={4}
+        num="04"
+        label="Characters & Locations"
+        heading="Consistent by design."
+        description="A face and a world you own: custom characters and locations that stay consistent across every film."
+        price="$250"
+        buttonLabel="Enquire for pricing"
+        service="Characters & Locations">
+        <CharactersLocations />
+      </ServiceSection>
+      {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
+
+      {/* ── 05 TALKING HEAD & VSL ───────────────────────────────────────────── */}
+      <ServiceSection
+        id="talking-head-vsl"
+        index={5}
+        num="05"
+        label="Talking Head & VSL"
+        heading="A face that sells, every week."
+        description="Presenter-led video sales letters and talking-head content, with no filming. Use your own presenter, or add a custom AI character as a consistent on-screen host."
+        price="$250"
+        service="Talking Head & VSL">
+        <MediaSlider items={talkingHeadData} kind="vertical" label="Talking Head and VSL" />
+      </ServiceSection>
+
+      {/* ── 06 RENDER TO REALITY ────────────────────────────────────────────── */}
+      <ServiceSection
+        id="render-to-reality"
+        index={6}
+        num="06"
+        label="Render to Reality"
+        heading="From CGI to photograph."
+        description="Send us your renders. We turn them into images that look like they were shot on location. Drag the slider to compare."
+        price="$25"
+        buttonLabel="$25 / render · Min. 10"
+        service="Render to Reality">
+        <RenderToReality />
+      </ServiceSection>
+
+      {/* ── 07 PERFORMANCE ADS ──────────────────────────────────────────────── */}
+      <ServiceSection
+        id="performance-ads"
+        index={7}
+        num="07"
+        label="Performance Ads"
+        heading="Ads built for volume."
+        description="Short vertical ads made fast and in batches, so you can test hooks and keep your feed fresh."
+        price="$150"
+        service="Performance Ads">
+        <MediaSlider items={adsData} kind="vertical" label="Performance Ads" />
+      </ServiceSection>
+      {/* ── END SERVICES ────────────────────────────────────────────────────── */}
 
       {/* Stats row */}
-      <div className="max-w-7xl mx-auto mt-16 pt-12 border-t reveal-up"
-      style={{ borderColor: 'rgba(196,181,247,0.1)' }}>
-        <span
-          className="font-manrope font-semibold"
-          style={{
-            fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-            background: 'linear-gradient(135deg, #C4B5F7, #D946A8)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}>
-          Every ad includes the full production process:{' '}
-          <br />
-          script, voiceover, AI video, editing, sound design, original music, and captions
+      <div className="max-w-7xl mx-auto mt-16 pt-12 border-t"
+      style={{ borderColor: 'rgba(242,239,233,0.10)' }}>
+        <span className="type-body block">
+          Every video is built from a full production toolkit: <br />
+          script, voiceover, AI photo, AI video, editing, sound design, original music, and captions. <br />
+          Tailored to what each project needs.
         </span>
       </div>
-    </section>);
-
+    </div>
+  );
 }

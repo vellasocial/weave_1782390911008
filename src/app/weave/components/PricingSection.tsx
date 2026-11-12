@@ -1,0 +1,102 @@
+'use client';
+
+import { openEnquiryFor } from './SectionParts';
+
+interface PricingItem {
+  name: string;
+  price: string;
+  note: string;
+}
+
+const pricingItems: PricingItem[] = [
+  { name: 'Signature Films', price: '$350 per film', note: 'Hero films, social and website' },
+  { name: 'Realism Storytelling', price: 'On enquiry', note: 'Bring your story to life' },
+  { name: 'Luxury Property Films', price: '$350 per film', note: 'Villas and resorts from renders' },
+  { name: 'Characters & Locations', price: 'On enquiry', note: 'Priced by scope. Depends on the character or location.' },
+  { name: 'Talking Head & VSL', price: '$250 per video', note: 'Your presenter, up to 30 sec' },
+  { name: 'Render to Reality', price: '$25 per render', note: 'Minimum 10 renders' },
+  { name: 'Performance Ads', price: '$150 each', note: 'Short ads built to convert' },
+];
+
+const smallPrint: string[] = [
+  'All films up to 30 seconds. Up to 60 seconds is 1.5x the price.',
+  'Characters and locations are reused in all your future videos at no extra cost.',
+  'Special requests and monthly packages quoted to brief.',
+  'All prices in USD.',
+];
+
+export default function PricingSection() {
+  return (
+    <section
+      id="pricing"
+      className="relative px-6 md:px-12 overflow-hidden"
+      style={{ background: '#0D0D12', paddingTop: '120px', paddingBottom: '120px' }}>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="mb-4 mx-auto" style={{ maxWidth: '880px' }}>
+          <p className="type-label mb-4">— PRICING</p>
+          <h2 className="type-h2 mb-6">Clear pricing, no surprises.</h2>
+          <p className="type-body">
+            Every price includes two revision rounds and any aspect ratio.
+          </p>
+        </div>
+
+        <div className="mx-auto" style={{ maxWidth: '880px' }}>
+          <div className="mt-10">
+            {pricingItems.map((item) => (
+              <div
+                key={item.name}
+                style={{ padding: '20px 0', borderBottom: '1px solid rgba(138,126,109,0.15)' }}>
+                <div className="flex items-baseline justify-between gap-x-4">
+                  <p style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 500, fontSize: '18px', lineHeight: 1.3, color: '#F5F1EA' }}>
+                    {item.name}
+                  </p>
+                  <p className="text-right whitespace-nowrap" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', color: '#8A7E6D' }}>
+                    {item.price}
+                  </p>
+                </div>
+                <p className="mt-1" style={{ fontFamily: 'Manrope, sans-serif', fontSize: '14px', lineHeight: 1.5, color: '#B8B0A4' }}>
+                  {item.note}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-col gap-1 text-center">
+            {smallPrint.map((line) => (
+              <p key={line} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '13px', color: 'rgba(245,241,234,0.4)', lineHeight: 1.6 }}>
+                {line}
+              </p>
+            ))}
+          </div>
+
+          <div
+            className="mx-auto mt-16 px-6 py-10 md:px-12 md:py-14"
+            style={{
+              maxWidth: '880px',
+              background: '#13131A',
+              border: '1px solid rgba(138,126,109,0.25)',
+              borderRadius: '4px',
+            }}>
+            <p className="type-label mb-4">CUSTOM PACKAGES</p>
+            <h3
+              className="mb-4"
+              style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '28px', lineHeight: 1.25, color: '#F5F1EA' }}>
+              Need more than one video?
+            </h3>
+            <p
+              className="mb-8"
+              style={{ fontFamily: 'Manrope, sans-serif', fontSize: '16px', lineHeight: 1.6, color: '#B8B0A4' }}>
+              Launch campaigns, monthly content and multi-video projects can be built into one custom package, with better rates the more you make. Tell us what you need and we&apos;ll put it together.
+            </p>
+            <button
+              type="button"
+              onClick={() => openEnquiryFor('Custom package')}
+              className="btn-primary btn-block-mobile">
+              Ask about a custom package
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

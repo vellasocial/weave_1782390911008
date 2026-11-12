@@ -17,6 +17,8 @@ interface AppImageProps {
     sizes?: string;
     onClick?: () => void;
     fallbackSrc?: string;
+    objectFit?: 'cover' | 'contain';
+    objectPosition?: string;
     [key: string]: any;
 }
 
@@ -34,6 +36,8 @@ function AppImage({
     sizes,
     onClick,
     fallbackSrc = '/assets/images/no_image.png',
+    objectFit,
+    objectPosition,
     ...props
 }: AppImageProps) {
     const [imageSrc, setImageSrc] = useState(src);
@@ -67,16 +71,21 @@ function AppImage({
         if (height) imgStyle.height = height;
 
         if (fill) {
+            const fitStyle: React.CSSProperties = {
+                ...imgStyle,
+                ...(objectFit ? { objectFit } : {}),
+                ...(objectPosition ? { objectPosition } : {}),
+            };
             return (
                 <div className={`relative ${className}`} style={{ width: width || '100%', height: height || '100%' }}>
                     <img
                         src={imageSrc}
                         alt={alt}
-                        className={`${commonClassName} absolute inset-0 w-full h-full object-cover`}
+                        className={`${commonClassName} absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`}
                         onError={handleError}
                         onLoad={handleLoad}
                         onClick={onClick}
-                        style={imgStyle}
+                        style={fitStyle}
                         {...props}
                     />
                 </div>
