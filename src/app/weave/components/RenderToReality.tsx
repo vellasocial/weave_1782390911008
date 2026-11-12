@@ -11,24 +11,42 @@ interface RenderPair {
   after: string;
 }
 
-const INITIAL_PAIRS: RenderPair[] = [
-  { id: 'villa-exterior', name: 'Villa exterior', before: '', after: '' },
-  { id: 'pool-deck', name: 'Pool deck', before: '', after: '' },
-  { id: 'living-room', name: 'Living room', before: '', after: '' },
-  { id: 'master-bedroom', name: 'Master bedroom', before: '', after: '' },
+const PAIRS: RenderPair[] = [
+  {
+    id: 'pool-arrival',
+    name: 'Pool arrival',
+    before: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501942/10_s1pdsc.png',
+    after: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501483/01_-_Arrival_at_the_pool_realism_siw0id.png',
+  },
+  {
+    id: 'living-room',
+    name: 'Living room',
+    before: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501951/9_h21sja.png',
+    after: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501522/03_-_The_living_room_realism_jwncxg.png',
+  },
+  {
+    id: 'fire-pit',
+    name: 'Fire pit',
+    before: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501900/Enscape_2023-05-30-07-25-55_nhghfx.jpg',
+    after: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501594/Fire_pit_du6srw.png',
+  },
+  {
+    id: 'lounge',
+    name: 'Lounge',
+    before: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501879/Enscape_2023-05-30-08-03-06_ltthsx.jpg',
+    after: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501611/The_living_room_bk4bn5.png',
+  },
 ];
 
 const ACCENT = '#8A7E6D';
 
 export default function RenderToReality() {
-  const [pairs, setPairs] = useState<RenderPair[]>(INITIAL_PAIRS);
-  const [activeId, setActiveId] = useState<string>(INITIAL_PAIRS[0].id);
+  const [activeId, setActiveId] = useState<string>(PAIRS[0].id);
   const [position, setPosition] = useState(50);
   const [dragging, setDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const urlsRef = useRef<string[]>([]);
 
-  const active = pairs.find((p) => p.id === activeId) ?? pairs[0];
+  const active = PAIRS.find((p) => p.id === activeId) ?? PAIRS[0];
 
   const updateFromClientX = useCallback((clientX: number) => {
     const el = containerRef.current;
@@ -60,20 +78,6 @@ export default function RenderToReality() {
     };
   }, [dragging, updateFromClientX]);
 
-  useEffect(() => {
-    const urls = urlsRef.current;
-    return () => {
-      urls.forEach((u) => URL.revokeObjectURL(u));
-    };
-  }, []);
-
-  const handleUpload = (id: string, side: 'before' | 'after', file?: File | null) => {
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    urlsRef.current.push(url);
-    setPairs((prev) => prev.map((p) => (p.id === id ? { ...p, [side]: url } : p)));
-  };
-
   const handleKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
@@ -104,39 +108,25 @@ export default function RenderToReality() {
             if (e.touches[0]) updateFromClientX(e.touches[0].clientX);
           }}>
           {/* Before (underneath) */}
-          {active.before ? (
-            <AppImage
-              src={active.before}
-              alt={`${active.name} - original client CGI render`}
-              fill
-              draggable={false}
-              className="object-cover w-full h-full pointer-events-none" />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="uppercase" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
-                Upload client render below
-              </span>
-            </div>
-          )}
+          <AppImage
+            key={`before-${active.id}`}
+            src={active.before}
+            alt={`${active.name} - original client CGI render`}
+            fill
+            draggable={false}
+            className="object-cover w-full h-full pointer-events-none" />
 
           {/* After (on top, revealed by clip) */}
           <div
             className="absolute inset-0"
-            style={{ clipPath: `inset(0 ${100 - position}% 0 0)`, background: active.after ? undefined : '#141417' }}>
-            {active.after ? (
-              <AppImage
-                src={active.after}
-                alt={`${active.name} - Vella Realism photoreal version`}
-                fill
-                draggable={false}
-                className="object-cover w-full h-full pointer-events-none" />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="uppercase" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em', color: '#8A857C' }}>
-                  Upload realistic version below
-                </span>
-              </div>
-            )}
+            style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
+            <AppImage
+              key={`after-${active.id}`}
+              src={active.after}
+              alt={`${active.name} - Vella Realism photoreal version`}
+              fill
+              draggable={false}
+              className="object-cover w-full h-full pointer-events-none" />
           </div>
 
           {/* Labels */}
@@ -189,12 +179,11 @@ export default function RenderToReality() {
         </div>
       </div>
 
-      {/* Example thumbnails */}
+      {/* Example thumbnails (show the "after" image) */}
       <div className="mt-6">
         <SlideRow cardWidth={320} ariaLabel="Render to reality examples">
-          {pairs.map((pair) => {
+          {PAIRS.map((pair) => {
             const selected = pair.id === activeId;
-            const thumb = pair.after || pair.before;
             return (
               <div
                 key={pair.id}
@@ -210,55 +199,19 @@ export default function RenderToReality() {
                   className="slide-card-lift text-left w-full"
                   style={{ touchAction: 'manipulation' }}>
                   <div
-                    className="slide-card-frame relative overflow-hidden flex items-center justify-center"
+                    className="slide-card-frame relative overflow-hidden"
                     style={{
                       borderRadius: '4px',
-                      border: selected ? `1px solid ${ACCENT}` : thumb ? '1px solid rgba(138,126,109,0.2)' : '1px dashed rgba(138,126,109,0.4)',
+                      border: selected ? `1px solid ${ACCENT}` : '1px solid rgba(138,126,109,0.2)',
                       outline: selected ? `1px solid ${ACCENT}` : 'none',
-                      background: thumb ? '#1C1C20' : 'transparent',
+                      background: '#1C1C20',
                     }}>
-                    {thumb ? (
-                      <AppImage src={thumb} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
-                    ) : (
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', letterSpacing: '1.2px', color: 'rgba(245,241,234,0.3)' }}>
-                        Example coming soon
-                      </span>
-                    )}
+                    <AppImage src={pair.after} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
                   </div>
                   <p className="pt-3 leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '16px', color: '#F2EFE9' }}>
                     {pair.name}
                   </p>
                 </button>
-
-                <div className="pt-3 flex flex-col gap-2">
-                  {(['before', 'after'] as const).map((side) => (
-                    <label
-                      key={side}
-                      className="uppercase rounded-full px-3 text-center cursor-pointer transition-opacity duration-300 hover:opacity-70 flex items-center justify-center"
-                      style={{
-                        border: '1px solid rgba(242,239,233,0.10)',
-                        color: pair[side] ? '#F2EFE9' : '#B9B3A8',
-                        fontFamily: 'Manrope, sans-serif',
-                        fontWeight: 600,
-                        fontSize: '11px',
-                        letterSpacing: '0.14em',
-                        minHeight: '44px',
-                        touchAction: 'manipulation',
-                      }}>
-                      {side === 'before'
-                        ? pair.before ? 'Before · Client Render ✓' : 'Upload Before · Client Render'
-                        : pair.after ? 'After · Vella Realism ✓' : 'Upload After · Vella Realism'}
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="sr-only"
-                        onChange={(e) => {
-                          handleUpload(pair.id, side, e.target.files?.[0]);
-                          e.target.value = '';
-                        }} />
-                    </label>
-                  ))}
-                </div>
               </div>
             );
           })}

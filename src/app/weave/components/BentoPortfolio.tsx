@@ -58,8 +58,8 @@ const adsData: BentoCell[] = [
 const aiFilmsData: BentoCell[] = [
   {
     id: 1001,
-    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172771/Bali_Beans_Reel_pgvb3x.mp4',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png',
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794500872/Bali_Beans_Reel_pgvb3x.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794500957/BB_Thumbnail_pact37.png',
     title: 'Bali Beans',
     subtitle: 'Client Feature',
     alt: 'Bali Beans Reel',
@@ -88,12 +88,63 @@ const aiFilmsData: BentoCell[] = [
 const realismData: BentoCell[] = [
   {
     id: 2001,
-    video: '',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png',
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794501093/Bali_Beans_-_Ayu_s_story_e6trug.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501098/BB_Thumbnail_rzk8fy.png',
     title: 'The Sudana Family Story',
     subtitle: 'Bali Beans',
     alt: 'The Sudana Family Story - Bali Beans documentary-style film',
     tag: 'Bali Beans',
+  },
+  {
+    id: 2002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794502590/Bali_Beans_x_Vella_Social_tdyyuz.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794502785/hf_20261002_103844_3b3a1e1a-8e15-4113-bd11-7e6d61fd7757.00_00_55_03.Still003_ld8dj4.png',
+    title: 'Bali Beans x Vella Social',
+    subtitle: 'Bali Beans',
+    alt: 'Bali Beans x Vella Social - documentary-style film',
+    tag: 'Bali Beans',
+  },
+];
+
+const luxuryData: BentoCell[] = [
+  {
+    id: 3001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_14,w_1600/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.jpg',
+    title: 'The Sanctuary',
+    subtitle: 'Tranquility Bali',
+    alt: 'The Sanctuary - Tranquility Bali cinematic property film',
+    tag: 'property',
+  },
+  {
+    id: 3002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794384189/The_Sanctuary_-_Villa_9_acr94l.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_1,w_1600/v1794384189/The_Sanctuary_-_Villa_9_acr94l.jpg',
+    title: 'The Sanctuary, Villa 9',
+    subtitle: 'Tranquility Bali',
+    alt: 'The Sanctuary, Villa 9 - Tranquility Bali property film',
+    tag: 'property',
+  },
+];
+
+const talkingHeadData: BentoCell[] = [
+  {
+    id: 5001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794461472/Peter_-_Ubud_or_Uluwatu_1_ewdqt4.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461792/Peter_Ubud_or_Uluwatu_.00_00_47_08.Still001_m4adz5.png',
+    title: 'Ubud or Uluwatu?',
+    subtitle: 'Tranquility Bali',
+    alt: 'Ubud or Uluwatu? - Tranquility Bali talking head video',
+    tag: 'vsl',
+  },
+  {
+    id: 5002,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794461515/Peter_-_ROI_calculator_dajrt0.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461789/Peter_ROI_daziyp.png',
+    title: 'The ROI Calculator',
+    subtitle: 'Tranquility Bali',
+    alt: 'The ROI Calculator - Tranquility Bali talking head video',
+    tag: 'vsl',
   },
 ];
 
@@ -171,7 +222,7 @@ export default function BentoPortfolio() {
         tier={{ title: 'Premium', subtext: 'Premium films, made to set the standard for a brand.' }}
         price="$350"
         service="Signature Films">
-        <MediaSlider items={aiFilmsData} kind="vertical" comingSoon={1} label="Signature Films" />
+        <MediaSlider items={aiFilmsData} kind="vertical" label="Signature Films" />
       </ServiceSection>
 
       {/* ── 02 REALISM STORYTELLING ─────────────────────────────────────────── */}
@@ -184,7 +235,7 @@ export default function BentoPortfolio() {
         description="Documentary-style films that tell the human story behind a brand, built from real people, real history and real places."
         price="$950"
         service="Realism Storytelling">
-        <MediaSlider items={realismData} kind="vertical" comingSoon={2} label="Realism Storytelling" />
+        <MediaSlider items={realismData} kind="vertical" label="Realism Storytelling" />
       </ServiceSection>
 
       {/* ── 03 LUXURY PROPERTY FILMS ────────────────────────────────────────── */}
@@ -197,7 +248,7 @@ export default function BentoPortfolio() {
         description="Cinematic villa and resort films made from your renders and plans. No shoot day, no waiting for construction."
         price="$350"
         service="Luxury Property Films">
-        <MediaSlider items={[]} kind="wide" comingSoon={3} label="Luxury Property Films" />
+        <MediaSlider items={luxuryData} kind="wide" comingSoon={1} label="Luxury Property Films" />
       </ServiceSection>
 
       {/* ── 04 CHARACTERS & LOCATIONS ───────────────────────────────────────── */}
@@ -225,7 +276,7 @@ export default function BentoPortfolio() {
         tier={{ title: 'Ads & Content', subtext: 'Ads and everyday content, made fast.' }}
         price="$250"
         service="Talking Head & VSL">
-        <MediaSlider items={[]} kind="vertical" comingSoon={4} label="Talking Head and VSL" />
+        <MediaSlider items={talkingHeadData} kind="vertical" label="Talking Head and VSL" />
       </ServiceSection>
 
       {/* ── 06 RENDER TO REALITY ────────────────────────────────────────────── */}
