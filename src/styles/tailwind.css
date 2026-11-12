@@ -285,6 +285,14 @@ section h2, section h3.section-h {
   .slide-card-lift:hover .slide-card-frame img { transform: scale(1.05); }
 }
 .slide-row-scroller::-webkit-scrollbar { display: none; }
+.slide-row-scroller { scroll-snap-type: x mandatory; overscroll-behavior-x: contain; touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch; scroll-padding-left: 0; }
+.slide-row-scroller > * { scroll-snap-align: start; }
+.slide-card-frame img,
+.slide-card-frame video { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; }
+@media (hover: none), (pointer: coarse) {
+  .slide-row-scroller { cursor: auto; }
+  .slide-card-lift:hover { transform: none; }
+}
 @media (max-width: 767px) {
   .slide-card-vertical { width: 72vw; }
   .slide-card-vertical .slide-card-frame { width: 72vw; height: auto; aspect-ratio: 9 / 16; }

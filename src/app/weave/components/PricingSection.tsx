@@ -17,7 +17,7 @@ const pricingGroups: PricingGroup[] = [
     items: [
       { name: 'Signature Films', price: '$350 per film', note: 'Hero films, social and website' },
       { name: 'Luxury Property Films', price: '$350 per film', note: 'Villas and resorts from renders' },
-      { name: 'Realism Storytelling', price: '$950 per film', note: 'Bring your story to life' },
+      { name: 'Realism Storytelling', price: 'On enquiry', note: 'Bring your story to life' },
     ],
   },
   {

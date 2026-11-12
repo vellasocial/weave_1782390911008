@@ -239,6 +239,7 @@ export default function BentoPortfolio() {
         heading="Real stories. Footage that feels lived in."
         description="Documentary-style films that tell the human story behind a brand, built from real people, real history and real places."
         price="$950"
+        buttonLabel="Enquire for pricing"
         service="Realism Storytelling">
         <MediaSlider items={realismData} kind="vertical" label="Realism Storytelling" />
       </ServiceSection>

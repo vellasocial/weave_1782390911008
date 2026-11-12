@@ -27,6 +27,24 @@ export function MediaLightbox({ items, startIndex, onClose }: MediaLightboxProps
   const [current, setCurrent] = useState(startIndex);
   const prev = useCallback(() => setCurrent((i) => (i - 1 + items.length) % items.length), [items.length]);
   const next = useCallback(() => setCurrent((i) => (i + 1) % items.length), [items.length]);
+  const touchRef = useRef<{ x: number; y: number } | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const t = e.touches[0];
+    touchRef.current = t ? { x: t.clientX, y: t.clientY } : null;
+  };
+  const onTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    const start = touchRef.current;
+    touchRef.current = null;
+    const t = e.changedTouches[0];
+    if (!start || !t || items.length < 2) return;
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx < 0) next();
+      else prev();
+    }
+  };
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -65,7 +83,9 @@ export function MediaLightbox({ items, startIndex, onClose }: MediaLightboxProps
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center"
-      style={{ background: 'rgba(0,0,0,0.96)' }}
+      style={{ background: 'rgba(0,0,0,0.96)', touchAction: 'pan-y' }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       onClick={onClose}>
       <button
         type="button"
@@ -175,6 +195,58 @@ export function SlideRow({ children, cardWidth, ariaLabel }: SlideRowProps) {
     };
   }, [update]);
 
+  // Desktop mouse-only drag-to-scroll (touch uses plain native scrolling)
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    let down = false;
+    let moved = false;
+    let startX = 0;
+    let startLeft = 0;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true;
+      moved = false;
+      startX = e.clientX;
+      startLeft = el.scrollLeft;
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!down || e.pointerType !== 'mouse') return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 5) {
+        moved = true;
+        el.style.scrollSnapType = 'none';
+        el.style.cursor = 'grabbing';
+      }
+      if (moved) el.scrollLeft = startLeft - dx;
+    };
+    const end = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse' || !down) return;
+      down = false;
+      el.style.scrollSnapType = '';
+      el.style.cursor = '';
+    };
+    const onClickCapture = (e: MouseEvent) => {
+      if (moved) {
+        e.stopPropagation();
+        e.preventDefault();
+        moved = false;
+      }
+    };
+    el.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
+    el.addEventListener('click', onClickCapture, true);
+    return () => {
+      el.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', end);
+      window.removeEventListener('pointercancel', end);
+      el.removeEventListener('click', onClickCapture, true);
+    };
+  }, []);
+
   const scrollByCard = (dir: 1 | -1) => {
     const el = scrollerRef.current;
     if (!el) return;
@@ -228,7 +300,10 @@ export function SlideRow({ children, cardWidth, ariaLabel }: SlideRowProps) {
           className="slide-row-scroller flex gap-4 overflow-x-auto"
           style={{
             scrollSnapType: 'x mandatory',
+            scrollPaddingLeft: 0,
             WebkitOverflowScrolling: 'touch',
+            overscrollBehaviorX: 'contain',
+            touchAction: 'pan-x pan-y',
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
             paddingTop: '6px',
