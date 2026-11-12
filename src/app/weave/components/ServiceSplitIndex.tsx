@@ -11,17 +11,51 @@ interface SplitService {
   thumb: string;
   thumbAlt: string;
   group: 'PREMIUM' | 'ADS & CONTENT';
+  wide?: boolean;
+  position?: string;
 }
 
 const services: SplitService[] = [
-  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum signature film still', group: 'PREMIUM' },
-  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'From $950', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501098/BB_Thumbnail_rzk8fy.png', thumbAlt: 'Sudana family documentary-style film still', group: 'PREMIUM' },
-  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_14,w_1600/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.jpg', thumbAlt: 'The Sanctuary luxury property film still', group: 'PREMIUM' },
-  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181108/Daughter_Headshot_e3zz2z.png', thumbAlt: 'The Daughter character headshot portrait', group: 'PREMIUM' },
-  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461792/Peter_Ubud_or_Uluwatu_.00_00_47_08.Still001_m4adz5.png', thumbAlt: 'Presenter-led Ubud or Uluwatu video still', group: 'ADS & CONTENT' },
-  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: 'From $25', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501483/01_-_Arrival_at_the_pool_realism_siw0id.png', thumbAlt: 'Pool arrival render made photoreal', group: 'ADS & CONTENT' },
-  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas vertical performance ad still', group: 'ADS & CONTENT' },
+  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Hum_Thumbnail_g5wzbs.png', thumbAlt: 'The Hum signature film still', group: 'PREMIUM', position: 'center top' },
+  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', price: 'From $950', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501098/BB_Thumbnail_rzk8fy.png', thumbAlt: 'Sudana family documentary-style film still', group: 'PREMIUM', position: 'center top' },
+  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', price: 'From $350', thumb: 'https://res.cloudinary.com/wle6dmxs/video/upload/so_14,w_1600/v1794384226/Sanctuary_Hero_-_Cinematic_Crop_4k_newwww_bfjzkn.jpg', thumbAlt: 'The Sanctuary luxury property film still', group: 'PREMIUM', wide: true },
+  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', price: 'On enquiry', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791181108/Daughter_Headshot_e3zz2z.png', thumbAlt: 'The Daughter character headshot portrait', group: 'PREMIUM', position: 'center top' },
+  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', price: 'From $250', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794461792/Peter_Ubud_or_Uluwatu_.00_00_47_08.Still001_m4adz5.png', thumbAlt: 'Presenter-led Ubud or Uluwatu video still', group: 'ADS & CONTENT', position: 'center top' },
+  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', price: '$25 · min. 10', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794501483/01_-_Arrival_at_the_pool_realism_siw0id.png', thumbAlt: 'Pool arrival render made photoreal', group: 'ADS & CONTENT', wide: true },
+  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', price: 'From $150', thumb: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1785846311/Balitecture_-_Nara_Villas_3_bedroom_fzc2g6_poster.jpg', thumbAlt: 'Nara Villas vertical performance ad still', group: 'ADS & CONTENT', position: 'center top' },
 ];
+
+interface PreviewImageProps {
+  service: SplitService;
+  mode: 'frame' | 'thumb';
+}
+
+function PreviewImage({ service, mode }: PreviewImageProps) {
+  if (mode === 'frame' && service.wide) {
+    return (
+      <>
+        <AppImage
+          src={service.thumb}
+          alt=""
+          fill
+          aria-hidden="true"
+          className="w-full h-full"
+          objectFit="cover"
+          style={{ filter: 'blur(24px) brightness(0.45)', transform: 'scale(1.2)' }} />
+        <AppImage src={service.thumb} alt={service.thumbAlt} fill className="w-full h-full" objectFit="contain" objectPosition="center center" />
+      </>
+    );
+  }
+  return (
+    <AppImage
+      src={service.thumb}
+      alt={service.thumbAlt}
+      fill
+      className="w-full h-full"
+      objectFit="cover"
+      objectPosition={service.position ?? 'center center'} />
+  );
+}
 
 const MONO = "'JetBrains Mono', monospace";
 const TAUPE = '#8A7E6D';
@@ -79,14 +113,14 @@ export default function ServiceSplitIndex() {
           <div style={{ position: 'sticky', top: '120px' }}>
             <div
               className="relative w-full overflow-hidden"
-              style={{ aspectRatio: '4 / 5', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.2)', background: '#13131A' }}>
+              style={{ aspectRatio: '9 / 16', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.2)', background: '#13131A' }}>
               {services.map((s, i) => (
                 <div
                   key={s.num}
                   aria-hidden="true"
                   className="absolute inset-0"
                   style={{ opacity: (hoverIdx ?? activeIdx) === i ? 1 : 0, transition: 'opacity 300ms ease' }}>
-                  <AppImage src={s.thumb} alt={s.thumbAlt} fill className="object-cover w-full h-full" />
+                  <PreviewImage service={s} mode="frame" />
                 </div>
               ))}
               <span
@@ -112,8 +146,8 @@ export default function ServiceSplitIndex() {
                 onFocus={() => { setHoverIdx(i); setActiveIdx(i); }}
                 onBlur={() => setHoverIdx(null)}
                 style={{ borderBottom: '1px solid rgba(138,126,109,0.15)', minHeight: '72px', textDecoration: 'none', touchAction: 'manipulation' }}>
-                <span className="md:hidden relative flex-shrink-0 overflow-hidden" style={{ width: '56px', height: '56px', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.2)' }}>
-                  <AppImage src={s.thumb} alt={s.thumbAlt} fill className="object-cover w-full h-full" />
+                <span className="md:hidden relative flex-shrink-0 overflow-hidden" style={{ width: '56px', height: '56px', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.2)', background: '#13131A' }}>
+                  <PreviewImage service={s} mode="thumb" />
                 </span>
                 <span className="hidden md:block flex-shrink-0" style={{ width: '28px', fontFamily: MONO, fontSize: '12px', color: TAUPE }}>
                   {s.num}

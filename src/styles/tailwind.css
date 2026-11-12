@@ -68,8 +68,15 @@ button, input, select, textarea, p, span, a, li, label {
 .font-manrope {
   font-family: var(--font-heading) !important;
 }
-.type-hero .hero-line {
-  font-family: var(--font-hero);
+.type-hero .hero-line,
+.type-hero .closing-line {
+  font-family: var(--font-hero) !important;
+  font-weight: 600 !important;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variation-settings: normal;
+  font-synthesis: none;
 }
 
 p, li {

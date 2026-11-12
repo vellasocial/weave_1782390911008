@@ -99,12 +99,13 @@ interface ServiceSectionProps {
   heading: string;
   description: string;
   price: string;
+  buttonLabel?: string;
   service: string;
   tier?: { title: string; subtext: string };
   children: ReactNode;
 }
 
-export function ServiceSection({ id, index, num, label, heading, description, price, service, tier, children }: ServiceSectionProps) {
+export function ServiceSection({ id, index, num, label, heading, description, price, buttonLabel, service, tier, children }: ServiceSectionProps) {
   const tone = index % 2 === 1 ? 'dark' : 'charcoal';
   return (
     <SectionBand tone={tone} id={id} tier={tier}>
@@ -115,7 +116,7 @@ export function ServiceSection({ id, index, num, label, heading, description, pr
           <span className="type-label mb-4 block">{num} · {label}</span>
           <h3 className="type-h2 mb-4">{heading}</h3>
           <p className="max-w-xl mb-6" style={bodyTextStyle}>{description}</p>
-          <PricePill label={`From ${price} · Enquire`} service={service} />
+          <PricePill label={buttonLabel ?? `From ${price} · Enquire`} service={service} />
         </div>
         <div className="min-w-0 w-full">
           {children}

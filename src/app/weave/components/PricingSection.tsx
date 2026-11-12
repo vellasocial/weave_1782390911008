@@ -23,9 +23,7 @@ const pricingGroups: PricingGroup[] = [
   {
     title: 'CHARACTERS & LOCATIONS',
     items: [
-      { name: 'Character', price: '$350', note: 'Full reference sheet' },
-      { name: 'Location', price: '$250', note: 'Your brand world, reusable' },
-      { name: 'Character + Location', price: '$500 bundle', note: 'Character and location together' },
+      { name: 'Characters & Locations', price: 'On enquiry', note: 'Priced by scope. Depends on the character or location.' },
     ],
   },
   {

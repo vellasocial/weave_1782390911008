@@ -206,7 +206,7 @@ export default function RenderToReality() {
                       outline: selected ? `1px solid ${ACCENT}` : 'none',
                       background: '#1C1C20',
                     }}>
-                    <AppImage src={pair.after} alt={`${pair.name} example thumbnail`} fill className="object-cover w-full h-full" />
+                    <AppImage src={pair.after} alt={`${pair.name} example thumbnail`} fill className="w-full h-full" objectFit="cover" objectPosition="center center" />
                   </div>
                   <p className="pt-3 leading-tight" style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '16px', color: '#F2EFE9' }}>
                     {pair.name}

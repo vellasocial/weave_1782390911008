@@ -15,6 +15,8 @@ interface BentoCell {
   alt: string;
   tag?: string;
   video?: string;
+  position?: string;
+  contain?: boolean;
 }
 
 const adsData: BentoCell[] = [
@@ -57,13 +59,14 @@ const adsData: BentoCell[] = [
 
 const aiFilmsData: BentoCell[] = [
   {
-    id: 1001,
-    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794500872/Bali_Beans_Reel_pgvb3x.mp4',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794500957/BB_Thumbnail_pact37.png',
-    title: 'Bali Beans',
+    id: 1003,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172768/Sanaya_Reel_dohd3g.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png',
+    title: 'Sanaya',
     subtitle: 'Client Feature',
-    alt: 'Bali Beans Reel',
+    alt: 'Sanaya Reel',
     tag: 'ai film',
+    position: 'center top',
   },
   {
     id: 1002,
@@ -73,15 +76,17 @@ const aiFilmsData: BentoCell[] = [
     subtitle: 'Client Feature',
     alt: 'The Hum Reel',
     tag: 'ai film',
+    position: 'center top',
   },
   {
-    id: 1003,
-    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1791172768/Sanaya_Reel_dohd3g.mp4',
-    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/Sanaya_Thumbnail_mjghvk.png',
-    title: 'Sanaya',
+    id: 1001,
+    video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794500872/Bali_Beans_Reel_pgvb3x.mp4',
+    image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794500957/BB_Thumbnail_pact37.png',
+    title: 'Bali Beans',
     subtitle: 'Client Feature',
-    alt: 'Sanaya Reel',
+    alt: 'Bali Beans Reel',
     tag: 'ai film',
+    position: 'center top',
   },
 ];
 
@@ -99,10 +104,11 @@ const realismData: BentoCell[] = [
     id: 2002,
     video: 'https://res.cloudinary.com/wle6dmxs/video/upload/v1794502590/Bali_Beans_x_Vella_Social_tdyyuz.mp4',
     image: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1794502785/hf_20261002_103844_3b3a1e1a-8e15-4113-bd11-7e6d61fd7757.00_00_55_03.Still003_ld8dj4.png',
-    title: 'Bali Beans x Vella Social',
+    title: 'Bali Beans Spec Film',
     subtitle: 'Bali Beans',
-    alt: 'Bali Beans x Vella Social - documentary-style film',
+    alt: 'Bali Beans Spec Film - documentary-style film',
     tag: 'Bali Beans',
+    position: 'center top',
   },
 ];
 
@@ -136,6 +142,7 @@ const talkingHeadData: BentoCell[] = [
     subtitle: 'Tranquility Bali',
     alt: 'Ubud or Uluwatu? - Tranquility Bali talking head video',
     tag: 'vsl',
+    position: 'center top',
   },
   {
     id: 5002,
@@ -184,7 +191,13 @@ function MediaSlider({ items, kind, comingSoon = 0, label }: MediaSliderProps) {
             showPlay={!!cell.video}
             ariaLabel={`Open ${cell.title}`}
             onClick={() => setOpenIndex(i)}>
-            <AppImage src={cell.image} alt={cell.alt} fill className="object-cover w-full h-full" />
+            <AppImage
+              src={cell.image}
+              alt={cell.alt}
+              fill
+              className="w-full h-full"
+              objectFit={cell.contain ? 'contain' : 'cover'}
+              objectPosition={cell.position ?? 'center center'} />
           </SlideCard>
         ))}
         {Array.from({ length: comingSoon }).map((_, n) => (
@@ -260,6 +273,7 @@ export default function BentoPortfolio() {
         heading="Consistent by design."
         description="A face and a world you own: custom characters and locations that stay consistent across every film."
         price="$250"
+        buttonLabel="Enquire for pricing"
         service="Characters & Locations">
         <CharactersLocations />
       </ServiceSection>
@@ -288,6 +302,7 @@ export default function BentoPortfolio() {
         heading="From CGI to photograph."
         description="Send us your renders. We turn them into images that look like they were shot on location. Drag the slider to compare."
         price="$25"
+        buttonLabel="$25 per render · Min. 10 · Enquire"
         service="Render to Reality">
         <RenderToReality />
       </ServiceSection>

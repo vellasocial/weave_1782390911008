@@ -110,6 +110,7 @@ interface SheetItem {
   alt: string;
   cardName: string;
   cardType: string;
+  aspectRatio: 'square' | 'wide' | 'tall';
 }
 
 // One entry per sheet image, so the lightbox arrows move between sheets
@@ -119,6 +120,7 @@ const sheetItems: SheetItem[] = charactersData.flatMap((card) =>
     alt: img.alt,
     cardName: card.name,
     cardType: card.type,
+    aspectRatio: img.aspectRatio,
   }))
 );
 
@@ -155,7 +157,14 @@ export default function CharactersLocations() {
               src={item.src}
               alt={item.alt}
               loading="lazy"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: item.aspectRatio === 'square' ? 'cover' : 'contain',
+                objectPosition: item.aspectRatio === 'square' ? 'center top' : 'center center',
+                background: '#0D0D12',
+                display: 'block',
+              }}
             />
           </SlideCard>
         ))}
