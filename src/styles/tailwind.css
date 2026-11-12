@@ -135,6 +135,17 @@ p, li {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px rgba(245, 241, 234, 0.4);
 }
+.type-hero .closing-line .text-outline,
+.type-hero .hero-line.text-outline {
+  font-family: var(--font-hero) !important;
+  font-weight: 600 !important;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  font-variation-settings: normal;
+  font-synthesis: none;
+  paint-order: stroke fill;
+}
 .type-h2 {
   font-family: var(--font-heading);
   font-weight: 600;

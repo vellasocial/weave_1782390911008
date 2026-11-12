@@ -31,7 +31,6 @@ const pricingGroups: PricingGroup[] = [
     items: [
       { name: 'Performance Ads', price: '$150 each', note: 'Short ads built to convert' },
       { name: 'Talking Head & VSL', price: '$250 per video', note: 'Your presenter, up to 30 sec' },
-      { name: 'VSL + AI Presenter', price: '$500 bundle', note: 'Includes a custom AI character' },
       { name: 'Render to Reality', price: '$25 per render', note: 'Minimum 10 renders' },
     ],
   },
