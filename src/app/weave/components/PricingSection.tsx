@@ -1,5 +1,7 @@
 'use client';
 
+import { openEnquiryFor } from './SectionParts';
+
 interface PricingItem {
   name: string;
   price: string;
@@ -92,6 +94,33 @@ export default function PricingSection() {
                 {line}
               </p>
             ))}
+          </div>
+
+          <div
+            className="mx-auto mt-16 px-6 py-10 md:px-12 md:py-14"
+            style={{
+              maxWidth: '880px',
+              background: '#13131A',
+              border: '1px solid rgba(138,126,109,0.25)',
+              borderRadius: '4px',
+            }}>
+            <p className="type-label mb-4">CUSTOM PACKAGES</p>
+            <h3
+              className="mb-4"
+              style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '28px', lineHeight: 1.25, color: '#F5F1EA' }}>
+              Need more than one video?
+            </h3>
+            <p
+              className="mb-8"
+              style={{ fontFamily: 'Manrope, sans-serif', fontSize: '16px', lineHeight: 1.6, color: '#B8B0A4' }}>
+              Launch campaigns, monthly content and multi-video projects can be built into one custom package, with better rates the more you make. Tell us what you need and we&apos;ll put it together.
+            </p>
+            <button
+              type="button"
+              onClick={() => openEnquiryFor('Custom package')}
+              className="btn-primary btn-block-mobile">
+              Ask about a custom package
+            </button>
           </div>
         </div>
       </div>

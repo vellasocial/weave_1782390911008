@@ -10,6 +10,7 @@ const SERVICE_OPTIONS = [
   'Talking Head & VSL',
   'Render to Reality',
   'Performance Ads',
+  'Custom package',
   'Not sure yet',
 ];
 
