@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import CharactersLocations from './CharactersLocations';
-import RenderToReality from './RenderToReality';
+import RenderToReality from '@/app/weave/components/RenderToReality';
 import { SectionBand, SectionNumber, TierBanner, bodyTextStyle } from './SectionParts';
 
 type FilterType = 'All';
