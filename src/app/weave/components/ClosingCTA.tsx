@@ -13,7 +13,7 @@ export default function ClosingCTA() {
     <section
       id="cta"
       className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden flex flex-col items-center justify-center text-center"
-      style={{ background: 'var(--loom-black-2)' }}
+      style={{ background: '#17171F' }}
     >
       {/* Subtle background grid */}
       <div
@@ -30,7 +30,7 @@ export default function ClosingCTA() {
         <div className="flex items-center gap-3 mb-6">
           <span className="w-12 h-px" style={{ background: '#8A7E6D', opacity: 0.6 }} />
           <span
-            className="font-mono text-xs tracking-[0.2em] uppercase"
+            className="font-mono text-[13px] tracking-[0.2em] uppercase"
             style={{
               color: '#8A7E6D',
               fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif',
@@ -49,7 +49,7 @@ export default function ClosingCTA() {
             fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
           }}
         >
-          <span style={{ display: 'block', color: '#F5F1EA' }}>Ready to be</span>
+          <span style={{ display: 'block', color: '#F5F1EA' }}>Be the brand</span>
           <span
             className="text-transparent"
             style={{
@@ -57,20 +57,22 @@ export default function ClosingCTA() {
               WebkitTextStroke: '1px rgba(245,241,234,0.4)',
             }}
           >
-            unforgettable?
+            others copy.
           </span>
         </h2>
 
         {/* Subline — matches hero subline italic style */}
         <p
-          className="max-w-md mb-12 tracking-wide text-base font-normal"
+          className="max-w-md mb-12 tracking-wide font-normal"
           style={{
-            color: '#B8B0A4',
+            color: '#D4CEC4',
             fontFamily: 'Helvetica, Arial, sans-serif',
-            fontStyle: 'italic',
+            fontStyle: 'normal',
+            fontSize: '18px',
+            lineHeight: 1.6,
           }}
         >
-          Tell us what you&apos;re launching. We&apos;ll show you what it could look like.
+          Tell us what you&apos;re making.
         </p>
 
         {/* ENQUIRE button — exact hero style */}

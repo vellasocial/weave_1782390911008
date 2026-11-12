@@ -43,16 +43,24 @@ export default function WeaveHeader() {
         {/* Nav */}
         <div className="hidden md:flex items-center gap-6">
           <nav className="flex items-center gap-8">
-            {['Portfolio']?.map((item) => (
+            {[
+            { label: 'Work', id: 'services', fallback: 'portfolio' },
+            { label: 'Pricing', id: 'pricing', fallback: 'cta' },
+            { label: 'Process', id: 'process', fallback: 'cta' }]?.map((item) => (
               <a
-                key={item}
-                href={`#${item?.toLowerCase()}`}
+                key={item.label}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById(item.id) || document.getElementById(item.fallback);
+                  target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
                 className="text-xs tracking-wider uppercase transition-colors duration-300"
                 style={{ color: 'rgba(245,241,234,0.6)', fontFamily: '-apple-system, "SF Pro Display", BlinkMacSystemFont, Helvetica, Arial, sans-serif', fontWeight: 400 }}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#F5F1EA'}
                 onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'rgba(245,241,234,0.6)'}
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </nav>

@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import CharactersLocations from './CharactersLocations';
+import RenderToReality from './RenderToReality';
+import { SectionBand, SectionNumber, TierBanner, bodyTextStyle } from './SectionParts';
 
 type FilterType = 'All';
 
@@ -104,6 +106,31 @@ const aiFilmsData: BentoCell[] = [
 
 const FILTERS: FilterType[] = ['All'];
 
+interface ServiceTile {
+  num: string;
+  title: string;
+  desc: string;
+  target: string;
+  group: 'SIGNATURE' | 'GROWTH';
+}
+
+const serviceTiles: ServiceTile[] = [
+  { num: '01', title: 'Signature Films', desc: 'Flagship cinematic hero films.', target: 'signature-films', group: 'SIGNATURE' },
+  { num: '02', title: 'Realism Storytelling', desc: 'Documentary-style brand stories.', target: 'realism-storytelling', group: 'SIGNATURE' },
+  { num: '03', title: 'Luxury Property Films', desc: 'Villas and resorts, before they exist.', target: 'luxury-property-films', group: 'SIGNATURE' },
+  { num: '04', title: 'Characters & Locations', desc: 'A face and a world you own.', target: 'characters-locations', group: 'SIGNATURE' },
+  { num: '05', title: 'Talking Head & VSL', desc: 'Presenter-led sales video.', target: 'talking-head-vsl', group: 'GROWTH' },
+  { num: '06', title: 'Render to Reality', desc: 'CGI renders made photoreal.', target: 'render-to-reality', group: 'GROWTH' },
+  { num: '07', title: 'Performance Ads', desc: 'Vertical ads in volume.', target: 'performance-ads', group: 'GROWTH' },
+];
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 const sizeClasses: Record<BentoCell['size'], string> = {
   small: 'col-span-2 row-span-1',
   medium: 'col-span-3 row-span-2',
@@ -129,6 +156,122 @@ function isDirectMp4(url: string): boolean {
 function buildIframeSrc(url: string): string {
   const sep = url.includes('?') ? '&' : '?';
   return `${url}${sep}autoplay=1&muted=0&controls=1&loop=0`;
+}
+
+interface SectionHeaderProps {
+  label: string;
+  heading: string;
+  description: string;
+  price: string;
+  bestFor: string;
+  service: string;
+  labelColor?: string;
+}
+
+function SectionHeader({ label, heading, description, price, bestFor, service, labelColor }: SectionHeaderProps) {
+  const numMatch = label.match(/^(\d{2})\s+(.*)$/);
+  const num = numMatch ? numMatch[1] : '';
+  const labelText = numMatch ? numMatch[2] : label;
+  return (
+    <div className="max-w-7xl mx-auto mb-10 reveal-up flex flex-col md:flex-row md:items-start gap-4 md:gap-10" data-service={service}>
+      {num && <SectionNumber num={num} />}
+      <div className="min-w-0">
+        <span
+          className="font-mono text-[13px] tracking-widest uppercase mb-3 block"
+          style={{ color: labelColor || '#8A7E6D' }}>
+          {labelText}
+        </span>
+        <h3
+          className="font-manrope font-semibold leading-tight tracking-tight mb-4"
+          style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', color: '#F5F1EA' }}>
+          {heading}
+        </h3>
+        <p className="mb-3 max-w-3xl" style={bodyTextStyle}>
+          {description}
+        </p>
+        <p className="font-mono text-[13px] tracking-wider uppercase" style={{ color: '#8A7E6D' }}>
+          {price} · Best for {bestFor}
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent('weave-enquiry-service', { detail: { service } }));
+            const panel = document.getElementById('commission-panel');
+            if (panel) {
+              panel.classList.add('open');
+              document.body.style.overflow = 'hidden';
+            }
+          }}
+          className="font-mono text-[13px] tracking-widest uppercase mt-4 inline-flex items-center gap-2 transition-opacity duration-300 hover:opacity-70"
+          style={{ color: '#8A7E6D', touchAction: 'manipulation' }}>
+          Enquire about this →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+interface VideoSlotProps {
+  aspect?: string;
+  tagText?: string;
+  title?: string;
+  caption?: string;
+  image?: string;
+  alt: string;
+  video?: string;
+  soundLabel?: string;
+  onPlay: (url: string) => void;
+}
+
+function VideoSlot({ aspect = '16/9', tagText, title, caption, image, alt, video, soundLabel, onPlay }: VideoSlotProps) {
+  return (
+    <div
+      className="rounded-2xl overflow-hidden reveal-up"
+      style={{ border: '1px solid rgba(138,126,109,0.15)', background: 'var(--loom-black-2)' }}>
+      <div
+        className="relative w-full overflow-hidden flex items-center justify-center"
+        style={{ aspectRatio: aspect, cursor: video ? 'pointer' : 'default' }}
+        onClick={() => { if (video) onPlay(video); }}>
+        {image ? (
+          <AppImage src={image} alt={alt} fill className="object-cover w-full h-full" />
+        ) : (
+          <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'rgba(245,241,234,0.4)' }}>
+            Coming soon
+          </span>
+        )}
+        {tagText && (
+          <div className="absolute top-3 left-3 z-10">
+            <span
+              className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
+              style={{
+                background: 'rgba(138,126,109,0.15)',
+                border: '1px solid rgba(138,126,109,0.35)',
+                color: '#8A7E6D'
+              }}>
+              {tagText}
+            </span>
+          </div>
+        )}
+        {soundLabel && (
+          <div className="absolute bottom-3 left-3 z-10">
+            <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: '#F5F1EA' }}>
+              {soundLabel}
+            </span>
+          </div>
+        )}
+      </div>
+      {(title || caption) && (
+        <div className="px-4 py-3">
+          {title && (
+            <p className="font-manrope text-sm font-medium leading-tight" style={{ color: 'rgba(245,241,234,0.9)' }}>{title}</p>
+          )}
+          {caption && (
+            <p className="font-mono text-[10px] mt-1" style={{ color: 'rgba(245,241,234,0.4)' }}>{caption}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function BentoPortfolio() {
@@ -164,6 +307,17 @@ export default function BentoPortfolio() {
 
     setIsMuted(false);
     setPlayingVideo(cell.video);
+    window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: true } }));
+  }, []);
+
+  const handlePlayVideoUrl = useCallback((url: string) => {
+    if (!url) return;
+    if (nativeVideoRef.current) {
+      nativeVideoRef.current.pause();
+      nativeVideoRef.current.currentTime = 0;
+    }
+    setIsMuted(false);
+    setPlayingVideo(url);
     window.dispatchEvent(new CustomEvent('weave-video-playing', { detail: { playing: true } }));
   }, []);
 
@@ -249,8 +403,9 @@ export default function BentoPortfolio() {
     <section
       id="portfolio"
       ref={sectionRef}
-      className="relative py-24 px-6 md:px-12"
+      className="relative pt-24 pb-24 px-6 md:px-12 overflow-x-hidden"
       style={{ background: 'var(--loom-black)' }}>
+      <span id="services" aria-hidden="true" className="absolute top-0 left-0 w-0 h-0" />
       
       {/* ── VIDEO LIGHTBOX MODAL ─────────────────────────────────────────────── */}
       {playingVideo && (
@@ -332,26 +487,76 @@ export default function BentoPortfolio() {
       )}
       {/* ── END VIDEO LIGHTBOX ───────────────────────────────────────────────── */}
 
-      {/* ── AI FILMS SUBSECTION ─────────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto mb-12 reveal-up">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div>
-            <span
-              className="font-mono text-xs tracking-widest uppercase mb-3 block"
-              style={{ color: '#8A7E6D' }}>
-              — Portfolio
-            </span>
-            <h2
-              className="font-manrope font-semibold leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>
-              AI Hero Films
-            </h2>
-          </div>
-          <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}>
-            Cinematic hero films created entirely with AI. No crews, no shoot days, no limits.
-          </p>
+      {/* ── WHAT WE MAKE OVERVIEW ───────────────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto mb-24 reveal-up">
+        <span
+          className="font-mono text-[13px] tracking-widest uppercase mb-3 block"
+          style={{ color: '#8A7E6D' }}>
+          — What We Make
+        </span>
+        <h2
+          className="font-manrope font-semibold leading-none tracking-tight mb-10"
+          style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>
+          Seven ways to be unforgettable.
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {serviceTiles.map((tile) => (
+            <button
+              key={tile.num}
+              type="button"
+              onClick={() => scrollToSection(tile.target)}
+              className="text-left rounded-2xl p-5 flex flex-col gap-3 transition-all duration-300 hover:scale-[1.03]"
+              style={{
+                border: '1px solid rgba(138,126,109,0.15)',
+                background: 'var(--loom-black-2)',
+                touchAction: 'manipulation',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 32px rgba(138,126,109,0.18)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs tracking-widest" style={{ color: 'rgba(245,241,234,0.4)' }}>
+                  {tile.num}
+                </span>
+                <span
+                  className="font-mono text-[10px] px-2 py-1 rounded-full tracking-wider uppercase"
+                  style={
+                    tile.group === 'SIGNATURE'
+                      ? { background: 'rgba(138,126,109,0.15)', border: '1px solid rgba(138,126,109,0.35)', color: '#8A7E6D' }
+                      : { background: 'rgba(184,176,164,0.08)', border: '1px solid rgba(184,176,164,0.25)', color: '#B8B0A4' }
+                  }>
+                  {tile.group}
+                </span>
+              </div>
+              <p className="font-manrope font-semibold text-lg leading-tight" style={{ color: '#F5F1EA' }}>
+                {tile.title}
+              </p>
+              <p className="text-base" style={{ ...bodyTextStyle, fontSize: '18px' }}>
+                {tile.desc}
+              </p>
+            </button>
+          ))}
         </div>
       </div>
+      {/* ── END WHAT WE MAKE ────────────────────────────────────────────────── */}
+
+      {/* ── SIGNATURE WORK BANNER ───────────────────────────────────────────── */}
+      <TierBanner
+        title="Signature Work"
+        subtext="Premium films, made to set the standard for a brand."
+        image="https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png"
+        alt="Bali Beans film still behind the Signature Work banner" />
+      <span id="signature-films" aria-hidden="true" className="block h-0 scroll-mt-24" />
+
+      {/* ── 01 SIGNATURE FILMS ──────────────────────────────────────────────── */}
+      <SectionBand tone="dark">
+      <SectionHeader
+        label="01 Signature Films"
+        heading="The hero film your brand is remembered by."
+        description="Our highest tier. Full cinematic production, built shot by shot for launches and flagship campaigns."
+        price="$350 per film"
+        bestFor="brand launches, flagship campaigns."
+        service="Signature Films" />
+      
 
       {/* AI Films Grid */}
       <div className="max-w-7xl mx-auto flex flex-row gap-4 overflow-x-auto overflow-y-hidden pb-4" style={{ scrollSnapType: 'x mandatory' }}>
@@ -447,23 +652,126 @@ export default function BentoPortfolio() {
         )}
       </div>
       {/* ── END AI FILMS ────────────────────────────────────────────────────── */}
+      </SectionBand>
 
-      {/* Generous spacing between AI Films and Ad Library */}
-      <div className="max-w-7xl mx-auto" style={{ paddingTop: '80px' }} />
+      {/* ── 02 REALISM STORYTELLING ─────────────────────────────────────────── */}
+      <SectionBand tone="charcoal">
+      <span id="realism-storytelling" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionHeader
+        label="02 Realism Storytelling"
+        heading="Real stories. Footage that feels lived in."
+        description="Documentary-style films that tell the human story behind a brand, built from real people, real history and real places."
+        price="$950 per film"
+        bestFor="family businesses, founder stories, heritage brands."
+        service="Realism Storytelling" />
+      
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+        <VideoSlot
+          aspect="16/9"
+          tagText="Bali Beans"
+          title="The Sudana Family Story"
+          caption="A documentary-style film of the family behind Bali Beans, rebuilt from old family photos, then and now."
+          image="https://res.cloudinary.com/wle6dmxs/image/upload/v1791173786/BB_Thumbnail_pact37.png"
+          alt="The Sudana Family Story - Bali Beans documentary-style film"
+          onPlay={(v) => handlePlayVideoUrl(v)} />
+        
+        <VideoSlot
+          aspect="16/9"
+          tagText="Bali Beans"
+          title="Video title"
+          caption="Video caption coming soon."
+          alt="Bali Beans second film placeholder"
+          onPlay={(v) => handlePlayVideoUrl(v)} />
+        
+      </div>
+      </SectionBand>
 
-      {/* Section header — Ad Library */}
-      <div className="max-w-7xl mx-auto mb-12 reveal-up">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div>
-            <h2
-              className="font-manrope font-semibold leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}>Ad Library
-            </h2>
-          </div>
-          <p className="max-w-xs text-base" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}>Examples of the work we create for projects like yours.
-          </p>
+      {/* ── 03 LUXURY PROPERTY FILMS ────────────────────────────────────────── */}
+      <SectionBand tone="dark">
+      <span id="luxury-property-films" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionHeader
+        label="03 Luxury Property Films"
+        heading="Sell it before it's built."
+        description="Cinematic villa and resort films made from your renders and plans. No shoot day, no waiting for construction."
+        price="$350 per film"
+        bestFor="developers, off-plan launches, resorts."
+        service="Luxury Property Films" />
+      
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+        {[1, 2, 3].map((n) =>
+        <VideoSlot
+          key={n}
+          aspect="16/9"
+          alt={`Luxury property film ${n} placeholder`}
+          onPlay={(v) => handlePlayVideoUrl(v)} />
+        )}
+      </div>
+      </SectionBand>
+
+      {/* ── 04 CHARACTERS & LOCATIONS ───────────────────────────────────────── */}
+      <SectionBand tone="charcoal">
+      <span id="characters-locations" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <CharactersLocations />
+      </SectionBand>
+      {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
+
+      {/* ── GROWTH WORK BANNER ──────────────────────────────────────────────── */}
+      <TierBanner
+        title="Growth Work"
+        subtext="Content built to convert, test and scale."
+        image="https://res.cloudinary.com/wle6dmxs/image/upload/v1785847539/3_bedroom_Pool_iegaig.png"
+        alt="The Sanctuary still behind the Growth Work banner" />
+
+      {/* ── 05 TALKING HEAD & VSL ───────────────────────────────────────────── */}
+      <SectionBand tone="dark">
+      <span id="talking-head-vsl" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionHeader
+        label="05 Talking Head & VSL"
+        heading="A face that sells, every week."
+        description="Presenter-led video sales letters and talking-head content, with no filming. Use your own presenter, or add a custom AI character as a consistent on-screen host."
+        price="$250 per 30 sec video, AI presenter extra"
+        bestFor="trust-building, explainers, sales pages."
+        service="Talking Head & VSL" />
+      
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:items-start">
+        <div className="w-full md:flex-1 md:min-w-0">
+          <VideoSlot
+            aspect="16/9"
+            soundLabel="Tap for sound"
+            alt="Talking head and VSL main video placeholder"
+            onPlay={(v) => handlePlayVideoUrl(v)} />
+          
+        </div>
+        <div className="grid grid-cols-3 gap-4 w-full md:w-[42%] md:flex-shrink-0">
+          {[1, 2, 3].map((n) =>
+          <VideoSlot
+            key={n}
+            aspect="9/16"
+            alt={`Talking head cutdown ${n} placeholder`}
+            onPlay={(v) => handlePlayVideoUrl(v)} />
+          )}
         </div>
       </div>
+      </SectionBand>
+
+      {/* ── 06 RENDER TO REALITY ────────────────────────────────────────────── */}
+      <SectionBand tone="charcoal">
+      <span id="render-to-reality" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <RenderToReality />
+      </SectionBand>
+
+      {/* ── 07 PERFORMANCE ADS ──────────────────────────────────────────────── */}
+      <SectionBand tone="dark">
+      <span id="performance-ads" aria-hidden="true" className="block h-0 scroll-mt-24" />
+      <SectionHeader
+        label="07 Performance Ads"
+        heading="Ads built for volume."
+        description="Short vertical ads made fast and in batches, so you can test hooks and keep your feed fresh."
+        price="$150 each, or 5 for $700"
+        bestFor="always-on social, ad testing."
+        service="Performance Ads"
+        labelColor="#8A7E6D" />
+      
 
       {/* Bento Grid */}
       <div className="max-w-7xl mx-auto flex flex-row gap-4 overflow-x-auto overflow-y-hidden pb-4" style={{ scrollSnapType: 'x mandatory' }}>
@@ -572,11 +880,8 @@ export default function BentoPortfolio() {
           </div>
         )}
       </div>
-
-      {/* ── CHARACTERS & LOCATIONS ──────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto" style={{ paddingTop: '80px' }} />
-      <CharactersLocations />
-      {/* ── END CHARACTERS & LOCATIONS ──────────────────────────────────────── */}
+      </SectionBand>
+      {/* ── END GROWTH WORK AREA ────────────────────────────────────────────── */}
 
       {/* Stats row */}
       <div className="max-w-7xl mx-auto mt-16 pt-12 border-t reveal-up"
@@ -584,8 +889,8 @@ export default function BentoPortfolio() {
         <span
           className="font-manrope font-semibold"
           style={{
-            fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-            color: '#B8B0A4'
+            fontSize: 'clamp(1.125rem, 1.8vw, 1.25rem)',
+            color: '#D4CEC4'
           }}>
           Every video is built from a full production toolkit: <br />
           script, voiceover, AI photo, AI video, editing, sound design, original music, and captions. <br />

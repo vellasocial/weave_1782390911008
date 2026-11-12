@@ -139,7 +139,7 @@ export default function HeroSection() {
         {/* Label */}
         <div className="mb-6 flex items-center gap-3" style={fadeStyle(0, 600)}>
           <span className="w-12 h-px" style={{ background: '#8A7E6D', opacity: 0.6 }} />
-          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif', fontWeight: 300 }}>AI CREATIVE STUDIO</span>
+          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: '#8A7E6D', fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif', fontWeight: 300 }}>PREMIUM AI CREATIVE STUDIO</span>
         </div>
 
         {/* Main headline */}
@@ -161,19 +161,16 @@ export default function HeroSection() {
         </h1>
 
         {/* Sub-copy */}
-        <p className="max-w-md mb-10 tracking-wide text-base font-normal" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'normal' }} suppressHydrationWarning>
-          Make your brand <span style={{ fontStyle: 'italic' }}>unforgettable.</span>
+        <p className="max-w-md mb-10 tracking-wide text-base font-normal" style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'normal', ...fadeStyle(200, 700) }} suppressHydrationWarning>
+          Most brands in your field look the same. Yours shouldn&apos;t. Premium cinematic films, characters and ads that set you apart and make your brand unforgettable.
         </p>
 
         {/* CTA row */}
         <div className="flex flex-wrap items-center gap-4" style={fadeStyle(400, 700)}>
           <button
             onClick={() => {
-              const panel = document.getElementById('commission-panel');
-              if (panel) {
-                panel?.classList?.add('open');
-                document.body.style.overflow = 'hidden';
-              }
+              const target = document.getElementById('cta');
+              target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
             className="px-8 py-4 rounded-full font-manrope font-semibold text-sm tracking-wide transition-all duration-300"
             style={{
@@ -186,7 +183,26 @@ export default function HeroSection() {
               fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif'
             }}>
 
-            ENQUIRE
+            BOOK A CALL
+          </button>
+          <button
+            onClick={() => {
+              const target =
+              document.getElementById('services') ||
+              document.getElementById('portfolio');
+              target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="px-8 py-4 rounded-full font-manrope font-semibold text-sm tracking-wide transition-all duration-300"
+            style={{
+              background: 'transparent',
+              color: '#F5F1EA',
+              border: '1px solid rgba(255,255,255,0.35)',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif'
+            }}>
+
+            VIEW THE WORK
           </button>
         </div>
       </div>

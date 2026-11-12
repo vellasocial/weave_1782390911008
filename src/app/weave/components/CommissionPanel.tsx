@@ -1,16 +1,39 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { vibrate } from '@/lib/vibrate';
+
+const SERVICE_OPTIONS = [
+  'Signature Films',
+  'Realism Storytelling',
+  'Luxury Property Films',
+  'Characters & Locations',
+  'Talking Head & VSL',
+  'Render to Reality',
+  'Performance Ads',
+  'Not sure yet',
+];
 
 export default function CommissionPanel() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [company, setCompany] = useState('');
+  const [service, setService] = useState('');
   const [project, setProject] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ service?: string }>).detail;
+      if (detail?.service && SERVICE_OPTIONS.includes(detail.service)) {
+        setService(detail.service);
+      }
+    };
+    window.addEventListener('weave-enquiry-service', handler);
+    return () => window.removeEventListener('weave-enquiry-service', handler);
+  }, []);
 
   const closePanel = () => {
     vibrate(20);
@@ -28,6 +51,7 @@ export default function CommissionPanel() {
       setEmail('');
       setPhone('');
       setCompany('');
+      setService('');
       setProject('');
       setSubmitted(false);
     }, 400);
@@ -44,7 +68,7 @@ export default function CommissionPanel() {
       const res = await fetch('/api/send-enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, company, project }),
+        body: JSON.stringify({ name, email, phone, company, service, project }),
       });
 
       const data = await res.json();
@@ -235,6 +259,40 @@ export default function CommissionPanel() {
 
               </div>
 
+              {/* Service */}
+              <div>
+                <label className="font-mono text-xs tracking-wider uppercase block mb-2" style={{ color: '#B8B0A4' }}>
+                  Service
+                </label>
+                <div className="relative">
+                  <select
+                  value={service}
+                  onChange={(e) => setService(e.target.value)}
+                  className={`${inputClass} appearance-none pr-12 cursor-pointer`}
+                  style={inputStyle}
+                  onFocus={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(138,126,109,0.6)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(138,126,109,0.3)';
+                  }}
+                  onBlur={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(138,126,109,0.2)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+                  }}>
+                    <option value="" style={{ background: '#1A1A1F', color: '#B8B0A4' }}>Select a service</option>
+                    {SERVICE_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt} style={{ background: '#1A1A1F', color: '#F5F1EA' }}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                  <svg
+                  className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none"
+                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A7E6D" strokeWidth="2">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </div>
+              </div>
+
               {/* Tell us about your project */}
               <div>
                 <label className="font-mono text-xs tracking-wider uppercase block mb-2" style={{ color: '#B8B0A4' }}>
@@ -264,7 +322,7 @@ export default function CommissionPanel() {
               )}
               <a
               href={`https://wa.me/61466096169?text=${encodeURIComponent(
-                `Hi Vella Social, ${name} here from ${company}. I'm enquiring about your marketing campaigns. ${project}\n\nThank you,\n\n${name}\n\n${email}`
+                `Hi Vella Social, ${name} here from ${company}. I'm enquiring about your marketing campaigns.${service ? ` Service: ${service}.` : ''} ${project}\n\nThank you,\n\n${name}\n\n${email}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"

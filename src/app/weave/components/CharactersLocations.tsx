@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback, useRef, TouchEvent } from 'react';
+import { SectionNumber, bodyTextStyle } from './SectionParts';
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 // Add more cards by duplicating an entry in this array.
@@ -331,10 +332,11 @@ export default function CharactersLocations() {
 
       {/* ── CHARACTERS & LOCATIONS SUBSECTION ─────────────────────────────── */}
       <div className="max-w-7xl mx-auto mb-12 reveal-up">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-10 mb-10">
+          <SectionNumber num="04" />
           <div>
             <span
-              className="font-mono text-xs tracking-widest uppercase mb-3 block"
+              className="font-mono text-[13px] tracking-widest uppercase mb-3 block"
               style={{ color: '#8A7E6D' }}
             >
               — Characters &amp; Locations
@@ -343,15 +345,55 @@ export default function CharactersLocations() {
               className="font-manrope font-semibold leading-none tracking-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#F5F1EA' }}
             >
-              Consistent by Design
+              Consistent by design.
             </h2>
+            <p
+              className="font-manrope font-semibold text-xl mt-5"
+              style={{ color: '#8A7E6D' }}
+            >
+              From $250
+            </p>
+            <p className="mt-2" style={bodyTextStyle}>
+              Best for: brand ambassadors, ongoing social series.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('weave-enquiry-service', { detail: { service: 'Characters & Locations' } }));
+                const panel = document.getElementById('commission-panel');
+                if (panel) {
+                  panel.classList.add('open');
+                  document.body.style.overflow = 'hidden';
+                }
+              }}
+              className="font-mono text-[13px] tracking-widest uppercase mt-4 inline-flex items-center gap-2 transition-opacity duration-300 hover:opacity-70"
+              style={{ color: '#8A7E6D', touchAction: 'manipulation' }}
+            >
+              Enquire about this →
+            </button>
           </div>
-          <p
-            className="max-w-xs text-base"
-            style={{ color: '#B8B0A4', fontFamily: 'Helvetica, Arial, sans-serif', fontStyle: 'oblique' }}
-          >
-            Original AI characters and locations, built with full reference sheets so every shot stays consistent.
-          </p>
+        </div>
+
+        {/* Three steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { n: '01', t: 'Character reference sheet' },
+            { n: '02', t: 'Location design' },
+            { n: '03', t: 'Both together in the film (video)' },
+          ].map((step) => (
+            <div
+              key={step.n}
+              className="rounded-2xl p-5 flex flex-col gap-3"
+              style={{ border: '1px solid rgba(138,126,109,0.15)', background: 'var(--loom-black-2)' }}
+            >
+              <span className="font-mono text-xs tracking-widest" style={{ color: '#8A7E6D' }}>
+                {step.n}
+              </span>
+              <p className="font-manrope font-semibold text-lg leading-tight" style={{ color: '#F5F1EA' }}>
+                {step.t}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 

@@ -3,6 +3,8 @@ import HeroSection from '../weave/components/HeroSection';
 import WeaveHeader from '../weave/components/WeaveHeader';
 
 const BentoPortfolio = dynamic(() => import('../weave/components/BentoPortfolio'));
+const PricingSection = dynamic(() => import('../weave/components/PricingSection'));
+const HowItWorksSection = dynamic(() => import('../weave/components/HowItWorksSection'));
 const ClosingCTA = dynamic(() => import('../weave/components/ClosingCTA'));
 const FloatingCTA = dynamic(() => import('../weave/components/FloatingCTA'));
 const CommissionPanel = dynamic(() => import('../weave/components/CommissionPanel'));
@@ -14,6 +16,8 @@ export default function HomePage() {
       <WeaveHeader />
       <HeroSection />
       <BentoPortfolio />
+      <PricingSection />
+      <HowItWorksSection />
       <ClosingCTA />
       <WeaveFooter />
       <FloatingCTA />
