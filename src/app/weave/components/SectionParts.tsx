@@ -42,7 +42,7 @@ export function PricePill({ label, service }: PricePillProps) {
     <button
       type="button"
       onClick={() => openEnquiryFor(service)}
-      className="btn-primary btn-block-mobile">
+      className="btn-primary btn-block-mobile whitespace-nowrap">
       {label}
     </button>
   );
@@ -58,7 +58,7 @@ export function SectionBand({ tone, children, id }: SectionBandProps) {
   return (
     <section
       id={id}
-      className="-mx-6 md:-mx-12 px-6 md:px-12 pb-12 md:pb-16 scroll-mt-24 pt-12 md:pt-16"
+      className="-mx-6 md:-mx-12 px-6 md:px-12 pb-28 md:pb-16 scroll-mt-24 pt-12 md:pt-16"
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
       {children}
     </section>
@@ -170,7 +170,7 @@ export function ServiceSubNav() {
       }}>
       <div
         ref={listRef}
-        className="max-w-7xl mx-auto px-4 md:px-12 flex items-center gap-1 md:gap-2 overflow-x-auto md:justify-center"
+        className="max-w-7xl mx-auto px-2 flex items-center gap-0 overflow-x-auto md:justify-center"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         {SERVICE_LINKS.map((link, i) => {
           const active = activeId === link.id;
@@ -183,12 +183,12 @@ export function ServiceSubNav() {
               onClick={() => {
                 document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className="whitespace-nowrap flex-shrink-0 px-3 py-3 transition-colors duration-300"
+              className="whitespace-nowrap flex-shrink-0 px-[6px] py-3 transition-colors duration-300"
               style={{
                 fontFamily: 'Manrope, sans-serif',
                 fontWeight: 500,
-                fontSize: '12px',
-                letterSpacing: '0.6px',
+                fontSize: '10.5px',
+                letterSpacing: '0.2px',
                 textTransform: 'uppercase',
                 color: active ? BRASS : 'rgba(245,241,234,0.6)',
                 borderBottom: `2px solid ${active ? BRASS : 'transparent'}`,

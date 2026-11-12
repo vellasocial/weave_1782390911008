@@ -82,6 +82,11 @@ export default function ServiceSplitIndex() {
           .ssi-row:hover .ssi-name, .ssi-row:focus-visible .ssi-name { opacity: 1; transition: opacity 150ms ease; }
           .ssi-row:hover .ssi-arrow, .ssi-row:focus-visible .ssi-arrow { transform: translateX(4px); opacity: 1; transition: transform 150ms ease, opacity 150ms ease; }
         }
+        @media (min-width: 1024px) {
+          .ssi-row:hover, .ssi-row:focus-visible { background: rgba(245,241,234,0.03); transition: background-color 150ms ease; }
+          .ssi-row:hover .ssi-name, .ssi-row:focus-visible .ssi-name { opacity: 1; transition: opacity 150ms ease; }
+          .ssi-row:hover .ssi-arrow, .ssi-row:focus-visible .ssi-arrow { transform: translateX(4px); opacity: 1; transition: transform 150ms ease, opacity 150ms ease; }
+        }
       `}</style>
 
       <div className="mb-8">
@@ -96,9 +101,9 @@ export default function ServiceSplitIndex() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row" style={{ gap: '64px' }}>
+      <div className="flex flex-col lg:flex-row" style={{ gap: '64px' }}>
         {/* LEFT: preview frame (desktop only) */}
-        <div className="hidden md:block" style={{ width: 'calc((100% - 64px) * 5 / 12)', flexShrink: 0 }}>
+        <div className="hidden lg:block" style={{ width: 'calc((100% - 64px) * 5 / 12)', flexShrink: 0 }}>
           <div style={{ position: 'sticky', top: '120px' }}>
             <div
               className="relative w-full overflow-hidden"
@@ -127,35 +132,35 @@ export default function ServiceSplitIndex() {
             <div key={s.num}>
               <a
                 href={`#${s.target}`}
-                className="ssi-row flex items-center gap-4 md:gap-5 py-3 md:py-0"
+                className="ssi-row flex items-center gap-4 lg:gap-5 py-3 lg:py-0"
                 onClick={(e) => { e.preventDefault(); scrollToSection(s.target); }}
                 onMouseEnter={() => { setHoverIdx(i); setActiveIdx(i); }}
                 onFocus={() => { setHoverIdx(i); setActiveIdx(i); }}
                 onBlur={() => setHoverIdx(null)}
                 style={{ borderBottom: '1px solid rgba(138,126,109,0.15)', minHeight: '72px', textDecoration: 'none', touchAction: 'manipulation' }}>
-                <span className="md:hidden relative flex-shrink-0 overflow-hidden" style={{ width: '56px', height: '56px', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.2)', background: '#13131A' }}>
+                <span className="lg:hidden relative flex-shrink-0 overflow-hidden" style={{ width: '56px', height: '56px', borderRadius: '4px', border: '1px solid rgba(138,126,109,0.2)', background: '#13131A' }}>
                   <PreviewImage service={s} mode="thumb" />
                 </span>
-                <span className="hidden md:block flex-shrink-0" style={{ width: '28px', fontFamily: MONO, fontSize: '12px', color: TAUPE }}>
+                <span className="hidden lg:block flex-shrink-0" style={{ width: '28px', fontFamily: MONO, fontSize: '12px', color: TAUPE }}>
                   {s.num}
                 </span>
                 <span className="flex-1 min-w-0 flex flex-col">
                   <span className="ssi-name" style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 500, fontSize: '20px', lineHeight: 1.3, color: '#F5F1EA' }}>
-                    <span className="md:hidden" style={{ fontFamily: MONO, fontSize: '12px', color: TAUPE, marginRight: '8px' }}>{s.num}</span>
+                    <span className="lg:hidden" style={{ fontFamily: MONO, fontSize: '12px', color: TAUPE, marginRight: '8px' }}>{s.num}</span>
                     {s.title}
                   </span>
                   <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: '14px', lineHeight: 1.4, color: '#B8B0A4' }}>
                     {s.desc}
                   </span>
-                  <span className="md:hidden" style={{ fontFamily: MONO, fontSize: '12px', color: TAUPE, marginTop: '4px' }}>
+                  <span className="lg:hidden" style={{ fontFamily: MONO, fontSize: '12px', color: TAUPE, marginTop: '4px' }}>
                     {s.price}
                   </span>
                 </span>
-                <span className="hidden md:block flex-shrink-0 text-right" style={{ fontFamily: MONO, fontSize: '12px', color: TAUPE }}>
+                <span className="hidden lg:block flex-shrink-0 text-right" style={{ fontFamily: MONO, fontSize: '12px', color: TAUPE }}>
                   {s.price}
                 </span>
                 <svg
-                  className="ssi-arrow hidden md:block flex-shrink-0"
+                  className="ssi-arrow hidden lg:block flex-shrink-0"
                   aria-hidden="true"
                   width="16"
                   height="16"

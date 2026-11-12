@@ -293,7 +293,7 @@ export default function BentoPortfolio() {
         heading="From CGI to photograph."
         description="Send us your renders. We turn them into images that look like they were shot on location. Drag the slider to compare."
         price="$25"
-        buttonLabel="$25 per render · Min. 10 · Enquire"
+        buttonLabel="$25 / render · Min. 10"
         service="Render to Reality">
         <RenderToReality />
       </ServiceSection>

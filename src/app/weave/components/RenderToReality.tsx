@@ -132,16 +132,18 @@ export default function RenderToReality() {
           {/* Labels */}
           <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
             <span
-              className="px-3 py-1 uppercase"
+              className="px-3 py-1 uppercase whitespace-nowrap"
               style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
-              After · Vella Realism
+              <span className="md:hidden">After</span>
+              <span className="hidden md:inline">After · Vella Realism</span>
             </span>
           </div>
           <div className="absolute bottom-3 right-3 z-10 pointer-events-none">
             <span
-              className="px-3 py-1 uppercase"
+              className="px-3 py-1 uppercase whitespace-nowrap"
               style={{ background: 'rgba(11,11,13,0.7)', border: '1px solid rgba(242,239,233,0.10)', color: '#F2EFE9', borderRadius: '9999px', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '11px', letterSpacing: '0.14em' }}>
-              Before · Client Render
+              <span className="md:hidden">Before</span>
+              <span className="hidden md:inline">Before · Client Render</span>
             </span>
           </div>
 

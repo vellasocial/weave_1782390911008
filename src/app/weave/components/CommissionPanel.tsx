@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { vibrate } from '@/lib/vibrate';
 
 const SERVICE_OPTIONS = [
@@ -24,6 +24,10 @@ export default function CommissionPanel() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -55,7 +59,45 @@ export default function CommissionPanel() {
       setService('');
       setProject('');
       setSubmitted(false);
+      setNameError('');
+      setEmailError('');
     }, 400);
+  };
+
+  const validateEnquiry = (): boolean => {
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
+    let firstInvalid: HTMLInputElement | null = null;
+
+    if (!trimmedName) {
+      setNameError('Please enter your name.');
+      firstInvalid = nameRef.current;
+    } else {
+      setNameError('');
+    }
+
+    if (!trimmedEmail) {
+      setEmailError('Please enter your email.');
+      firstInvalid = firstInvalid ?? emailRef.current;
+    } else if (!emailValid) {
+      setEmailError('Please enter a valid email address.');
+      firstInvalid = firstInvalid ?? emailRef.current;
+    } else {
+      setEmailError('');
+    }
+
+    if (firstInvalid) {
+      firstInvalid.focus();
+      return false;
+    }
+    return true;
+  };
+
+  const handleSendEnquiry = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!validateEnquiry()) {
+      e.preventDefault();
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -155,6 +197,7 @@ export default function CommissionPanel() {
             </p>
           </div>
           <button
+            type="button"
             onClick={closePanel}
             aria-label="Close enquiry form"
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300"
@@ -196,47 +239,66 @@ export default function CommissionPanel() {
               </button>
             </div> :
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
               {/* Name */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                <label htmlFor="enquiry-name" className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Name <span style={{ color: '#8A7E6D' }}>*</span>
                 </label>
                 <input
+                id="enquiry-name"
+                name="name"
+                autoComplete="name"
+                ref={nameRef}
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => { setName(e.target.value); if (nameError) setNameError(''); }}
+                aria-invalid={nameError ? true : undefined}
+                aria-describedby={nameError ? 'enquiry-name-error' : undefined}
                 placeholder="Your full name"
                 required
                 className={inputClass}
                 style={inputStyle}
                 {...focusHandlers} />
-
+                {nameError && (
+                  <p id="enquiry-name-error" role="alert" className="mt-2 text-sm" style={{ color: '#F87171' }}>{nameError}</p>
+                )}
               </div>
 
               {/* Email */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                <label htmlFor="enquiry-email" className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Email <span style={{ color: '#8A7E6D' }}>*</span>
                 </label>
                 <input
+                id="enquiry-email"
+                name="email"
+                autoComplete="email"
+                ref={emailRef}
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { setEmail(e.target.value); if (emailError) setEmailError(''); }}
+                aria-invalid={emailError ? true : undefined}
+                aria-describedby={emailError ? 'enquiry-email-error' : undefined}
                 placeholder="your@email.com"
                 required
                 className={inputClass}
                 style={inputStyle}
                 {...focusHandlers} />
-
+                {emailError && (
+                  <p id="enquiry-email-error" role="alert" className="mt-2 text-sm" style={{ color: '#F87171' }}>{emailError}</p>
+                )}
               </div>
 
               {/* WhatsApp / Phone */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                <label htmlFor="enquiry-phone" className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   WhatsApp / Phone
                 </label>
                 <input
+                id="enquiry-phone"
+                name="tel"
+                autoComplete="tel"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -249,10 +311,13 @@ export default function CommissionPanel() {
 
               {/* Company */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                <label htmlFor="enquiry-company" className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Company
                 </label>
                 <input
+                id="enquiry-company"
+                name="organization"
+                autoComplete="organization"
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
@@ -265,11 +330,13 @@ export default function CommissionPanel() {
 
               {/* Service */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                <label htmlFor="enquiry-service" className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Service
                 </label>
                 <div className="relative">
                   <select
+                  id="enquiry-service"
+                  name="service"
                   value={service}
                   onChange={(e) => setService(e.target.value)}
                   className={`${inputClass} appearance-none pr-12 cursor-pointer`}
@@ -299,10 +366,12 @@ export default function CommissionPanel() {
 
               {/* Tell us about your project */}
               <div>
-                <label className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
+                <label htmlFor="enquiry-project" className="type-label block mb-2" style={{ color: '#B8B0A4' }}>
                   Tell us about your project
                 </label>
                 <textarea
+                id="enquiry-project"
+                name="project"
                 value={project}
                 onChange={(e) => setProject(e.target.value)}
                 placeholder="Describe your vision, style references, intended use, or anything that helps us understand your project..."
@@ -326,10 +395,11 @@ export default function CommissionPanel() {
               )}
               <a
               href={`https://wa.me/61466096169?text=${encodeURIComponent(
-                `Hi Vella Social, ${name} here from ${company}. I'm enquiring about your marketing campaigns.${service ? ` Service: ${service}.` : ''} ${project}\n\nThank you,\n\n${name}\n\n${email}`
+                `Hi Vella Social, ${name} here from ${company}. I'd like to enquire about a project.${service ? ` Service: ${service}.` : ''} ${project}\n\nThank you,\n\n${name}\n\n${email}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleSendEnquiry}
               className="btn-primary w-full mt-2">
 
                 Send Enquiry
