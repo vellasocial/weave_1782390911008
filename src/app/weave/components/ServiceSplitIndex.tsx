@@ -28,7 +28,7 @@ export default function ServiceSplitIndex() {
   return (
     <div
       id="service-index"
-      className="-mx-6 md:-mx-12 mb-[80px] md:mb-[120px]"
+      className="-mx-6 md:-mx-12 mb-12 md:mb-16"
       style={{
         borderTop: '1px solid rgba(138,126,109,0.2)',
         borderBottom: '1px solid rgba(138,126,109,0.2)',

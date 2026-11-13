@@ -61,20 +61,6 @@ export const charactersData: CharacterCard[] = [
     ],
   },
   {
-    id: 3,
-    name: 'Casual Clothing',
-    type: 'Character',
-    tag: 'character',
-    images: [
-      {
-        src: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180817/Casual_clothing_s3ao6z.png',
-        alt: 'Casual Clothing — character turnaround',
-        aspectRatio: 'wide',
-        fullSrc: 'https://res.cloudinary.com/wle6dmxs/image/upload/v1791180817/Casual_clothing_s3ao6z.png',
-      },
-    ],
-  },
-  {
     id: 4,
     name: 'Peter',
     type: 'Character',

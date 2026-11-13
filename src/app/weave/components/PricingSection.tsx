@@ -29,8 +29,8 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative px-6 md:px-12 overflow-hidden"
-      style={{ background: '#0D0D12', paddingTop: '120px', paddingBottom: '120px' }}>
+      className="relative px-6 md:px-12 py-12 md:py-16 lg:py-24 overflow-hidden"
+      style={{ background: '#0D0D12' }}>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-4 mx-auto" style={{ maxWidth: '880px' }}>
           <p className="type-label mb-4">— PRICING</p>
@@ -70,7 +70,7 @@ export default function PricingSection() {
           </div>
 
           <div
-            className="mx-auto mt-16 px-6 py-10 md:px-12 md:py-14"
+            className="mx-auto mt-10 px-6 py-10 md:px-12 md:py-14"
             style={{
               maxWidth: '880px',
               background: '#13131A',

@@ -58,7 +58,7 @@ export function SectionBand({ tone, children, id }: SectionBandProps) {
   return (
     <section
       id={id}
-      className="-mx-6 md:-mx-12 px-6 md:px-12 pb-28 md:pb-16 scroll-mt-24 pt-12 md:pt-16"
+      className="-mx-6 md:-mx-12 px-6 md:px-12 py-12 md:py-16 lg:py-24 scroll-mt-24"
       style={{ background: tone === 'dark' ? BAND_DARK : BAND_CHARCOAL }}>
       {children}
     </section>
@@ -83,10 +83,10 @@ export function ServiceSection({ id, index, num, label, heading, description, pr
   return (
     <SectionBand tone={tone} id={id}>
       <div
-        className="max-w-7xl mx-auto flex flex-col gap-8 md:gap-10"
+        className="max-w-7xl mx-auto flex flex-col gap-10"
         data-service={service}>
         <div className="min-w-0 max-w-3xl">
-          <span className="type-label mb-4 block">{num} · {label}</span>
+          <span className="type-label mb-3 block">{num} · {label}</span>
           <h3 className="type-h2 mb-4">{heading}</h3>
           <p className="max-w-xl mb-6" style={bodyTextStyle}>{description}</p>
           <PricePill label={buttonLabel ?? `From ${price} · Enquire`} service={service} />

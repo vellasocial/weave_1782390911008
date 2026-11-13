@@ -208,7 +208,7 @@ export default function BentoPortfolio() {
   return (
     <div
       id="portfolio"
-      className="relative pb-24 px-6 md:px-12 overflow-x-hidden"
+      className="relative px-6 md:px-12 overflow-x-hidden"
       style={{ background: '#0D0D12' }}>
       <span id="services" aria-hidden="true" className="absolute top-0 left-0 w-0 h-0" />
 
@@ -313,8 +313,7 @@ export default function BentoPortfolio() {
       {/* ── END SERVICES ────────────────────────────────────────────────────── */}
 
       {/* Stats row */}
-      <div className="max-w-7xl mx-auto mt-16 pt-12 border-t"
-      style={{ borderColor: 'rgba(242,239,233,0.10)' }}>
+      <div className="max-w-7xl mx-auto py-12 md:py-16 lg:py-24">
         <span className="type-body block">
           Every video is built from a full production toolkit: <br />
           script, voiceover, AI photo, AI video, editing, sound design, original music, and captions. <br />

@@ -12,8 +12,8 @@ export default function ClosingCTA() {
   return (
     <section
       id="cta"
-      className="relative px-6 md:px-12 overflow-hidden"
-      style={{ background: '#13131A', paddingTop: '120px', paddingBottom: '120px' }}
+      className="relative px-6 md:px-12 py-12 md:py-16 lg:py-24 overflow-hidden"
+      style={{ background: '#13131A' }}
     >
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
         <p className="type-label mb-6">— Your Turn</p>

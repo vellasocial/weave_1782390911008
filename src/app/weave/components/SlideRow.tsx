@@ -278,14 +278,12 @@ export function SlideRow({ children, cardWidth, ariaLabel }: SlideRowProps) {
 
   return (
     <div className="slide-row w-full" style={{ ['--card-w' as string]: `${cardWidth}px` }}>
-      <div className="hidden md:flex justify-end gap-2 mb-3" style={{ minHeight: '36px' }}>
-        {overflowing && (
-          <>
-            {arrowBtn(-1, !atStart)}
-            {arrowBtn(1, !atEnd)}
-          </>
-        )}
-      </div>
+      {overflowing && (
+        <div className="hidden md:flex justify-end gap-2 mb-3">
+          {arrowBtn(-1, !atStart)}
+          {arrowBtn(1, !atEnd)}
+        </div>
+      )}
       <div
         className="relative"
         style={{
